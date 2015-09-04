@@ -18,7 +18,15 @@ var uglify = require('gulp-uglify');
  ********************/
 
 // Sources
-var allSrcFiles = ['./src/**/*.js'];
+//var allSrcFiles = ['./src/**/*.js'];
+var allSrcFiles = [
+  './src/core.js',
+//  './src/events.js',
+//  './src/oop.js',
+  './src/settings.js',
+  './src/dom_utilities.js',
+  './src/utilities.js',
+];
 
 // Dist
 var distFolder  = './dist/';

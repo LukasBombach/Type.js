@@ -1,6 +1,6 @@
 'use strict';
 
-var Type = require('./core');
+//var Type = require('./core');
 
 /**
  *

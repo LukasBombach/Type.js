@@ -1,6 +1,6 @@
 'use strict';
 
-var Type = require('./core');
+//var Type = require('./core');
 
 /**
  *
@@ -71,4 +71,10 @@ Type.OOP = function() {
 
 }).call(Type.OOP);
 
-module.exports = Type.OOP;
+/**
+ * TODO THIS IS A TEMPORARY HACK AND THIS DOES NOT BELONG HERE
+ * Inherit event system
+ */
+Type.OOP.inherits(Type, Type.Events);
+
+//module.exports = Type.OOP;

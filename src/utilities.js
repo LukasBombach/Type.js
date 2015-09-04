@@ -1,6 +1,6 @@
 'use strict';
 
-var Type = require('./core');
+//var Type = require('./core');
 
 /**
  * @constructor
@@ -49,4 +49,4 @@ Type.Utilities = function() {
 
 }).call(Type.Utilities);
 
-module.exports = Type.Utilities;
+//module.exports = Type.Utilities;

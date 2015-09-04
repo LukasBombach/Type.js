@@ -37,14 +37,9 @@ function Type(options) {
   this._setElementEditable(options.el);
 
   // Trigger events
-  Type.trigger('ready', this);
+  //Type.trigger('ready', this);
 
 }
-
-/**
- * Inherit event system
- */
-Type.OOP.inherits(Type, Type.Events);
 
 (function() {
 
@@ -164,7 +159,7 @@ Type.OOP.inherits(Type, Type.Events);
    * @private
    */
   this._setElementEditable = function(el, val) {
-    val = !val ? 'false' : 'true';
+    val = val === false ? 'false' : 'true';
     el.setAttribute('contenteditable', val);
     return this;
   };
@@ -181,4 +176,4 @@ Type.fn = Type.prototype;
  * Module Exports for CommonJs
  * @type {Type}
  */
-module.exports = Type;
+//module.exports = Type;

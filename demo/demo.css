@@ -1,0 +1,11 @@
+body {
+  background: #fafafa;
+}
+
+#document {
+  background: #fff;
+  border: 1px solid #ddd;
+  margin: 50px auto;
+  max-width: 650px;
+  padding: 30px;
+}
