@@ -164,8 +164,8 @@ Type.OOP.inherits(Type, Type.Events);
    * If no second parameter is give this defaults to true.
    *
    * @param {Element} el - The element to set the editing mode for
-   * @param {boolean|string} val - Set to true to enable editing mode
-   *     or false to disable it
+   * @param {boolean|string} [val] - Set to true to enable editing mode
+   *     or false to disable it. Optional, defaults to true.
    * @returns {Type}
    * @private
    */
