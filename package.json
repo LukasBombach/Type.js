@@ -1,0 +1,19 @@
+{
+  "name": "Type.js",
+  "version": "0.0.1",
+  "main": "dist/type.min.js",
+  "description": "A javascript word processing framework",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/LukasBombach/Type.js"
+  },
+  "keywords": [],
+  "author": "Lukas Bombach",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jscs": "^2.0.0"
+  }
+}
