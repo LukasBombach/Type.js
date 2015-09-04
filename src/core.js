@@ -30,12 +30,11 @@ function Type(options) {
   }
 
   // Set settings for this editor
-  this._root = null;
   this._options = null;
   this.options(options);
 
   // Enable editing mode on root element
-  this._setElementEditable(this._root);
+  this._setElementEditable(options.el);
 
   // Trigger events
   Type.trigger('ready', this);
@@ -121,11 +120,6 @@ Type.OOP.inherits(Type, Type.Events);
       Type.Utilities.extend(this._options, options);
     }
 
-    // If the el option has been passed copy it for quick access
-    if (options.el) {
-      this._root = options.el;
-    }
-
     // Chaining
     return arguments.length ? this : this._options;
 
@@ -154,8 +148,8 @@ Type.OOP.inherits(Type, Type.Events);
    * element that contains this editor's text.
    * @returns {Element}
    */
-  this.getRoot = function() {
-    return this._root;
+  this.getEl = function() {
+    return this._options.el;
   };
 
   /**
@@ -182,12 +176,6 @@ Type.OOP.inherits(Type, Type.Events);
  * @type {Object}
  */
 Type.fn = Type.prototype;
-
-/**
- * The namespace for Type actions
- * @type {{}}
- */
-Type.Actions = {};
 
 /**
  * Module Exports for CommonJs
