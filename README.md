@@ -11,7 +11,7 @@ This is a 100% WIP right now.
 
 ## Installation
 
-Include `type.min.js` from the `dist.js` on your website.
+Include `type.min.js` from the `dist` folder on your website.
 
 ## Basic usage:
 
