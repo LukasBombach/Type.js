@@ -34,6 +34,9 @@ function Type(options) {
   this._options = null;
   this.options(options);
 
+  // Enable editing mode on root element
+  this._setElementEditable(this._root);
+
   // Trigger events
   Type.trigger('ready', this);
 
@@ -153,6 +156,23 @@ Type.OOP.inherits(Type, Type.Events);
    */
   this.getRoot = function() {
     return this._root;
+  };
+
+  /**
+   * Sets the editing mode of an element. The second parameter
+   * determines if the editing mode should be enabled or disabled.
+   * If no second parameter is give this defaults to true.
+   *
+   * @param {Element} el - The element to set the editing mode for
+   * @param {boolean|string} val - Set to true to enable editing mode
+   *     or false to disable it
+   * @returns {Type}
+   * @private
+   */
+  this._setElementEditable = function(el, val) {
+    val = !val ? 'false' : 'true';
+    el.setAttribute('contenteditable', val);
+    return this;
   };
 
 }).call(Type.prototype);
