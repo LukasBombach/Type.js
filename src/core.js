@@ -26,7 +26,7 @@ function Type(options) {
 
   // If no element has been passed, interrupt
   if (!options.el) {
-    throw new Error('You must provide an element as root node for the editor\'s TypeContents.');
+    throw new Error('You must provide an element as root node for the editor\'s contents.');
   }
 
   // Set settings for this editor
@@ -34,12 +34,15 @@ function Type(options) {
   this._options = null;
   this.options(options);
 
-  // Set up core modules
-
   // Trigger events
   Type.trigger('ready', this);
 
 }
+
+/**
+ * Inherit event system
+ */
+Type.OOP.inherits(Type, Type.Events);
 
 (function() {
 
@@ -80,7 +83,7 @@ function Type(options) {
    * this.options({el: myElement, foo:bar})
    * sets both parameters
    *
-   * @param {(string|Object)} options - Either a plain object
+   * @param {(string|{el: Element}|{}|*)} options - Either a plain object
    *     with keys and values to be set or a string that will
    *     be used as a name for a option. If you pass a string,
    *     pass a second parameter to set that option or no
@@ -93,6 +96,8 @@ function Type(options) {
    */
   this.options = function(options, value) {
 
+    var opts;
+
     // Load default options if there are no instance options yet
     this._options = this._options || Type.Utilities.extend({}, this._defaultOptions);
 
@@ -103,7 +108,9 @@ function Type(options) {
 
     // Pass an option name and a value to set it
     if (typeof options === 'string' && arguments.length === 2) {
-      options = {options: value};
+      opts = {};
+      opts[options] = value;
+      options = opts;
     }
 
     // Pass an object of key-values to set them
@@ -155,12 +162,6 @@ function Type(options) {
  * @type {Object}
  */
 Type.fn = Type.prototype;
-
-/**
- * The namespace for Type events
- * @type {{}}
- */
-Type.Events = {};
 
 /**
  * The namespace for Type actions
