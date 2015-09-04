@@ -1,3 +1,7 @@
+# Distribution
+dist/type.js
+dist/type.min.js
+
 # Node
 node_modules
 
