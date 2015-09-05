@@ -15,12 +15,14 @@ Include `type.min.js` from the `dist` folder on your website.
 
 ## Basic usage:
 
-    // Instantiate Type and pass it an element that will be editable
-    var el = document.getElementById('editor-contents');
-    var editor = new Type(el);
-    
-    // Will format characters 10 to 20 as bold
-    editor.format('<strong>', 10, 20);
+```javascript
+// Instantiate Type and pass it an element that will be editable
+var el = document.getElementById('editor-contents');
+var editor = new Type(el);
+
+// Will format characters 10 to 20 as bold
+editor.format('<strong>', 10, 20);
+```
 
 ## Building
 
