@@ -12,5 +12,9 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {},
+  "scripts": {
+    "build": "webpack src/type.js dist/type.js --progress --colors ",
+    "watch": "webpack src/type.js dist/type.js --progress --colors --watch"
+  }
 }

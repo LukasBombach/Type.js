@@ -25,8 +25,8 @@ Include `type.min.js` from the `dist` folder on your website.
 ## Building
 
 1. Install node js
-2. Install gulp `npm install gulp -g`
-3. Run `gulp dist` to build a minified file
+2. Run `npm install` from the root directory
+3. Run `npm run build` from the root directory to build a minified file
 
 ## License
 

@@ -1,7 +1,7 @@
 'use strict';
 
 var OOP = require('./oop');
-var Events = require('./eventable');
+var Eventable = require('./eventable');
 var Utilities = require('./utilities');
 var DomUtilities = require('./dom_utilities');
 
@@ -49,7 +49,7 @@ function Type(options) {
 /**
  * Make Type eventable
  */
-OOP.inherits(Type, Events);
+OOP.inherits(Type, Eventable);
 
 (function() {
 
