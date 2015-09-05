@@ -5,17 +5,12 @@
   "description": "A javascript word processing framework",
   "repository": {
     "type": "git",
-    "url": "git://github.com/LukasBombach/Type.js"
+    "url": "git://github.com/LukasBombach/new-type-js"
   },
   "keywords": [],
   "author": "Lukas Bombach",
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {},
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-jscs": "^2.0.0",
-    "gulp-uglify": "^1.4.0"
-  }
+  "devDependencies": {}
 }

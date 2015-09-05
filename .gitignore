@@ -1,7 +1,5 @@
 # Distribution
-dist/type.js
-dist/type.min.js
-dist/type-webpack.js
+dist/*.js
 
 # Node
 node_modules
