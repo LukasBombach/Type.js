@@ -1,6 +1,6 @@
 'use strict';
 
-//var Type = require('./core');
+var Type = require('./core');
 
 /**
  *
@@ -142,3 +142,5 @@ Type.Events = function() {
   };
 
 }).call(Type.Events);
+
+module.exports = Type.Events;

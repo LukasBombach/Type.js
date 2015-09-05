@@ -1,6 +1,6 @@
 'use strict';
 
-//var Type = require('./core');
+var Type = require('./core');
 
 /**
  * @constructor
@@ -38,15 +38,14 @@ Type.Utilities = function() {
 
   /**
    * Tests and returns if a given object is a function instance
-   * todo this should be called isFunctionInstance otherwise typeof obj === 'Function' should be used
    *
    * @param obj
    * @returns {boolean}
    */
-  Type.Utilities.isFunction = function(obj) {
+  Type.Utilities.isFunctionInstance = function(obj) {
     return !!(obj && obj.constructor && obj.call && obj.apply);
   };
 
 }).call(Type.Utilities);
 
-//module.exports = Type.Utilities;
+module.exports = Type.Utilities;

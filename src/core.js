@@ -1,5 +1,7 @@
 'use strict';
 
+var OOP = require('./oop');
+
 /**
  * Creates a new Type editor and sets up the core
  * modules used for WYSIWYG editing. The core
@@ -37,9 +39,20 @@ function Type(options) {
   this._setElementEditable(options.el);
 
   // Trigger events
-  //Type.trigger('ready', this);
+  Type.trigger('ready', this);
 
 }
+
+// Todo WIP dev code
+require('./settings');
+require('./utilities');
+require('./dom_utilities');
+var Events = require('./events');
+
+/**
+ * Make Type eventable
+ */
+OOP.inherits(Type, Events);
 
 (function() {
 
@@ -176,4 +189,4 @@ Type.fn = Type.prototype;
  * Module Exports for CommonJs
  * @type {Type}
  */
-//module.exports = Type;
+module.exports = Type;

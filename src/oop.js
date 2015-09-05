@@ -1,13 +1,13 @@
 'use strict';
 
-//var Type = require('./core');
+var Util = require('./utilities');
 
 /**
  *
  * @constructor
  */
-Type.OOP = function() {
-};
+function OOP() {
+}
 
 (function() {
 
@@ -20,20 +20,11 @@ Type.OOP = function() {
    *     shall be inherited from
    * @returns {Function} The child class that inherited
    */
-  Type.OOP.inherits = function(constructor, parentConstructor) {
-
-    // Inherit instance attributes and methods
-    Type.OOP._copyPrototype(constructor, parentConstructor);
-
-    // Inherit static attributes and methods
-    Type.OOP._copyFunctionProperties(constructor, parentConstructor);
-
-    // Add parent / super property
+  OOP.inherits = function(constructor, parentConstructor) {
+    OOP._inheritInstanceProperties(constructor, parentConstructor);
+    OOP._inheritStaticProperties(constructor, parentConstructor);
     constructor._super = parentConstructor;
-
-    // Return the inheriting class for convenience
     return constructor;
-
   };
 
   /**
@@ -43,7 +34,7 @@ Type.OOP = function() {
    * @returns {*}
    * @private
    */
-  Type.OOP._copyPrototype = function(constructor, parentConstructor) {
+  OOP._inheritInstanceProperties = function(constructor, parentConstructor) {
     constructor.prototype = Object.create(parentConstructor.prototype);
     constructor.prototype.constructor = constructor;
     return constructor;
@@ -56,25 +47,17 @@ Type.OOP = function() {
    * @returns {*}
    * @private
    */
-  Type.OOP._copyFunctionProperties = function(constructor, parentConstructor) {
-
-    var key;
-
-    for (key in parentConstructor) {
-      if (parentConstructor.hasOwnProperty(key))
-        constructor[key] = parentConstructor[key];
-    }
-
+  OOP._inheritStaticProperties = function(constructor, parentConstructor) {
+    Util.extend(constructor, parentConstructor);
     return constructor;
-
   };
 
-}).call(Type.OOP);
+}).call(OOP);
 
 /**
  * TODO THIS IS A TEMPORARY HACK AND THIS DOES NOT BELONG HERE
  * Inherit event system
  */
-Type.OOP.inherits(Type, Type.Events);
+//OOP.inherits(Type, Type.Events);
 
-//module.exports = Type.OOP;
+module.exports = OOP;
