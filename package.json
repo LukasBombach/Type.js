@@ -13,6 +13,7 @@
   "readmeFilename": "README.md",
   "dependencies": {},
   "devDependencies": {
+    "jscs": "^2.1.1",
     "webpack": "^1.12.1"
   },
   "scripts": {

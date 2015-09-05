@@ -32,6 +32,4 @@ editor.format('<strong>', 10, 20);
 
 ## License
 
-Type is licenced under the MIT license.
-
-See `LICENSE.txt` in this directory.
+Type is licenced under the MIT license (see `LICENSE.txt`).
