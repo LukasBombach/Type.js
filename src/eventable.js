@@ -4,7 +4,7 @@
  *
  * @constructor
  */
-function Events() {}
+function Eventable() {}
 
 /**
  * Methods for instance events
@@ -17,7 +17,7 @@ function Events() {}
    * @param {String} eventName - The name of the event on which you wish the
    *     function to be called
    * @param {Function} cb - The function you wish to be called on the event
-   * @returns {Events|*}
+   * @returns {Eventable|*}
    */
   this.on = function(eventName, cb) {
     this.eventCallbacks = this.eventCallbacks || {};
@@ -32,7 +32,7 @@ function Events() {}
    * @param {String} eventName - The name of the event on which you wish the
    *     for which you no longer wish to call the function
    * @param {Function} cb - The function you no longer wish to be called
-   * @returns {Events|*}
+   * @returns {Eventable|*}
    */
   this.off = function(eventName, cb) {
 
@@ -55,7 +55,7 @@ function Events() {}
    *     call its callbacks for
    * @param {...*} params - Arbitrary parameters you wish to pass to the
    *     callbacks
-   * @returns {Events|*}
+   * @returns {Eventable|*}
    */
   this.trigger = function(eventName, params) {
 
@@ -73,7 +73,7 @@ function Events() {}
 
   };
 
-}).call(Events.prototype);
+}).call(Eventable.prototype);
 
 (function() {
 
@@ -83,9 +83,9 @@ function Events() {}
    * @param {String} eventName - The name of the event on which you wish the
    *     function to be called
    * @param {Function} cb - The function you wish to be called on the event
-   * @returns {Events|*}
+   * @returns {Eventable|*}
    */
-  Events.on = function(eventName, cb) {
+  Eventable.on = function(eventName, cb) {
     this.eventCallbacks = this.eventCallbacks || {};
     this.eventCallbacks[eventName] = this.eventCallbacks[eventName] || [];
     this.eventCallbacks[eventName].push(cb);
@@ -98,9 +98,9 @@ function Events() {}
    * @param {String} eventName - The name of the event on which you wish the
    *     for which you no longer wish to call the function
    * @param {Function} cb - The function you no longer wish to be called
-   * @returns {Events|*}
+   * @returns {Eventable|*}
    */
-  Events.off = function(eventName, cb) {
+  Eventable.off = function(eventName, cb) {
 
     var index;
 
@@ -121,9 +121,9 @@ function Events() {}
    *     call its callbacks for
    * @param {...*} params - Arbitrary parameters you wish to pass to the
    *     callbacks
-   * @returns {Events|*}
+   * @returns {Eventable|*}
    */
-  Events.trigger = function(eventName, params) {
+  Eventable.trigger = function(eventName, params) {
 
     var i;
 
@@ -138,6 +138,6 @@ function Events() {}
     return this;
   };
 
-}).call(Events);
+}).call(Eventable);
 
-module.exports = Events;
+module.exports = Eventable;

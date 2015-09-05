@@ -1,7 +1,7 @@
 'use strict';
 
 var OOP = require('./oop');
-var Events = require('./events');
+var Events = require('./eventable');
 var Utilities = require('./utilities');
 var DomUtilities = require('./dom_utilities');
 
