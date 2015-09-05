@@ -1,6 +1,9 @@
 'use strict';
 
 var OOP = require('./oop');
+var Events = require('./events');
+var Utilities = require('./utilities');
+var DomUtilities = require('./dom_utilities');
 
 /**
  * Creates a new Type editor and sets up the core
@@ -22,7 +25,7 @@ var OOP = require('./oop');
 function Type(options) {
 
   // Allow passing an element as only parameter
-  if (Type.DomUtilities.isNode(options)) {
+  if (DomUtilities.isNode(options)) {
     options = {el: options};
   }
 
@@ -42,12 +45,6 @@ function Type(options) {
   Type.trigger('ready', this);
 
 }
-
-// Todo WIP dev code
-require('./settings');
-require('./utilities');
-require('./dom_utilities');
-var Events = require('./events');
 
 /**
  * Make Type eventable
@@ -109,7 +106,7 @@ OOP.inherits(Type, Events);
     var opts;
 
     // Load default options if there are no instance options yet
-    this._options = this._options || Type.Utilities.extend({}, this._defaultOptions);
+    this._options = this._options || Utilities.extend({}, this._defaultOptions);
 
     // Pass a single option name to fetch it
     if (typeof options === 'string' && arguments.length === 1) {
@@ -125,7 +122,7 @@ OOP.inherits(Type, Events);
 
     // Pass an object of key-values to set them
     if (typeof options === 'object') {
-      Type.Utilities.extend(this._options, options);
+      Utilities.extend(this._options, options);
     }
 
     // Chaining

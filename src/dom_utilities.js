@@ -1,12 +1,12 @@
 'use strict';
 
-var Type = require('./core');
+var Settings = require('./settings');
 
 /**
  * @constructor
  */
-Type.DomUtilities = function() {
-};
+function DomUtilities() {
+}
 
 (function() {
 
@@ -18,7 +18,7 @@ Type.DomUtilities = function() {
    * @type {string}
    * @private
    */
-  Type.DomUtilities._containerId = Type.Settings.prefix + 'container';
+  DomUtilities._containerId = Settings.prefix + 'container';
 
 
   /**
@@ -26,7 +26,7 @@ Type.DomUtilities = function() {
    * @type {RegExp}
    * @private
    */
-  Type.DomUtilities._singleTag = /^<([\w-]+)\s*\/?>(?:<\/\1>|)$/;
+  DomUtilities._singleTag = /^<([\w-]+)\s*\/?>(?:<\/\1>|)$/;
 
   /**
    * Todo Use me wherever you find document.createElement or this.elementsContainer
@@ -34,9 +34,9 @@ Type.DomUtilities = function() {
    * @param {string} [className]
    * @returns {Element}
    */
-  Type.DomUtilities.addElement = function (tagName, className) {
+  DomUtilities.addElement = function (tagName, className) {
     var el = document.createElement(tagName);
-    if (className) el.className = Type.Settings.prefix + className;
+    if (className) el.className = Settings.prefix + className;
     this.getElementsContainer().appendChild(el);
     return el;
   };
@@ -46,7 +46,7 @@ Type.DomUtilities = function() {
    * @param {Element} el
    * @returns {*}
    */
-  Type.DomUtilities.removeElement = function (el) {
+  DomUtilities.removeElement = function (el) {
     el.parentNode.removeChild(el);
     return this;
   };
@@ -61,7 +61,7 @@ Type.DomUtilities = function() {
    * @returns {Node|null} - Will return the parent node where this
    *     algorithm stopped (The node it did *not* delete)
    */
-  Type.DomUtilities.removeVisible = function (node, constrainingNode) {
+  DomUtilities.removeVisible = function (node, constrainingNode) {
     var parent = node.parentNode;
     if (node === constrainingNode) return node;
     if (node === document.body) return node;
@@ -80,9 +80,9 @@ Type.DomUtilities = function() {
    * @param el
    * @param tag
    * @param deep
-   * @returns {Type.DomUtilities}
+   * @returns {DomUtilities}
    */
-  Type.DomUtilities.removeTag = function (el, tag, deep) {
+  DomUtilities.removeTag = function (el, tag, deep) {
     var i;
     if (deep && el.childNodes.length) {
       for (i = 0; i < el.childNodes.length; i += 1) {
@@ -101,7 +101,7 @@ Type.DomUtilities = function() {
    * @param {String} htmlString - A string containing HTML
    * @returns {NodeList} - The elements represented by the string
    */
-  Type.DomUtilities.parseHTML = function (htmlString) {
+  DomUtilities.parseHTML = function (htmlString) {
     var fragment = document.createDocumentFragment(),
       div = fragment.appendChild(document.createElement('div'));
     div.innerHTML = htmlString;
@@ -119,7 +119,7 @@ Type.DomUtilities = function() {
    * @param elms
    * @returns {Element}
    */
-  Type.DomUtilities.wrap = function (tag, elms) {
+  DomUtilities.wrap = function (tag, elms) {
 
     // Even out parameters
     elms = elms.length ? elms : [elms];
@@ -161,9 +161,9 @@ Type.DomUtilities = function() {
   /**
    * Todo use this.moveAfter()
    * @param {Node} el
-   * @returns {Type.DomUtilities}
+   * @returns {DomUtilities}
    */
-  Type.DomUtilities.unwrap = function (el) {
+  DomUtilities.unwrap = function (el) {
 
     var next = el.nextSibling,
       parent = el.parentNode,
@@ -191,7 +191,7 @@ Type.DomUtilities = function() {
    * @param elems
    * @returns {*}
    */
-  Type.DomUtilities.moveAfter = function (reference, elems) {
+  DomUtilities.moveAfter = function (reference, elems) {
 
     var i;
 
@@ -221,7 +221,7 @@ Type.DomUtilities = function() {
    * @param {Node} [constrainingNode]
    * @returns {HTMLElement|null}
    */
-  Type.DomUtilities.parent = function (el, selector, constrainingNode) {
+  DomUtilities.parent = function (el, selector, constrainingNode) {
     while (el.parentNode && (!constrainingNode || el !== constrainingNode)) {
       if (this.matches(el, selector)) {
         return el;
@@ -241,7 +241,7 @@ Type.DomUtilities = function() {
    * @param selector
    * @returns {boolean}
    */
-  Type.DomUtilities.matches = function (el, selector) {
+  DomUtilities.matches = function (el, selector) {
     var _matches = (el.matches || el.matchesSelector || el.msMatchesSelector || el.mozMatchesSelector || el.webkitMatchesSelector || el.oMatchesSelector);
 
     if (_matches) {
@@ -260,7 +260,7 @@ Type.DomUtilities = function() {
    *
    * @returns {Element}
    */
-  Type.DomUtilities.getElementsContainer = function () {
+  DomUtilities.getElementsContainer = function () {
     var container = window.document.getElementById(this._containerId);
     if (container === null) {
       container = window.document.createElement('div');
@@ -276,7 +276,7 @@ Type.DomUtilities = function() {
    * @param {Node} node
    * @returns {boolean}
    */
-  Type.DomUtilities.containsButIsnt = function (container, node) {
+  DomUtilities.containsButIsnt = function (container, node) {
     return container !== node && container.contains(node);
   };
 
@@ -285,7 +285,7 @@ Type.DomUtilities = function() {
    * @param obj
    * @returns {boolean}
    */
-  Type.DomUtilities.isNode = function (obj) {
+  DomUtilities.isNode = function (obj) {
     return !!(obj && obj.nodeType);
   };
 
@@ -296,7 +296,7 @@ Type.DomUtilities = function() {
    * @returns {boolean}
    * @private
    */
-  Type.DomUtilities.isVisible = function (el) {
+  DomUtilities.isVisible = function (el) {
     return !!el.offsetHeight;
   };
 
@@ -308,7 +308,7 @@ Type.DomUtilities = function() {
    * @returns {number} - Returns -1 if a precedes b, 1 if it is the
    *     other way around and 0 if they are equal.
    */
-  Type.DomUtilities.order = function (a, b) {
+  DomUtilities.order = function (a, b) {
     if (a === b) {
       return 0;
     }
@@ -318,6 +318,6 @@ Type.DomUtilities = function() {
     return 1;
   };
 
-}).call(Type.DomUtilities);
+}).call(DomUtilities);
 
-module.exports = Type.DomUtilities;
+module.exports = DomUtilities;

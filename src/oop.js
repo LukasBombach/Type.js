@@ -54,10 +54,4 @@ function OOP() {
 
 }).call(OOP);
 
-/**
- * TODO THIS IS A TEMPORARY HACK AND THIS DOES NOT BELONG HERE
- * Inherit event system
- */
-//OOP.inherits(Type, Type.Events);
-
 module.exports = OOP;

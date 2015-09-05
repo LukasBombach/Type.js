@@ -1,16 +1,13 @@
 'use strict';
 
-var Type = require('./core');
-
 /**
  *
  * @constructor
  */
-Type.Events = function() {
-};
+function Events() {}
 
 /**
- * Methods for Type.js instance events
+ * Methods for instance events
  */
 (function() {
 
@@ -20,7 +17,7 @@ Type.Events = function() {
    * @param {String} eventName - The name of the event on which you wish the
    *     function to be called
    * @param {Function} cb - The function you wish to be called on the event
-   * @returns {Type.Events|*}
+   * @returns {Events|*}
    */
   this.on = function(eventName, cb) {
     this.eventCallbacks = this.eventCallbacks || {};
@@ -35,7 +32,7 @@ Type.Events = function() {
    * @param {String} eventName - The name of the event on which you wish the
    *     for which you no longer wish to call the function
    * @param {Function} cb - The function you no longer wish to be called
-   * @returns {Type.Events|*}
+   * @returns {Events|*}
    */
   this.off = function(eventName, cb) {
 
@@ -58,7 +55,7 @@ Type.Events = function() {
    *     call its callbacks for
    * @param {...*} params - Arbitrary parameters you wish to pass to the
    *     callbacks
-   * @returns {Type.Events|*}
+   * @returns {Events|*}
    */
   this.trigger = function(eventName, params) {
 
@@ -76,7 +73,7 @@ Type.Events = function() {
 
   };
 
-}).call(Type.Events.prototype);
+}).call(Events.prototype);
 
 (function() {
 
@@ -86,9 +83,9 @@ Type.Events = function() {
    * @param {String} eventName - The name of the event on which you wish the
    *     function to be called
    * @param {Function} cb - The function you wish to be called on the event
-   * @returns {Type.Events|*}
+   * @returns {Events|*}
    */
-  Type.Events.on = function(eventName, cb) {
+  Events.on = function(eventName, cb) {
     this.eventCallbacks = this.eventCallbacks || {};
     this.eventCallbacks[eventName] = this.eventCallbacks[eventName] || [];
     this.eventCallbacks[eventName].push(cb);
@@ -101,9 +98,9 @@ Type.Events = function() {
    * @param {String} eventName - The name of the event on which you wish the
    *     for which you no longer wish to call the function
    * @param {Function} cb - The function you no longer wish to be called
-   * @returns {Type.Events|*}
+   * @returns {Events|*}
    */
-  Type.Events.off = function(eventName, cb) {
+  Events.off = function(eventName, cb) {
 
     var index;
 
@@ -124,9 +121,9 @@ Type.Events = function() {
    *     call its callbacks for
    * @param {...*} params - Arbitrary parameters you wish to pass to the
    *     callbacks
-   * @returns {Type.Events|*}
+   * @returns {Events|*}
    */
-  Type.Events.trigger = function(eventName, params) {
+  Events.trigger = function(eventName, params) {
 
     var i;
 
@@ -141,6 +138,6 @@ Type.Events = function() {
     return this;
   };
 
-}).call(Type.Events);
+}).call(Events);
 
-module.exports = Type.Events;
+module.exports = Events;
