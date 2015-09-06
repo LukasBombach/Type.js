@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * 
+ *
  * @constructor
  */
 function Events() {
