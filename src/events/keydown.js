@@ -11,7 +11,7 @@ var Environment = require('../environment');
  *
  * @param {Object} options - Object holding parameters for the event
  * @param {string} [options.key] - A descriptive name for the key
- *     pressed as set in {@link InputEvent.keyDownNames}.
+ *     pressed as set in {@link KeydownEvent.keyDownNames}.
  * @param {number} [options.keyCode] - The key code of the key pressed
  * @param {boolean} [options.shift] - Whether or not the shift key has
  *     been pressed together with the given key.
@@ -23,7 +23,7 @@ var Environment = require('../environment');
  *     been pressed together with the given key (for os x users).
  * @constructor
  */
-function InputEvent(options) {
+function KeydownEvent(options) {
 
   options = options || {};
 
@@ -42,13 +42,13 @@ function InputEvent(options) {
 /**
  * Inherit from general Type event
  */
-OOP.inherits(InputEvent, TypeEvent);
+OOP.inherits(KeydownEvent, TypeEvent);
 
 /**
  * Maps character codes from key down events to readable names
  * @type {Object}
  */
-InputEvent.keyDownNames = {
+KeydownEvent.keyDownNames = {
   8:  'backspace',
   9:  'tab',
   13: 'enter',
@@ -61,26 +61,16 @@ InputEvent.keyDownNames = {
 };
 
 /**
- * Factory to create a {InputEvent} from an {InputEvent}
- *
- * @param {InputEvent} e
- * @returns {InputEvent}
- */
-InputEvent.fromInput = function(e) {
-  return InputEvent.fromKeyDown(e);
-};
-
-/**
- * Factory to create a {InputEvent} from a {KeyboardEvent}
+ * Factory to create a {KeydownEvent} from a {KeyboardEvent}
  *
  * @param {KeyboardEvent} e
- * @returns {InputEvent}
+ * @returns {KeydownEvent}
  */
-InputEvent.fromKeyDown = function(e) {
+KeydownEvent.fromNativeEvent = function(e) {
 
   var charCode = (typeof e.which === 'number') ? e.which : e.keyCode;
   var options = {
-      key:     InputEvent.keyDownNames[charCode] || charCode,
+      key:     KeydownEvent.keyDownNames[charCode] || charCode,
       keyCode: charCode,
       shift:   e.shiftKey,
       alt:     e.altKey,
@@ -88,8 +78,8 @@ InputEvent.fromKeyDown = function(e) {
       meta:    e.metaKey,
     };
 
-  return new InputEvent(options);
+  return new KeydownEvent(options);
 
 };
 
-module.exports = InputEvent;
+module.exports = KeydownEvent;
