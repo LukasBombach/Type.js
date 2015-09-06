@@ -3,7 +3,7 @@
 // Load core editor class
 var Type = require('./core');
 
-// Expose OOP module
+// Expose modules
 Type.OOP = require('./oop');
 
 // Expose Type
