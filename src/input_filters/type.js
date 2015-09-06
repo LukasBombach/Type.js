@@ -2,10 +2,9 @@
 
 /**
  *
- * @param {Type} type
  * @constructor
  */
-function TypeFilter(type) {
+function TypeFilter() {
   this._keys = {};
 }
 
