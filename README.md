@@ -32,4 +32,4 @@ editor.format('<strong>', 10, 20);
 
 ## License
 
-Type is licenced under the MIT license (see `LICENSE.txt`).
+Type.js is licenced under the MIT license.
