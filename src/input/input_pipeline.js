@@ -49,7 +49,7 @@ function InputPipeline(type) {
    * @private
    */
   this._addDefaultFilters = function() {
-    this.addFilter(TestFilter);
+    this.addFilter(new TestFilter());
     return this;
   };
 
@@ -77,7 +77,7 @@ function InputPipeline(type) {
     var i;
 
     for (i = 0; i < len; i++) {
-      if (!this._processFilter(this._filters[i], e)) {
+      if (!this._processFilter(this._filters[i], keydownEvent)) {
         e.stopPropagation();
         e.preventDefault();
         break;

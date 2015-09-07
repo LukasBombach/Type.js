@@ -19,7 +19,7 @@ OOP.inherits(TestFilter, TypeFilter);
   };
 
   this.log = function(e) {
-    console.log('test filter', e.key);
+    console.log('test filter log', e.key);
   };
 
 }).call(TestFilter.prototype);
