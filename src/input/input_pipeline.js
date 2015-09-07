@@ -3,6 +3,8 @@
 var Events = require('../events');
 var KeydownEvent = require('../events/keydown');
 
+var TestFilter = require('../input_filters/test');
+
 /**
  *
  * @param {Type} type
@@ -10,10 +12,46 @@ var KeydownEvent = require('../events/keydown');
  */
 function InputPipeline(type) {
   this._filters = [];
+  this._addDefaultFilters();
   this._addListener(type.getEl());
 }
 
 (function() {
+
+  /**
+   *
+   * @param {TypeFilter} filter
+   * @param {number} [pos]
+   * @returns {InputPipeline}
+   */
+  this.addFilter = function(filter, pos) {
+    pos = pos || filter.length;
+    this._filters.splice(pos, 0, filter);
+    return this;
+  };
+
+  /**
+   *
+   * @param {number|TypeFilter} posOrFilter
+   * @returns {InputPipeline}
+   */
+  this.removeFilter = function(posOrFilter) {
+    if (typeof posOrFilter !== 'number')
+      posOrFilter = this._filters.indexOf(posOrFilter);
+    if (posOrFilter > 0)
+      this._filters.splice(posOrFilter, 1);
+    return this;
+  };
+
+  /**
+   *
+   * @returns {InputPipeline}
+   * @private
+   */
+  this._addDefaultFilters = function() {
+    this.addFilter(TestFilter);
+    return this;
+  };
 
   /**
    *
@@ -22,7 +60,7 @@ function InputPipeline(type) {
    * @private
    */
   this._addListener = function(el) {
-    Events.addListener(el, 'input', this._processPipeline.bind(this));
+    Events.addListener(el, 'keydown', this._processPipeline.bind(this));
     return this;
   };
 
@@ -40,6 +78,7 @@ function InputPipeline(type) {
 
     for (i = 0; i < len; i++) {
       if (!this._processFilter(this._filters[i], e)) {
+        e.stopPropagation();
         e.preventDefault();
         break;
       }
@@ -56,7 +95,7 @@ function InputPipeline(type) {
    * @private
    */
   this._processFilter = function(filter, e) {
-    filter.apply(e);
+    filter.process(e);
     return e.canceled !== false;
   };
 

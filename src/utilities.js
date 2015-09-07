@@ -41,7 +41,7 @@ function Utilities() {
    * @returns {boolean}
    */
   Utilities.isnInstance = function(obj) {
-    return !!(obj && obj.constructor && obj.call && obj.apply);
+    return !!(obj && obj.constructor && obj.call && obj.process);
   };
 
 }).call(Utilities);

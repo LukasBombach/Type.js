@@ -1,16 +1,17 @@
 'use strict';
 
-var Type = require('../core');
+var Utilities = require('../utilities');
+
 
 /**
  * Creates a new Type event
  * @constructor
  */
-Type.Events.Type = function () {
+function TypeEvent() {
   this.canceled = false;
-};
+}
 
-(function () {
+(function() {
 
   /**
    * Sets or gets data for this event. Parameters can be set
@@ -36,13 +37,13 @@ Type.Events.Type = function () {
    * @param {*} [value] - If the first parameter is a string,
    *     this value will be set to the key of the given first
    *     parameter. Any arbitrary value can be set.
-   * @returns {Type.Events.Type|{}|*} Returns this instance
+   * @returns {TypeEvent|{}|*} Returns this instance
    *     if you set data or the according value if you get
    *     data. Will return all data in an object of you pass
    *     no parameters.
    */
 
-  this.data = function (data, value) {
+  this.data = function(data, value) {
 
     // Initialize data object if not initialized yet
     this._data = this._data || {};
@@ -59,7 +60,7 @@ Type.Events.Type = function () {
 
     // Pass an object of key-values to set them
     if (typeof data === "object") {
-      Type.Utilities.extend(this._data, data);
+      Utilities.extend(this._data, data);
     }
 
     // Data of no params have been passed, otherwise this for chaining
@@ -73,13 +74,13 @@ Type.Events.Type = function () {
    * @param {boolean} [doCancel] - Set to false to uncancel
    *     the event. All other values or no value at all
    *     will set the event to be cancelled
-   * @returns {Type.Events.Type} - This instance
+   * @returns {TypeEvent} - This instance
    */
   this.cancel = function (doCancel) {
     this.canceled = doCancel !== false;
     return this;
   };
 
-}).call(Type.Events.Type.prototype);
+}).call(TypeEvent.prototype);
 
-module.exports = Type.Events.Type;
+module.exports = TypeEvent;

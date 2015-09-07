@@ -4,6 +4,7 @@ var OOP = require('./oop');
 var Eventable = require('./eventable');
 var Utilities = require('./utilities');
 var DomUtilities = require('./dom_utilities');
+var InputPipeline = require('./input/input_pipeline');
 
 /**
  * Creates a new Type editor and sets up the core
@@ -40,6 +41,9 @@ function Type(options) {
 
   // Enable editing mode on root element
   this._setElementEditable(options.el);
+
+  // Core modules
+  this._inputPipeline = new InputPipeline(this);
 
   // Trigger events
   Type.trigger('ready', this);

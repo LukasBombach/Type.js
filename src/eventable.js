@@ -65,7 +65,7 @@ function Eventable() {}
 
     if (this.eventCallbacks[eventName]) {
       for (i = 0; i < this.eventCallbacks[eventName].length; i += 1) {
-        this.eventCallbacks[eventName][i].apply(this, params);
+        this.eventCallbacks[eventName][i].process(this, params);
       }
     }
 
@@ -131,7 +131,7 @@ function Eventable() {}
 
     if (this.eventCallbacks[eventName]) {
       for (i = 0; i < this.eventCallbacks[eventName].length; i += 1) {
-        this.eventCallbacks[eventName][i].apply(this, params);
+        this.eventCallbacks[eventName][i].process(this, params);
       }
     }
 
