@@ -106,32 +106,8 @@ OOP.inherits(Type, Eventable);
    *     option or the according value if you get an option
    */
   this.options = function(options, value) {
-
-    var opts;
-
-    // Load default options if there are no instance options yet
     this._options = this._options || Utilities.extend({}, this._defaultOptions);
-
-    // Pass a single option name to fetch it
-    if (typeof options === 'string' && arguments.length === 1) {
-      return this._options[options];
-    }
-
-    // Pass an option name and a value to set it
-    if (typeof options === 'string' && arguments.length === 2) {
-      opts = {};
-      opts[options] = value;
-      options = opts;
-    }
-
-    // Pass an object of key-values to set them
-    if (typeof options === 'object') {
-      Utilities.extend(this._options, options);
-    }
-
-    // Chaining
-    return arguments.length ? this : this._options;
-
+    return Utilities.getterSetterParams(this, this._options, options, value);
   };
 
   /**

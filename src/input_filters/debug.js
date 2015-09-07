@@ -19,7 +19,7 @@ OOP.inherits(DebugFilter, TypeFilter);
   };
 
   this.log = function(e) {
-    console.log('test filter log', e.key);
+    console.log('Keydown', e.key);
   };
 
 }).call(DebugFilter.prototype);

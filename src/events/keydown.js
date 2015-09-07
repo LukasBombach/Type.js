@@ -27,13 +27,13 @@ function KeydownEvent(options) {
 
   options = options || {};
 
-  this.key     = options.key     || null;
+  this.key = options.key || null;
   this.keyCode = options.keyCode || null;
-  this.shift   = options.shift   || false;
-  this.alt     = options.alt     || false;
-  this.ctrl    = options.ctrl    || false;
-  this.meta    = options.meta    || false;
-  this.cmd     = (!Environment.mac && options.ctrl) || (Environment.mac && options.meta);
+  this.shift = options.shift || false;
+  this.alt = options.alt || false;
+  this.ctrl = options.ctrl || false;
+  this.meta = options.meta || false;
+  this.cmd = (!Environment.mac && options.ctrl) || (Environment.mac && options.meta);
 
   this.canceled = false;
 
@@ -70,12 +70,12 @@ KeydownEvent.fromNativeEvent = function(e) {
 
   var charCode = (typeof e.which === 'number') ? e.which : e.keyCode;
   var options = {
-      key:     KeydownEvent.keyDownNames[charCode] || charCode,
+      key: KeydownEvent.keyDownNames[charCode] || charCode,
       keyCode: charCode,
-      shift:   e.shiftKey,
-      alt:     e.altKey,
-      ctrl:    e.ctrlKey,
-      meta:    e.metaKey,
+      shift: e.shiftKey,
+      alt: e.altKey,
+      ctrl: e.ctrlKey,
+      meta: e.metaKey,
     };
 
   return new KeydownEvent(options);

@@ -40,8 +40,44 @@ function Utilities() {
    * @param obj
    * @returns {boolean}
    */
-  Utilities.isnInstance = function(obj) {
+  Utilities.isInstance = function(obj) {
     return !!(obj && obj.constructor && obj.call && obj.process);
+  };
+
+  /**
+   * Implements jQuery-style getting and setting of arguments
+   *
+   * @param instance
+   * @param base
+   * @param nameOrObject
+   * @param value
+   * @returns {*}
+   */
+  Utilities.getterSetterParams = function(instance, base, nameOrObject, value) {
+
+    // Pass no name or value to return the base object
+    if (arguments.length === 2) {
+      return base;
+    }
+
+    // Pass a name to get a value
+    if (typeof nameOrObject === 'string' && arguments.length === 3) {
+      return base[nameOrObject];
+    }
+
+    // Pass a name and a value to set a value
+    if (typeof nameOrObject === 'string' && arguments.length === 4) {
+      base[nameOrObject] = value;
+    }
+
+    // Pass an object of key-values to set them
+    if (typeof nameOrObject === 'object') {
+      Utilities.extend(base, nameOrObject);
+    }
+
+    // If values have been set, return the instance for chaining
+    return instance;
+
   };
 
 }).call(Utilities);
