@@ -1,6 +1,6 @@
 'use strict';
 
-var Events = require('../events');
+var Events = require('../utilities/events');
 var KeydownEvent = require('../events/keydown');
 
 var DebugFilter = require('../input_filters/debug');

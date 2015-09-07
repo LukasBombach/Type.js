@@ -1,7 +1,7 @@
 'use strict';
 
 var TypeFilter = require('./type');
-var OOP = require('../oop');
+var OOP = require('../utilities/oop');
 
 /**
  *

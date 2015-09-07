@@ -1,7 +1,6 @@
 'use strict';
 
-var Utilities = require('../utilities');
-
+var Utilities = require('../utilities/utilities');
 
 /**
  * Creates a new Type event

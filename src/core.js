@@ -1,9 +1,9 @@
 'use strict';
 
-var OOP = require('./oop');
-var Eventable = require('./eventable');
-var Utilities = require('./utilities');
-var DomUtilities = require('./dom_utilities');
+var OOP = require('./utilities/oop');
+var Eventable = require('./utilities/eventable');
+var Utilities = require('./utilities/utilities');
+var DomUtilities = require('./utilities/dom_utilities');
 var InputPipeline = require('./input/input_pipeline');
 
 /**

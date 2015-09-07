@@ -1,8 +1,8 @@
 'use strict';
 
 var TypeEvent = require('./type');
-var OOP = require('../oop');
-var Environment = require('../environment');
+var OOP = require('../utilities/oop');
+var Environment = require('../utilities/environment');
 
 /**
  * Creates a new Type input event.

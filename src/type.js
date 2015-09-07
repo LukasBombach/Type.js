@@ -4,7 +4,7 @@
 var Type = require('./core');
 
 // Expose modules
-Type.OOP = require('./oop');
+Type.OOP = require('./utilities/oop');
 
 // Expose Type
 window.Type = Type;
