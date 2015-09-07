@@ -5,6 +5,7 @@ var Eventable = require('./utilities/eventable');
 var Utilities = require('./utilities/utilities');
 var DomUtilities = require('./utilities/dom_utilities');
 var InputPipeline = require('./input/input_pipeline');
+var Formatter = require('./formatter');
 
 /**
  * Creates a new Type editor and sets up the core
@@ -44,6 +45,7 @@ function Type(options) {
 
   // Core modules
   this._inputPipeline = new InputPipeline(this);
+  this._formatter = new Formatter(this);
 
   // Trigger events
   Type.trigger('ready', this);
@@ -135,6 +137,14 @@ OOP.inherits(Type, Eventable);
    */
   this.getEl = function() {
     return this._options.el;
+  };
+
+  /**
+   * Getter for this instance's formatter
+   * @returns {Formatter}
+   */
+  this.getFormatter = function() {
+    return this._formatter;
   };
 
   /**

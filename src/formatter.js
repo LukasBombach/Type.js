@@ -1,17 +1,18 @@
 'use strict';
 
-var Type = require('./core');
+var DomUtilities = require('./utilities/dom_utilities');
+var DomWalker = require('./utilities/dom_walker');
 
 /**
  *
  * @param {Type} type
  * @constructor
  */
-Type.Formatter = function (type) {
+function Formatter(type) {
   this._type = type;
-};
+}
 
-(function () {
+(function() {
 
   /**
    * A list of tags that are displayed inline. We generate different markup
@@ -23,7 +24,7 @@ Type.Formatter = function (type) {
    * @type {string[]}
    * @private
    */
-  this._inlineTags = ["strong", "em", "u", "s"];
+  this._inlineTags = ['strong', 'em', 'u', 's'];
 
   /**
    * A list of tags that are displayed as block elements. We generate different
@@ -35,7 +36,7 @@ Type.Formatter = function (type) {
    * @type {string[]}
    * @private
    */
-  this._blockTags  = ["h1", "h2", "h3", "h4", "h5", "h6", "blockquote"];
+  this._blockTags  = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote'];
 
   /**
    * Will call either this.inline, this.block or this._noop depending on
@@ -43,14 +44,14 @@ Type.Formatter = function (type) {
    * this tag yet (the latter would call _noop which would utter no action).
    *
    * @param {String} tag - The tag that we want to format the text with
-   * @param {Type.Range} typeRange - An object containing data on which part
+   * @param {TypeRange} typeRange - An object containing data on which part
    *     of the text to format
    * @param {...*} params - Any number of arguments that specify attributes
    *     for the tag
    * @returns {Element[]} - The elements created by the formatting function
    */
-  this.format = function (tag, typeRange, params) {
-    typeRange.ensureIsInside(this._type.getRoot());
+  this.format = function(tag, typeRange, params) {
+    typeRange.ensureIsInside(this._type.getEl());
     return this._handlerFor(tag).apply(this, arguments);
   };
 
@@ -60,19 +61,7 @@ Type.Formatter = function (type) {
    * @param range
    * @returns {*}
    */
-  this.removeFormat = function (tag, range) {
-
-    var startNode = this._getStartNode(tag, range),
-      dom = this._type.createDomWalker(startNode),
-      next;
-
-    do {
-      Type.DomUtilities.removeTag(dom.getNode(), tag, false);
-      next = dom.next();
-    } while(next && !next.contains(range.endContainer));// !== range.endContainer);
-
-    return this;
-
+  this.removeFormat = function(tag, range) {
   };
 
   /**
@@ -80,11 +69,14 @@ Type.Formatter = function (type) {
    * @param tag
    * @param typeRange
    * @param params
-   * @returns {Type.Formatter|Element[]}
+   * @returns {Formatter|Element[]}
    */
-  this.inline = function (tag, typeRange, params) {
+  this.inline = function(tag, typeRange, params) {
 
-    var args, startNode, endNode, enclosingTag, selPositions;
+    var args;
+    var startNode;
+    var endNode;
+    var enclosingTag;
 
     // If the selection is enclosed the tag we want to format with
     // remove formatting from selected area
@@ -114,13 +106,13 @@ Type.Formatter = function (type) {
    * @param {...*} [params]
    * @returns {Element[]} - The elements created by the formatting function
    */
-  this.insertInline = function (tag, startNode, endNode, params) {
+  this.insertInline = function(tag, startNode, endNode, params) {
 
     // Required variables
-    var currentNode = startNode,
-      createdNodes  = [],
-      nodesToWrap   = [],
-      nextNode;
+    var currentNode = startNode;
+    var createdNodes = [];
+    var nodesToWrap = [];
+    var nextNode;
 
     // Collect the startNode and all its siblings until we
     // found the endNode or a node containing it
@@ -137,7 +129,7 @@ Type.Formatter = function (type) {
 
     // If the node where we stopped contains the endNode,
     // apply this algorithm on it recursively
-    if (currentNode && Type.DomUtilities.containsButIsnt(currentNode, endNode)) {
+    if (currentNode && DomUtilities.containsButIsnt(currentNode, endNode)) {
       createdNodes.concat(this.insertInline(tag, currentNode.firstChild, endNode));
     }
 
@@ -145,12 +137,12 @@ Type.Formatter = function (type) {
     // siblings, find the next node in the document flow and
     // apply this algorithm on it recursively
     if (currentNode === null) {
-      nextNode = Type.DomWalker.next(startNode.parentNode.lastChild, this._type.getRoot());
+      nextNode = DomWalker.next(startNode.parentNode.lastChild, this._type.getEl());
       createdNodes.concat(this.insertInline(tag, nextNode, endNode));
     }
 
     // Wrap the nodes we got so far in the provided tag
-    createdNodes.push(Type.DomUtilities.wrap(tag, nodesToWrap));
+    createdNodes.push(DomUtilities.wrap(tag, nodesToWrap));
 
     // Return all nodes that have been created
     return createdNodes;
@@ -160,25 +152,25 @@ Type.Formatter = function (type) {
   /**
    *
    * @param {Node} enclosingTag
-   * @param {Type.Range} typeRange
-   * @returns {Type.Formatter}
+   * @param {TypeRange} typeRange
+   * @returns {Formatter}
    */
-  this.removeInline = function (enclosingTag, typeRange) {
+  this.removeInline = function(enclosingTag, typeRange) {
 
-    var tagName = enclosingTag.tagName,
-      tagPositions = Type.Range.fromElement(enclosingTag).save(this._type.getRoot()),
-      selPositions = typeRange.save(this._type.getRoot()),
-      leftRange,
-      rightRange;
+    var tagName = enclosingTag.tagName;
+    var tagPositions = TypeRange.fromElement(enclosingTag).save(this._type.getEl());
+    var selPositions = typeRange.save(this._type.getEl());
+    var leftRange;
+    var rightRange;
 
-    Type.DomUtilities.unwrap(enclosingTag);
+    DomUtilities.unwrap(enclosingTag);
 
-    leftRange = Type.Range.fromPositions(this._type.getRoot(), tagPositions.start, selPositions.start);
+    leftRange = TypeRange.fromPositions(this._type.getEl(), tagPositions.start, selPositions.start);
     if (!leftRange.isCollapsed()) {
       this.inline(tagName, leftRange);
     }
 
-    rightRange = Type.Range.fromPositions(this._type.getRoot(), selPositions.end, tagPositions.end);
+    rightRange = TypeRange.fromPositions(this._type.getEl(), selPositions.end, tagPositions.end);
     if (!rightRange.isCollapsed()) {
       this.inline(tagName, rightRange);
     }
@@ -192,7 +184,7 @@ Type.Formatter = function (type) {
    * @param cmd
    * @param typeRange
    * @param params
-   * @returns {Type.Formatter}
+   * @returns {Formatter}
    * @private
    */
   this.block = function (cmd, typeRange, params) {
@@ -206,7 +198,7 @@ Type.Formatter = function (type) {
    * @returns {*}
    * @private
    */
-  this._getStartNode = function (tag, typeRange) {
+  this._getStartNode = function(tag, typeRange) {
     return typeRange.startTagIs(tag) ? typeRange.getStartElement() : typeRange.splitStartContainer();
   };
 
@@ -217,7 +209,7 @@ Type.Formatter = function (type) {
    * @returns {*}
    * @private
    */
-  this._getEndNode = function (tag, typeRange) {
+  this._getEndNode = function(tag, typeRange) {
     return typeRange.endTagIs(tag) ? typeRange.getEndElement() : typeRange.splitEndContainer();
   };
 
@@ -233,24 +225,24 @@ Type.Formatter = function (type) {
    *     or block tags, or _noop if the tag is unknown.
    * @private
    */
-  this._handlerFor = function (tag) {
+  this._handlerFor = function(tag) {
     tag = tag.toLowerCase();
     if (this._inlineTags.indexOf(tag) > -1) return this.inline;
     if (this._blockTags.indexOf(tag) > -1) return this.block;
-    Type.Development.debug('Tag "' + tag + '" not implemented');
+    //Type.Development.debug('Tag "' + tag + '" not implemented');
     return this._noop;
   };
 
   /**
    * Multi-purpose no-op handler
    *
-   * @returns {Type.Formatter}
+   * @returns {Formatter}
    * @private
    */
-  this._noop = function () {
+  this._noop = function() {
     return this;
   };
 
-}).call(Type.Formatter.prototype);
+}).call(Formatter.prototype);
 
-module.exports = Type.Formatter;
+module.exports = Formatter;

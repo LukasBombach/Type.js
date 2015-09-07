@@ -4,6 +4,7 @@ var Events = require('../utilities/events');
 var KeydownEvent = require('../events/keydown');
 
 var DebugFilter = require('../input_filters/debug');
+var CommandFilter = require('../input_filters/command');
 
 /**
  *
@@ -11,6 +12,7 @@ var DebugFilter = require('../input_filters/debug');
  * @constructor
  */
 function InputPipeline(type) {
+  this._type = type;
   this._filters = [];
   this._addDefaultFilters();
   this._addListener(type.getEl());
@@ -49,7 +51,8 @@ function InputPipeline(type) {
    * @private
    */
   this._addDefaultFilters = function() {
-    this.addFilter(new DebugFilter());
+    this.addFilter(new DebugFilter(this._type));
+    this.addFilter(new CommandFilter(this._type));
     return this;
   };
 

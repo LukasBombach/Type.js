@@ -37,11 +37,21 @@ function Utilities() {
   /**
    * Tests and returns if a given object is a function instance
    *
-   * @param obj
-   * @returns {boolean}
+   * @param {*} obj - An arbitrary object
+   * @returns {boolean} - Whether or not the given object is a function instance
    */
   Utilities.isInstance = function(obj) {
     return !!(obj && obj.constructor && obj.call && obj.process);
+  };
+
+  /**
+   * Tests and returns if a given object is a function
+   *
+   * @param {*} obj - An arbitrary object
+   * @returns {boolean} - Whether or not the given object is a function
+   */
+  Utilities.isFunction = function(obj) {
+    return typeof obj === 'function';
   };
 
   /**
