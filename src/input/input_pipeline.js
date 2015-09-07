@@ -96,7 +96,7 @@ function InputPipeline(type) {
    */
   this._processFilter = function(filter, e) {
     filter.process(e);
-    return e.canceled !== false;
+    return e.canceled === false;
   };
 
 }).call(InputPipeline.prototype);
