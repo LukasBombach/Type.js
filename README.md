@@ -4,7 +4,7 @@ Type js is a WYSIWYG library that **lets you implement your own wysiwyg editor**
 It has no ui but provides a high-level API for all your WYSIWYG needs. Most 
 importantly, **it does not rely contenteditable**.
 
-# Status
+## Status
 
 I am currently rewriting my old project [Type.js](https://github.com/LukasBombach/Type.js). 
 This is a 100% WIP right now.
