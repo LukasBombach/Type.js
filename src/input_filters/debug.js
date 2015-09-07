@@ -7,10 +7,10 @@ var OOP = require('../oop');
  *
  * @constructor
  */
-function TestFilter() {
+function DebugFilter() {
 }
 
-OOP.inherits(TestFilter, TypeFilter);
+OOP.inherits(DebugFilter, TypeFilter);
 
 (function() {
 
@@ -22,6 +22,6 @@ OOP.inherits(TestFilter, TypeFilter);
     console.log('test filter log', e.key);
   };
 
-}).call(TestFilter.prototype);
+}).call(DebugFilter.prototype);
 
-module.exports = TestFilter;
+module.exports = DebugFilter;

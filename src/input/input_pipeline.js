@@ -3,7 +3,7 @@
 var Events = require('../events');
 var KeydownEvent = require('../events/keydown');
 
-var TestFilter = require('../input_filters/test');
+var DebugFilter = require('../input_filters/debug');
 
 /**
  *
@@ -49,7 +49,7 @@ function InputPipeline(type) {
    * @private
    */
   this._addDefaultFilters = function() {
-    this.addFilter(new TestFilter());
+    this.addFilter(new DebugFilter());
     return this;
   };
 
