@@ -5,7 +5,7 @@
   "description": "A javascript word processing framework",
   "repository": {
     "type": "git",
-    "url": "git://github.com/LukasBombach/Type.js"
+    "url": "git://github.com/LukasBombach/new-type-js"
   },
   "keywords": [],
   "author": "Lukas Bombach",
@@ -13,9 +13,11 @@
   "readmeFilename": "README.md",
   "dependencies": {},
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-jscs": "^2.0.0",
-    "gulp-uglify": "^1.4.0"
+    "jscs": "^2.1.1",
+    "webpack": "^1.12.1"
+  },
+  "scripts": {
+    "build": "webpack src/type.js dist/type.js --progress --colors ",
+    "watch": "webpack src/type.js dist/type.js --progress --colors --watch"
   }
 }

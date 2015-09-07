@@ -1,5 +1,11 @@
 'use strict';
 
+var OOP = require('./oop');
+var Eventable = require('./eventable');
+var Utilities = require('./utilities');
+var DomUtilities = require('./dom_utilities');
+var InputPipeline = require('./input/input_pipeline');
+
 /**
  * Creates a new Type editor and sets up the core
  * modules used for WYSIWYG editing. The core
@@ -20,7 +26,7 @@
 function Type(options) {
 
   // Allow passing an element as only parameter
-  if (Type.DomUtilities.isNode(options)) {
+  if (DomUtilities.isNode(options)) {
     options = {el: options};
   }
 
@@ -36,10 +42,18 @@ function Type(options) {
   // Enable editing mode on root element
   this._setElementEditable(options.el);
 
+  // Core modules
+  this._inputPipeline = new InputPipeline(this);
+
   // Trigger events
-  //Type.trigger('ready', this);
+  Type.trigger('ready', this);
 
 }
+
+/**
+ * Make Type eventable
+ */
+OOP.inherits(Type, Eventable);
 
 (function() {
 
@@ -96,7 +110,7 @@ function Type(options) {
     var opts;
 
     // Load default options if there are no instance options yet
-    this._options = this._options || Type.Utilities.extend({}, this._defaultOptions);
+    this._options = this._options || Utilities.extend({}, this._defaultOptions);
 
     // Pass a single option name to fetch it
     if (typeof options === 'string' && arguments.length === 1) {
@@ -112,7 +126,7 @@ function Type(options) {
 
     // Pass an object of key-values to set them
     if (typeof options === 'object') {
-      Type.Utilities.extend(this._options, options);
+      Utilities.extend(this._options, options);
     }
 
     // Chaining
@@ -176,4 +190,4 @@ Type.fn = Type.prototype;
  * Module Exports for CommonJs
  * @type {Type}
  */
-//module.exports = Type;
+module.exports = Type;

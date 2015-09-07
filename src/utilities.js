@@ -1,12 +1,10 @@
 'use strict';
 
-//var Type = require('./core');
-
 /**
  * @constructor
  */
-Type.Utilities = function() {
-};
+function Utilities() {
+}
 
 (function() {
 
@@ -20,7 +18,7 @@ Type.Utilities = function() {
    * @param {...Object} copyFrom
    * @returns {Object}
    */
-  Type.Utilities.extend = function(copyTo, copyFrom) {
+  Utilities.extend = function(copyTo, copyFrom) {
 
     var i;
     var key;
@@ -38,15 +36,14 @@ Type.Utilities = function() {
 
   /**
    * Tests and returns if a given object is a function instance
-   * todo this should be called isFunctionInstance otherwise typeof obj === 'Function' should be used
    *
    * @param obj
    * @returns {boolean}
    */
-  Type.Utilities.isFunction = function(obj) {
-    return !!(obj && obj.constructor && obj.call && obj.apply);
+  Utilities.isnInstance = function(obj) {
+    return !!(obj && obj.constructor && obj.call && obj.process);
   };
 
-}).call(Type.Utilities);
+}).call(Utilities);
 
-//module.exports = Type.Utilities;
+module.exports = Utilities;
