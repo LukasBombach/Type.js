@@ -2,7 +2,7 @@
 
 var OOP = require('../utilities/oop');
 var TypeFilter = require('./type');
-var TypeRange = require('../utilities/range');
+var TypeRange = require('../range');
 
 /**
  * Creates a command filter. Will fetch common

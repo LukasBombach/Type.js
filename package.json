@@ -19,6 +19,7 @@
   },
   "scripts": {
     "build": "webpack src/type.js dist/type.js --progress --colors ",
-    "watch": "webpack src/type.js dist/type.js --progress --colors --watch"
+    "watch": "webpack src/type.js dist/type.js --progress --colors --watch",
+    "dist": "webpack src/type.js dist/type.js --progress --colors && uglifyjs dist/type.js -o dist/type.min.js"
   }
 }

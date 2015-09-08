@@ -28,7 +28,7 @@ editor.format('<strong>', 10, 20);
 
 1. Install node js
 2. Run `npm install` from the root directory
-3. Run `npm run build` from the root directory to build a minified file
+3. Run `npm run dist` from the root directory to build a minified file
 
 ## License
 
