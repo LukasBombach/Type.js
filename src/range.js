@@ -1,7 +1,7 @@
 'use strict';
 
-var Type = require('../core');
-var DomUtilities = require('./dom_utilities');
+var Type = require('./core');
+var DomUtilities = require('./utilities/dom_utilities');
 
 /**
  * Crates a new TypeRange

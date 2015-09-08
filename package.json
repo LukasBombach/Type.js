@@ -14,6 +14,7 @@
   "dependencies": {},
   "devDependencies": {
     "jscs": "^2.1.1",
+    "uglify-js": "^2.4.24",
     "webpack": "^1.12.1"
   },
   "scripts": {
