@@ -3,6 +3,7 @@
 var OOP = require('../utilities/oop');
 var TypeFilter = require('./type');
 var TypeRange = require('../range');
+var TypeSelection = require('../selection');
 
 /**
  * Creates a command filter. Will fetch common
@@ -43,11 +44,13 @@ OOP.inherits(CommandFilter, TypeFilter);
     
     //var sel;
     var range;
+    var elements;
 
     if (e.cmd) {
 
       range = TypeRange.fromCurrentSelection();
-      this._type.getFormatter().format(this._tags[e.key], range);
+      elements = this._type.getFormatter().format(this._tags[e.key], range);
+      TypeSelection.select(elements);
 
       //sel = this._selection.save();
       //this._content.format(this.tags[e.key], this._selection.getRange());

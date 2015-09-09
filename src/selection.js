@@ -42,7 +42,7 @@ function TypeSelection() {
     var firstText = DomWalker.first(elements[0], 'text');
     var lastText = DomWalker.last(elements[elements.length - 1], 'text');
     range.setStart(firstText, 0);
-    range.setEnd(lastText, lastText.nodeValue.length - 1);
+    range.setEnd(lastText, lastText.nodeValue.length);
     return TypeSelection._selectRange(range);
   };
 
