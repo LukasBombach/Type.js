@@ -10,6 +10,15 @@ function TypeSelection() {
 
   /**
    *
+   * @returns {{start: number, end: number}}
+   */
+  TypeSelection.save = function() {
+    TypeRange.fromCurrentSelection().save();
+    return { start: 20, end: 30 };
+  };
+
+  /**
+   *
    * @param {Range|TypeRange|Node[]} param
    * @returns {TypeSelection}
    */
