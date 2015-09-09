@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git://github.com/LukasBombach/new-type-js"
   },
-  "keywords": [],
+  "keywords": ["wysiwyg", "editor", "contenteditable"],
   "author": "Lukas Bombach",
   "license": "MIT",
   "readmeFilename": "README.md",
