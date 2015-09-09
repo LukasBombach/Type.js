@@ -1,13 +1,3 @@
-# Distribution
-dist/*.js
-
-# Node
-node_modules
-
-# System
-*~
-.DS_Store
-
-# Development
+/dist/*
+/node_modules
 .idea
-.editorconfig
