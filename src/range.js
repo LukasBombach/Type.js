@@ -1,42 +1,42 @@
 'use strict';
 
-var Type = require('./core');
-var DomUtilities = require('./utilities/dom_utilities');
+import Type from './core';
+import DomUtilities from './utilities/dom_utilities';
 
-/**
- * Crates a new TypeRange
- *
- * TypeRange is a shim for the browsers' native {Range} objects and
- * is being used in Type for anything related to text ranges.
- *
- * Native ranges are often buggy, lack essential features and should
- * not be used other than for performance reasons. This class avoids
- * and / or fixes common issues with ranges and adds many methods
- * useful for text editing.
- *
- * Among many other factory methods, you can use the {TypeRange.fromRange}
- * method to create a {TypeRange} from a native {Range}.
- *
- * @param {Node} startContainer - A text node that the range should start in.
- * @param {number} startOffset - The offset (of characters) inside the
- *     startContainer where the range should begin.
- * @param {Node} endContainer - A text node that the range should end in.
- * @param {number} endOffset - The offset (of characters) inside the
- *     endContainer where the range should stop.
- * @constructor
- */
-function TypeRange(startContainer, startOffset, endContainer, endOffset) {
+export default class TypeRange {
 
-  this.startContainer = startContainer;
-  this.startOffset    = startOffset;
-  this.endContainer   = endContainer;
-  this.endOffset      = endOffset;
+  /**
+   * Crates a new TypeRange
+   *
+   * TypeRange is a shim for the browsers' native {Range} objects and
+   * is being used in Type for anything related to text ranges.
+   *
+   * Native ranges are often buggy, lack essential features and should
+   * not be used other than for performance reasons. This class avoids
+   * and / or fixes common issues with ranges and adds many methods
+   * useful for text editing.
+   *
+   * Among many other factory methods, you can use the {TypeRange.fromRange}
+   * method to create a {TypeRange} from a native {Range}.
+   *
+   * @param {Node} startContainer - A text node that the range should start in.
+   * @param {number} startOffset - The offset (of characters) inside the
+   *     startContainer where the range should begin.
+   * @param {Node} endContainer - A text node that the range should end in.
+   * @param {number} endOffset - The offset (of characters) inside the
+   *     endContainer where the range should stop.
+   * @constructor
+   */
+  constructor(startContainer, startOffset, endContainer, endOffset) {
 
-  this.ensureStartNodePrecedesEndNode();
+    this.startContainer = startContainer;
+    this.startOffset    = startOffset;
+    this.endContainer   = endContainer;
+    this.endOffset      = endOffset;
 
-}
+    this.ensureStartNodePrecedesEndNode();
 
-(function() {
+  };
 
   /**
    * If the startContainer and the endContainer are enclosed by
@@ -53,7 +53,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @returns {HTMLElement|null} - Will either return the common
    *     ancestor matching the selector or null otherwise.
    */
-  this.elementEnclosingStartAndEnd = function (selector, constrainingNode) {
+  elementEnclosingStartAndEnd (selector, constrainingNode) {
 
     var tagEnclosingStartNode = DomUtilities.parent(this.startContainer, selector, constrainingNode),
       tagEnclosingEndNode;
@@ -80,7 +80,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *     is a parent to the start and endContainer.
    * @returns {boolean}
    */
-  this.isInside = function (node) {
+  isInside (node) {
     return node.contains(this.startContainer) && node.contains(this.endContainer);
   };
 
@@ -93,7 +93,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *     is a parent to the start and endContainer.
    * @returns {boolean}
    */
-  this.ensureIsInside = function (el) {
+  ensureIsInside (el) {
     if (this.isInside(el)) {
       return true;
     }
@@ -107,7 +107,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *
    * @returns {TypeRange} - This instance
    */
-  this.ensureStartNodePrecedesEndNode = function () {
+  ensureStartNodePrecedesEndNode () {
 
     var startIsEnd, startPrecedesEnd;
     startIsEnd = this.startContainer === this.endContainer;
@@ -137,7 +137,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *
    * @returns {Node} - The new startContainer
    */
-  this.splitStartContainer = function () {
+  splitStartContainer () {
 
     var startsAndEndsInSameNode;
 
@@ -166,7 +166,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *
    * @returns {Node} - The new endContainer
    */
-  this.splitEndContainer = function () {
+  splitEndContainer () {
     if (this.endOffset !== this.endContainer.length) {
       this.endContainer = this.endContainer.splitText(this.endOffset).previousSibling;
       this.endOffset = this.endContainer.length;
@@ -178,7 +178,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * Creates a native {Range} object and returns it.
    * @returns {Range}
    */
-  this.getNativeRange = function () {
+  getNativeRange () {
     var range = document.createRange();
     range.setEnd(this.endContainer, this.endOffset);
     range.setStart(this.startContainer, this.startOffset);
@@ -194,7 +194,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @param {Element} fromNode
    * @returns {{from: Element, start: number, end: number}}
    */
-  this.save = function (fromNode) {
+  save (fromNode) {
     var start, end;
     start = this.getStartOffset(fromNode);
     end = this.startsAndEndsInSameNode() ? start - this.startOffset + this.endOffset : this.getEndOffset(fromNode);
@@ -205,7 +205,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * Returns the length of this range as numbers of characters.
    * @returns {number}
    */
-  this.getLength = function () {
+  getLength () {
     return Type.TextWalker.offset(this.startContainer, this.endContainer, this.startOffset, this.endOffset);
   };
 
@@ -217,7 +217,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @param {Node} [from] - The node to start counting characters from
    * @returns {number|null}
    */
-  this.getStartOffset = function (from) {
+  getStartOffset (from) {
     if (from) {
       return Type.TextWalker.offset(from, this.startContainer, 0, this.startOffset);
     }
@@ -232,7 +232,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @param {Node} [from] - The node to start counting characters from
    * @returns {number|null}
    */
-  this.getEndOffset = function (from) {
+  getEndOffset (from) {
     if (from) {
       return Type.TextWalker.offset(from, this.endContainer, 0, this.endOffset);
     }
@@ -244,7 +244,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *
    * @returns {Node}
    */
-  this.getStartElement = function () {
+  getStartElement () {
     return this.startContainer.parentNode;
   };
 
@@ -253,7 +253,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *
    * @returns {Node}
    */
-  this.getEndElement = function () {
+  getEndElement () {
     return this.endContainer.parentNode;
   };
 
@@ -263,7 +263,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *
    * @returns {string}
    */
-  this.getStartTagName = function () {
+  getStartTagName () {
     return this.getStartElement().tagName.toLowerCase();
   };
 
@@ -273,7 +273,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *
    * @returns {string}
    */
-  this.getEndTagName = function () {
+  getEndTagName () {
     return this.getEndElement().tagName.toLowerCase();
   };
 
@@ -284,7 +284,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @param {string} tagName - The tag name to compare.
    * @returns {boolean}
    */
-  this.startTagIs = function (tagName) {
+  startTagIs (tagName) {
     return this.getStartTagName() === tagName.toLowerCase();
   };
 
@@ -295,7 +295,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @param {string} tagName - The tag name to compare.
    * @returns {boolean}
    */
-  this.endTagIs = function (tagName) {
+  endTagIs (tagName) {
     return this.getEndTagName() === tagName.toLowerCase();
   };
 
@@ -305,7 +305,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *
    * @returns {boolean}
    */
-  this.startsAndEndsInSameNode = function () {
+  startsAndEndsInSameNode () {
     return this.startContainer === this.endContainer;
   };
 
@@ -315,7 +315,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *
    * @returns {boolean}
    */
-  this.isCollapsed = function () {
+  isCollapsed () {
     return this.startOffset === this.endOffset && this.startsAndEndsInSameNode();
   };
 
@@ -326,7 +326,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *     this range.
    * @returns {TypeRange} - This instance
    */
-  this.mergeWith = function (that) {
+  mergeWith (that) {
 
     var startOrder, endOrder;
 
@@ -357,7 +357,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @returns {TypeRange} - This instance
    * @private
    */
-  this._swapStartAndEnd = function () {
+  _swapStartAndEnd () {
     this._swapContainers();
     this._swapOffsets();
     return this;
@@ -369,7 +369,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @returns {TypeRange} - This instance
    * @private
    */
-  this._swapContainers = function () {
+  _swapContainers () {
     var swapContainer = this.startContainer;
     this.startContainer = this.endContainer;
     this.endContainer = swapContainer;
@@ -382,17 +382,12 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @returns {TypeRange} - This instance
    * @private
    */
-  this._swapOffsets = function () {
+  _swapOffsets () {
     var swapOffset = this.startOffset;
     this.startOffset = this.endOffset;
     this.endOffset = swapOffset;
     return this;
   };
-
-}).call(TypeRange.prototype);
-
-
-(function () {
 
   /**
    * Will create a range spanning from the offset given as start to the
@@ -409,7 +404,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *     where the selection should end
    * @returns {TypeRange} - A {TypeRange} instance
    */
-  TypeRange.load = function (bookmark) {
+  static load (bookmark) {
     return TypeRange.fromPositions(bookmark.from, bookmark.start, bookmark.end);
   };
 
@@ -426,7 +421,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *     selection should end
    * @returns {TypeRange} - A {TypeRange} instance
    */
-  TypeRange.fromPositions = function (el, startOffset, endOffset) {
+  static fromPositions (el, startOffset, endOffset) {
     var start = Type.TextWalker.nodeAt(el, startOffset),
       end = Type.TextWalker.nodeAt(el, endOffset);
     return new TypeRange(start.node, start.offset, end.node, end.offset);
@@ -441,7 +436,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    *
    * @returns {TypeRange|null} - A {TypeRange} instance or null
    */
-  TypeRange.fromCurrentSelection = function () {
+  static fromCurrentSelection () {
     var sel = document.getSelection();
     return sel.isCollapsed ? null : TypeRange.fromRange(sel.getRangeAt(0));
   };
@@ -460,7 +455,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @returns {TypeRange} - The {TypeRange} corresponding to the given
    *     {Range}
    */
-  TypeRange.fromRange = function (range) {
+  static fromRange (range) {
 
     //var endContainer = range.endContainer,
     //  endOffset = range.endOffset;
@@ -484,7 +479,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @param {number} selectedChars
    * @returns {TypeRange}
    */
-  TypeRange.fromCaret = function (caret, selectedChars) {
+  static fromCaret (caret, selectedChars) {
     var startNode = caret.getNode(),
       startOffset = caret.getNodeOffset(),
       end = Type.TextWalker.nodeAt(startNode, selectedChars, startOffset);
@@ -502,7 +497,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @returns {TypeRange} - A {TypeRange} spanning over the contents of the
    *     given element.
    */
-  TypeRange.fromElement = function (el) {
+  static fromElement (el) {
     var startNode = Type.DomWalker.first(el, 'text'),
       endNode = Type.DomWalker.last(el, 'text');
     return new TypeRange(startNode, 0, endNode, endNode.nodeValue.length);
@@ -517,7 +512,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @returns {TypeRange|null} - Returns a new TypeRange or null if the
    *     event has not been triggered from inside a text node
    */
-  TypeRange.fromMouseEvent = function (e) {
+  static fromMouseEvent (e) {
     return TypeRange.fromPoint(e.clientX, e.clientY);
   };
 
@@ -531,7 +526,7 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
    * @returns {TypeRange|null} - Returns a new TypeRange or null if the
    *     position is not inside a text node
    */
-  TypeRange.fromPoint = function (x, y) {
+  static fromPoint (x, y) {
 
     var range, node, offset;
 
@@ -561,6 +556,4 @@ function TypeRange(startContainer, startOffset, endContainer, endOffset) {
 
   };
 
-}).call();
-
-module.exports = TypeRange;
+}

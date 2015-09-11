@@ -1,27 +1,24 @@
 'use strict';
 
-var TypeFilter = require('./type');
-var OOP = require('../utilities/oop');
+import TypeFilter from './type';
 
 /**
  *
  * @constructor
  */
-function DebugFilter() {
-}
+export default class DebugFilter extends TypeFilter {
 
-OOP.inherits(DebugFilter, TypeFilter);
+  constructor() {
 
-(function() {
+    super();
 
-  this._keys = {
-    all: 'log',
-  };
+    this._keys = {
+      all: 'log',
+    };
+  }
 
-  this.log = function(e) {
+  log(e) {
     console.log('Keydown', e.key);
   };
 
-}).call(DebugFilter.prototype);
-
-module.exports = DebugFilter;
+}

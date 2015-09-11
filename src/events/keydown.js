@@ -1,8 +1,7 @@
 'use strict';
 
-var TypeEvent = require('./type');
-var OOP = require('../utilities/oop');
-var Environment = require('../utilities/environment');
+import TypeEvent from './type';
+import Environment from '../utilities/environment';
 
 /**
  * Creates a new Type input event.
@@ -23,53 +22,54 @@ var Environment = require('../utilities/environment');
  *     been pressed together with the given key (for os x users).
  * @constructor
  */
-function KeydownEvent(options) {
+export default class KeydownEvent extends TypeEvent {
 
-  options = options || {};
+  constructor(options) {
 
-  this.key = options.key || null;
-  this.keyCode = options.keyCode || null;
-  this.shift = options.shift || false;
-  this.alt = options.alt || false;
-  this.ctrl = options.ctrl || false;
-  this.meta = options.meta || false;
-  this.cmd = (!Environment.mac && options.ctrl) || (Environment.mac && options.meta);
+    super();
 
-  this.canceled = false;
+    options = options || {};
 
-}
+    this.key = options.key || null;
+    this.keyCode = options.keyCode || null;
+    this.shift = options.shift || false;
+    this.alt = options.alt || false;
+    this.ctrl = options.ctrl || false;
+    this.meta = options.meta || false;
+    this.cmd = (!Environment.mac && options.ctrl) || (Environment.mac && options.meta);
 
-/**
- * Inherit from general Type event
- */
-OOP.inherits(KeydownEvent, TypeEvent);
+    this.canceled = false;
 
-/**
- * Maps character codes from key down events to readable names
- * @type {Object}
- */
-KeydownEvent.keyDownNames = {
-  8:  'backspace',
-  9:  'tab',
-  13: 'enter',
-  32: 'space',
-  37: 'left',
-  38: 'up',
-  39: 'right',
-  40: 'down',
-  46: 'del',
-};
+  }
 
-/**
- * Factory to create a {KeydownEvent} from a {KeyboardEvent}
- *
- * @param {KeyboardEvent} e
- * @returns {KeydownEvent}
- */
-KeydownEvent.fromNativeEvent = function(e) {
+  /**
+   * Maps character codes from key down events to readable names
+   * @type {Object}
+   */
+  static get keyDownNames() {
+    return {
+      8: 'backspace',
+      9: 'tab',
+      13: 'enter',
+      32: 'space',
+      37: 'left',
+      38: 'up',
+      39: 'right',
+      40: 'down',
+      46: 'del',
+    }
+  }
 
-  var charCode = (typeof e.which === 'number') ? e.which : e.keyCode;
-  var options = {
+  /**
+   * Factory to create a {KeydownEvent} from a {KeyboardEvent}
+   *
+   * @param {KeyboardEvent} e
+   * @returns {KeydownEvent}
+   */
+  static fromNativeEvent(e) {
+
+    var charCode = (typeof e.which === 'number') ? e.which : e.keyCode;
+    var options = {
       key: KeydownEvent.keyDownNames[charCode] || charCode,
       keyCode: charCode,
       shift: e.shiftKey,
@@ -78,8 +78,7 @@ KeydownEvent.fromNativeEvent = function(e) {
       meta: e.metaKey,
     };
 
-  return new KeydownEvent(options);
+    return new KeydownEvent(options);
 
-};
-
-module.exports = KeydownEvent;
+  }
+}

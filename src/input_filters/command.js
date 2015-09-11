@@ -1,9 +1,8 @@
 'use strict';
 
-var OOP = require('../utilities/oop');
-var TypeFilter = require('./type');
-var TypeRange = require('../range');
-var TypeSelection = require('../selection');
+import TypeFilter from './type';
+import TypeRange from '../range';
+import TypeSelection from '../selection';
 
 /**
  * Creates a command filter. Will fetch common
@@ -15,34 +14,34 @@ var TypeSelection = require('../selection');
  * @param {Type} type
  * @constructor
  */
-function CommandFilter(type) {
-  this._type = type;
-}
+export default class CommandFilter extends TypeFilter{
 
-OOP.inherits(CommandFilter, TypeFilter);
+  constructor(type) {
 
-(function() {
+    super();
 
-  this._keys = {
-    66: 'command', // b
-    73: 'command', // i
-    83: 'command', // s
-    85: 'command', // u
-  };
+    this._type = type;
 
-  this._tags = {
-    66: 'strong',
-    73: 'em',
-    83: 's',
-    85: 'u',
-  };
+    this._keys = {
+      66: 'command', // b
+      73: 'command', // i
+      83: 'command', // s
+      85: 'command', // u
+    };
+
+    this._tags = {
+      66: 'strong',
+      73: 'em',
+      83: 's',
+      85: 'u',
+    };
+  }
 
   /**
    * @param {InputEvent} e
    */
-  this.command = function(e) {
-    
-    //var sel;
+  command(e) {
+
     var range;
     var elements;
 
@@ -52,15 +51,9 @@ OOP.inherits(CommandFilter, TypeFilter);
       elements = this._type.getFormatter().format(this._tags[e.key], range);
       TypeSelection.select(elements);
 
-      //sel = this._selection.save();
-      //this._content.format(this.tags[e.key], this._selection.getRange());
-      //this._selection.restore(sel);
-      
       e.cancel();
     }
 
   };
 
-}).call(CommandFilter.prototype);
-
-module.exports = CommandFilter;
+}

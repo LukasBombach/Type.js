@@ -4,10 +4,7 @@
  *
  * @constructor
  */
-function Events() {
-}
-
-(function() {
+export default class Events {
 
   /**
    * Adds a native event listener for an event. Does cross-browser Kung Fu stuff.
@@ -19,7 +16,7 @@ function Events() {
    *     parameter. Read MDN.
    * @returns {*}
    */
-  Events.addListener = function(el, type, listener, useCapture) {
+  static addListener(el, type, listener, useCapture) {
     if (el.addEventListener) {
       return el.addEventListener(type, listener, useCapture || false);
     } else if (el.attachEvent)  {
@@ -37,7 +34,7 @@ function Events() {
    *     parameter. Read MDN.
    * @returns {*}
    */
-  Events.removeListener = function(el, type, listener, useCapture) {
+  static removeListener(el, type, listener, useCapture) {
     if (el.removeEventListener) {
       return el.removeEventListener(type, listener, useCapture || false);
     } else if (el.detachEvent) {
@@ -45,6 +42,4 @@ function Events() {
     }
   };
 
-}).call(Events);
-
-module.exports = Events;
+}

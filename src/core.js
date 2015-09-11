@@ -1,11 +1,11 @@
 'use strict';
 
-//var InputPipeline = require('./input/input_pipeline');
-//var Formatter = require('./formatter');
 
 import Eventable from './utilities/eventable.es5';
 import Utilities from './utilities/utilities';
 import DomUtilities from './utilities/dom_utilities';
+import InputPipeline from './input/input_pipeline';
+import Formatter from './formatter';
 
 export default class Type {
 
@@ -46,8 +46,8 @@ export default class Type {
     this._setElementEditable(options.el);
 
     // Core modules
-    //this._inputPipeline = new InputPipeline(this);
-    //this._formatter = new Formatter(this);
+    this._inputPipeline = new InputPipeline(this);
+    this._formatter = new Formatter(this);
 
     // Trigger events
     Type.trigger('ready', this);
@@ -140,12 +140,20 @@ export default class Type {
   };
 
   /**
+   * Getter for this instance's input pipelein
+   * @returns {InputPipeline}
+   */
+  getInputPipeline() {
+    return this._inputPipeline;
+  };
+
+  /**
    * Getter for this instance's formatter
    * @returns {Formatter}
    */
-  //getFormatter = function() {
-  //  return this._formatter;
-  //};
+  getFormatter() {
+    return this._formatter;
+  };
 
   /**
    * Sets the editing mode of an element. The second parameter

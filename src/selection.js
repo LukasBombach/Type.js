@@ -1,18 +1,15 @@
 'use strict';
 
-var TypeRange = require('./range');
-var DomWalker = require('./utilities/dom_walker');
+import TypeRange from './range';
+import DomWalker from './utilities/dom_walker';
 
-function TypeSelection() {
-}
-
-(function() {
+export default class TypeSelection {
 
   /**
    *
    * @returns {{start: number, end: number}}
    */
-  TypeSelection.save = function() {
+  static save() {
     TypeRange.fromCurrentSelection().save();
     return { start: 20, end: 30 };
   };
@@ -22,7 +19,7 @@ function TypeSelection() {
    * @param {Range|TypeRange|Node[]} param
    * @returns {TypeSelection}
    */
-  TypeSelection.select = function(param) {
+  static select(param) {
 
     if (arguments[0] instanceof Range) {
       return TypeSelection._selectRange(arguments[0]);
@@ -46,7 +43,7 @@ function TypeSelection() {
    * @returns {TypeSelection}
    * @private
    */
-  TypeSelection._selectElements = function(elements) {
+  static _selectElements(elements) {
     var range = document.createRange();
     var firstText = DomWalker.first(elements[0], 'text');
     var lastText = DomWalker.last(elements[elements.length - 1], 'text');
@@ -61,7 +58,7 @@ function TypeSelection() {
    * @returns {TypeSelection}
    * @private
    */
-  TypeSelection._selectTypeRange = function(typeRange) {
+  static _selectTypeRange(typeRange) {
     return TypeSelection._selectRange(typeRange.getNativeRange());
   };
 
@@ -71,13 +68,11 @@ function TypeSelection() {
    * @returns {TypeSelection}
    * @private
    */
-  TypeSelection._selectRange = function(range) {
+  static _selectRange(range) {
     var sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
     return this;
   };
 
-}).call(TypeSelection);
-
-module.exports = TypeSelection;
+}
