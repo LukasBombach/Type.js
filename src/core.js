@@ -1,11 +1,11 @@
 'use strict';
 
-//var DomUtilities = require('./utilities/dom_utilities');
 //var InputPipeline = require('./input/input_pipeline');
 //var Formatter = require('./formatter');
 
 import Eventable from './utilities/eventable.es5';
 import Utilities from './utilities/utilities';
+import DomUtilities from './utilities/dom_utilities';
 
 export default class Type {
 
@@ -29,9 +29,9 @@ export default class Type {
   constructor(options) {
 
     // Allow passing an element as only parameter
-    //if (DomUtilities.isNode(options)) {
-    //  options = {el: options};
-    //}
+    if (DomUtilities.isNode(options)) {
+      options = {el: options};
+    }
 
     // If no element has been passed, interrupt
     if (!options.el) {
