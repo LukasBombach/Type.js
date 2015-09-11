@@ -7,18 +7,24 @@
     "type": "git",
     "url": "git://github.com/LukasBombach/new-type-js"
   },
-  "keywords": ["wysiwyg", "editor", "contenteditable"],
+  "keywords": [
+    "wysiwyg",
+    "editor",
+    "contenteditable"
+  ],
   "author": "Lukas Bombach",
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {},
   "devDependencies": {
+    "babel-core": "^5.8.23",
+    "babel-loader": "^5.3.2",
     "uglify-js": "^2.4.24",
     "webpack": "^1.12.1"
   },
   "scripts": {
-    "build": "webpack src/type.js dist/type.js --progress --colors ",
-    "watch": "webpack src/type.js dist/type.js --progress --colors --watch",
-    "dist": "webpack src/type.js dist/type.js --progress --colors && uglifyjs dist/type.js -o dist/type.min.js"
+    "build": "webpack src/type.js dist/type.js --module-bind \"js=babel\"",
+    "watch": "webpack src/type.js dist/type.js --module-bind \"js=babel\" --watch",
+    "dist": "webpack src/type.js dist/type.js --module-bind \"js=babel\" && uglifyjs dist/type.js -o dist/type.min.js"
   }
 }

@@ -1,10 +1,10 @@
 'use strict';
 
 // Load core editor class
-var Type = require('./core');
+import Type from './core';
 
 // Expose modules
-Type.OOP = require('./utilities/oop');
+//Type.OOP = require('./utilities/oop');
 
 // Expose Type
 window.Type = Type;
