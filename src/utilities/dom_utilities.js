@@ -1,14 +1,11 @@
 'use strict';
 
-var Settings = require('./settings');
+import Settings  from './settings';
 
 /**
  * @constructor
  */
-function DomUtilities() {
-}
-
-(function() {
+export default class DomUtilities {
 
   /**
    * The id attribute of the container element where all the helper
@@ -18,15 +15,14 @@ function DomUtilities() {
    * @type {string}
    * @private
    */
-  DomUtilities._containerId = Settings.prefix + 'container';
-
+  static get _containerId() { return Settings.prefix + 'container'; };
 
   /**
    * Matches a single HTML tag
    * @type {RegExp}
    * @private
    */
-  DomUtilities._singleTag = /^<([\w-]+)\s*\/?>(?:<\/\1>|)$/;
+  static get _singleTag() { return /^<([\w-]+)\s*\/?>(?:<\/\1>|)$/; };
 
   /**
    * Todo Use me wherever you find document.createElement or this.elementsContainer
@@ -34,7 +30,7 @@ function DomUtilities() {
    * @param {string} [className]
    * @returns {Element}
    */
-  DomUtilities.addElement = function (tagName, className) {
+  static addElement(tagName, className) {
     var el = document.createElement(tagName);
     if (className) el.className = Settings.prefix + className;
     this.getElementsContainer().appendChild(el);
@@ -46,7 +42,7 @@ function DomUtilities() {
    * @param {Element} el
    * @returns {*}
    */
-  DomUtilities.removeElement = function (el) {
+  static removeElement(el) {
     el.parentNode.removeChild(el);
     return this;
   };
@@ -61,7 +57,7 @@ function DomUtilities() {
    * @returns {Node|null} - Will return the parent node where this
    *     algorithm stopped (The node it did *not* delete)
    */
-  DomUtilities.removeVisible = function (node, constrainingNode) {
+  static removeVisible(node, constrainingNode) {
     var parent = node.parentNode;
     if (node === constrainingNode) return node;
     if (node === document.body) return node;
@@ -82,7 +78,7 @@ function DomUtilities() {
    * @param deep
    * @returns {DomUtilities}
    */
-  DomUtilities.removeTag = function (el, tag, deep) {
+  static removeTag(el, tag, deep) {
     var i;
     if (deep && el.childNodes.length) {
       for (i = 0; i < el.childNodes.length; i += 1) {
@@ -101,7 +97,7 @@ function DomUtilities() {
    * @param {String} htmlString - A string containing HTML
    * @returns {NodeList} - The elements represented by the string
    */
-  DomUtilities.parseHTML = function (htmlString) {
+  static parseHTML(htmlString) {
     var fragment = document.createDocumentFragment(),
       div = fragment.appendChild(document.createElement('div'));
     div.innerHTML = htmlString;
@@ -119,7 +115,7 @@ function DomUtilities() {
    * @param elms
    * @returns {Element}
    */
-  DomUtilities.wrap = function (tag, elms) {
+  static wrap(tag, elms) {
 
     // Even out parameters
     elms = elms.length ? elms : [elms];
@@ -163,7 +159,7 @@ function DomUtilities() {
    * @param {Node} el
    * @returns {DomUtilities}
    */
-  DomUtilities.unwrap = function (el) {
+  static unwrap(el) {
 
     var next = el.nextSibling,
       parent = el.parentNode,
@@ -191,7 +187,7 @@ function DomUtilities() {
    * @param elems
    * @returns {*}
    */
-  DomUtilities.moveAfter = function (reference, elems) {
+  static moveAfter(reference, elems) {
 
     var i;
 
@@ -221,7 +217,7 @@ function DomUtilities() {
    * @param {Node} [constrainingNode]
    * @returns {HTMLElement|null}
    */
-  DomUtilities.parent = function (el, selector, constrainingNode) {
+  static parent(el, selector, constrainingNode) {
     while (el.parentNode && (!constrainingNode || el !== constrainingNode)) {
       if (this.matches(el, selector)) {
         return el;
@@ -241,7 +237,7 @@ function DomUtilities() {
    * @param selector
    * @returns {boolean}
    */
-  DomUtilities.matches = function (el, selector) {
+  static matches(el, selector) {
     var _matches = (el.matches || el.matchesSelector || el.msMatchesSelector || el.mozMatchesSelector || el.webkitMatchesSelector || el.oMatchesSelector);
 
     if (_matches) {
@@ -260,11 +256,11 @@ function DomUtilities() {
    *
    * @returns {Element}
    */
-  DomUtilities.getElementsContainer = function () {
-    var container = window.document.getElementById(this._containerId);
+  static getElementsContainer() {
+    var container = window.document.getElementById(this._containerId());
     if (container === null) {
       container = window.document.createElement('div');
-      container.setAttribute('id', this._containerId);
+      container.setAttribute('id', this._containerId());
       window.document.body.appendChild(container);
     }
     return container;
@@ -276,7 +272,7 @@ function DomUtilities() {
    * @param {Node} node
    * @returns {boolean}
    */
-  DomUtilities.containsButIsnt = function (container, node) {
+  static containsButIsnt(container, node) {
     return container !== node && container.contains(node);
   };
 
@@ -285,7 +281,7 @@ function DomUtilities() {
    * @param obj
    * @returns {boolean}
    */
-  DomUtilities.isNode = function (obj) {
+  static isNode(obj) {
     return !!(obj && obj.nodeType);
   };
 
@@ -296,7 +292,7 @@ function DomUtilities() {
    * @returns {boolean}
    * @private
    */
-  DomUtilities.isVisible = function (el) {
+  static isVisible(el) {
     return !!el.offsetHeight;
   };
 
@@ -308,7 +304,7 @@ function DomUtilities() {
    * @returns {number} - Returns -1 if a precedes b, 1 if it is the
    *     other way around and 0 if they are equal.
    */
-  DomUtilities.order = function (a, b) {
+  static order(a, b) {
     if (a === b) {
       return 0;
     }
@@ -318,6 +314,4 @@ function DomUtilities() {
     return 1;
   };
 
-}).call(DomUtilities);
-
-module.exports = DomUtilities;
+}

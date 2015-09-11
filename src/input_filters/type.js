@@ -1,14 +1,14 @@
 'use strict';
 
-/**
- *
- * @constructor
- */
-function TypeFilter() {
-  this._keys = {};
-}
+export default class TypeFilter {
 
-(function() {
+  /**
+   *
+   * @constructor
+   */
+  constructor() {
+    this._keys = {};
+  }
 
   /**
    * Searches for a callback in the _keys map of this
@@ -19,12 +19,10 @@ function TypeFilter() {
    *     filter for.
    * @returns {TypeFilter} - This instance
    */
-  this.process = function(e) {
+  process(e) {
     var func = this._keys[e.key] || this._keys.all;
     if (func) this[func](e);
     return this;
   };
 
-}).call(TypeFilter.prototype);
-
-module.exports = TypeFilter;
+}

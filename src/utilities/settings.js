@@ -1,7 +1,7 @@
 'use strict';
 
-var Settings = {
+export const Settings = {
   prefix: 'typejs-',
 };
 
-module.exports = Settings;
+export default Settings;

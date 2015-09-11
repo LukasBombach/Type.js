@@ -1,18 +1,18 @@
 'use strict';
 
-var DomUtilities = require('./utilities/dom_utilities');
-var DomWalker = require('./utilities/dom_walker');
+import DomUtilities  from './utilities/dom_utilities';
+import DomWalker  from './utilities/dom_walker';
 
-/**
- *
- * @param {Type} type
- * @constructor
- */
-function Formatter(type) {
-  this._type = type;
-}
+export default class Formatter {
 
-(function() {
+  /**
+   *
+   * @param {Type} type
+   * @constructor
+   */
+  constructor(type) {
+    this._type = type;
+  }
 
   /**
    * A list of tags that are displayed inline. We generate different markup
@@ -24,7 +24,7 @@ function Formatter(type) {
    * @type {string[]}
    * @private
    */
-  this._inlineTags = ['strong', 'em', 'u', 's'];
+  static get _inlineTags() { return ['strong', 'em', 'u', 's']; };
 
   /**
    * A list of tags that are displayed as block elements. We generate different
@@ -36,7 +36,7 @@ function Formatter(type) {
    * @type {string[]}
    * @private
    */
-  this._blockTags  = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote'];
+  static get _blockTags() { return ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote']; };
 
   /**
    * Will call either this.inline, this.block or this._noop depending on
@@ -50,7 +50,7 @@ function Formatter(type) {
    *     for the tag
    * @returns {Element[]} - The elements created by the formatting function
    */
-  this.format = function(tag, typeRange, params) {
+  format(tag, typeRange, params) {
     typeRange.ensureIsInside(this._type.getEl());
     return this._handlerFor(tag).apply(this, arguments);
   };
@@ -61,7 +61,7 @@ function Formatter(type) {
    * @param range
    * @returns {*}
    */
-  this.removeFormat = function(tag, range) {
+  removeFormat(tag, range) {
   };
 
   /**
@@ -71,7 +71,7 @@ function Formatter(type) {
    * @param params
    * @returns {Formatter|Element[]}
    */
-  this.inline = function(tag, typeRange, params) {
+  inline(tag, typeRange, params) {
 
     var args;
     var startNode;
@@ -106,7 +106,7 @@ function Formatter(type) {
    * @param {...*} [params]
    * @returns {Element[]} - The elements created by the formatting function
    */
-  this.insertInline = function(tag, startNode, endNode, params) {
+  insertInline(tag, startNode, endNode, params) {
 
     // Required variables
     var currentNode = startNode;
@@ -155,7 +155,7 @@ function Formatter(type) {
    * @param {TypeRange} typeRange
    * @returns {Formatter}
    */
-  this.removeInline = function(enclosingTag, typeRange) {
+  removeInline(enclosingTag, typeRange) {
 
     var tagName = enclosingTag.tagName;
     var tagPositions = TypeRange.fromElement(enclosingTag).save(this._type.getEl());
@@ -187,7 +187,7 @@ function Formatter(type) {
    * @returns {Formatter}
    * @private
    */
-  this.block = function (cmd, typeRange, params) {
+  block (cmd, typeRange, params) {
     return this.inline.apply(this, arguments);
   };
 
@@ -198,7 +198,7 @@ function Formatter(type) {
    * @returns {*}
    * @private
    */
-  this._getStartNode = function(tag, typeRange) {
+  _getStartNode(tag, typeRange) {
     return typeRange.startTagIs(tag) ? typeRange.getStartElement() : typeRange.splitStartContainer();
   };
 
@@ -209,7 +209,7 @@ function Formatter(type) {
    * @returns {*}
    * @private
    */
-  this._getEndNode = function(tag, typeRange) {
+  _getEndNode(tag, typeRange) {
     return typeRange.endTagIs(tag) ? typeRange.getEndElement() : typeRange.splitEndContainer();
   };
 
@@ -225,10 +225,10 @@ function Formatter(type) {
    *     or block tags, or _noop if the tag is unknown.
    * @private
    */
-  this._handlerFor = function(tag) {
+  _handlerFor(tag) {
     tag = tag.toLowerCase();
-    if (this._inlineTags.indexOf(tag) > -1) return this.inline;
-    if (this._blockTags.indexOf(tag) > -1) return this.block;
+    if (this.constructor._inlineTags.indexOf(tag) > -1) return this.inline;
+    if (this.constructor._blockTags.indexOf(tag) > -1) return this.block;
     //Type.Development.debug('Tag "' + tag + '" not implemented');
     return this._noop;
   };
@@ -239,10 +239,8 @@ function Formatter(type) {
    * @returns {Formatter}
    * @private
    */
-  this._noop = function() {
+  _noop() {
     return this;
   };
 
-}).call(Formatter.prototype);
-
-module.exports = Formatter;
+}

@@ -1,16 +1,16 @@
 'use strict';
 
-var Utilities = require('../utilities/utilities');
+import Utilities from '../utilities/utilities';
 
-/**
- * Creates a new Type event
- * @constructor
- */
-function TypeEvent() {
-  this.canceled = false;
-}
+export default class TypeEvent {
 
-(function() {
+  /**
+   * Creates a new Type event
+   * @constructor
+   */
+  constructor() {
+    this.canceled = false;
+  };
 
   /**
    * jQuery getting and setting of the _data object
@@ -18,7 +18,7 @@ function TypeEvent() {
    * @param value
    * @returns {*}
    */
-  this.data = function(data, value) {
+  data(data, value) {
     this._data = this._data || {};
     return Utilities.getterSetterParams(this, this._data, data, value);
   };
@@ -31,11 +31,9 @@ function TypeEvent() {
    *     will set the event to be cancelled
    * @returns {TypeEvent} - This instance
    */
-  this.cancel = function(doCancel) {
+  cancel(doCancel) {
     this.canceled = doCancel !== false;
     return this;
   };
 
-}).call(TypeEvent.prototype);
-
-module.exports = TypeEvent;
+}

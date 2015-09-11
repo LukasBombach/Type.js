@@ -1,12 +1,6 @@
 'use strict';
 
-/**
- * @constructor
- */
-function Utilities() {
-}
-
-(function() {
+export default class Utilities {
 
   /**
    * This behaves similar to jQuery's extend method. Writes all properties
@@ -18,7 +12,7 @@ function Utilities() {
    * @param {...Object} copyFrom
    * @returns {Object}
    */
-  Utilities.extend = function(copyTo, copyFrom) {
+  static extend(copyTo, copyFrom) {
 
     var i;
     var key;
@@ -40,7 +34,7 @@ function Utilities() {
    * @param {*} obj - An arbitrary object
    * @returns {boolean} - Whether or not the given object is a function instance
    */
-  Utilities.isInstance = function(obj) {
+  static isInstance(obj) {
     return !!(obj && obj.constructor && obj.call && obj.process);
   };
 
@@ -50,7 +44,7 @@ function Utilities() {
    * @param {*} obj - An arbitrary object
    * @returns {boolean} - Whether or not the given object is a function
    */
-  Utilities.isFunction = function(obj) {
+  static isFunction(obj) {
     return typeof obj === 'function';
   };
 
@@ -63,7 +57,7 @@ function Utilities() {
    * @param value
    * @returns {*}
    */
-  Utilities.getterSetterParams = function(instance, base, nameOrObject, value) {
+  static getterSetterParams(instance, base, nameOrObject, value) {
 
     // Pass no name or value to return the base object
     if (arguments.length === 2) {
@@ -90,6 +84,4 @@ function Utilities() {
 
   };
 
-}).call(Utilities);
-
-module.exports = Utilities;
+}

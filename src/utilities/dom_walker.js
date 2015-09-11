@@ -1,41 +1,41 @@
 'use strict';
 
-var Utilities = require('./utilities');
+import Utilities from  './utilities';
 
-/**
- * @param {Node} node - The node to be used as the starting point for the
- *     first traversal operation.
- * @param {Object|Node} [options] - If an object is passed, it should
- *     contain settings determining what node to return, see specifics
- *     below. If a {Node} is passed, this acts as options.constrainingNode
- * @param {Function|string} [options.filter] - nextNode traverses
- *     the DOM tree and passes each node to this function. This function
- *     should return true if the node passed is a node that we look for
- *     or false otherwise. E.g. if we want to find the next text node
- *     in the tree, the function should check if the node passed is of
- *     nodeType === 3. If this parameter is not set, any node found
- *     will be returned.
- *     todo allow css selectors to be used for traversal
- * @param {Node} [options.constrainingNode] While traversing the DOM,
- *     this method will check nodes' parents and parents' parents. By
- *     passing a DOM node as this parameter, traversing up will stop at
- *     this node and return null. This is useful when you want to permit
- *     traversing outside the editor's root node.
- * @constructor
- */
-function DomWalker(node, options) {
-  this.setNode(node);
-  this.options(options);
-}
+export default class DomWalker {
 
-(function() {
+  /**
+   * @param {Node} node - The node to be used as the starting point for the
+   *     first traversal operation.
+   * @param {Object|Node} [options] - If an object is passed, it should
+   *     contain settings determining what node to return, see specifics
+   *     below. If a {Node} is passed, this acts as options.constrainingNode
+   * @param {Function|string} [options.filter] - nextNode traverses
+   *     the DOM tree and passes each node to this function. This function
+   *     should return true if the node passed is a node that we look for
+   *     or false otherwise. E.g. if we want to find the next text node
+   *     in the tree, the function should check if the node passed is of
+   *     nodeType === 3. If this parameter is not set, any node found
+   *     will be returned.
+   *     todo allow css selectors to be used for traversal
+   * @param {Node} [options.constrainingNode] While traversing the DOM,
+   *     this method will check nodes' parents and parents' parents. By
+   *     passing a DOM node as this parameter, traversing up will stop at
+   *     this node and return null. This is useful when you want to permit
+   *     traversing outside the editor's root node.
+   * @constructor
+   */
+  constructor(node, options) {
+    this.setNode(node);
+    this.options(options);
+  }
 
   /**
    * Returns the next node in the document flow and sets the internal reference
    * to the current node to that node.
    * @returns {null|Node}
    */
-  this.next = function(returnMe) {
+  next(returnMe) {
     return this._setNodeIfNotNull(DomWalker._nextNode(this._node, this._options, returnMe));
   };
 
@@ -44,7 +44,7 @@ function DomWalker(node, options) {
    * reference to the current node to that node.
    * @returns {null|Node}
    */
-  this.prefetchNext = function(returnMe) {
+  prefetchNext(returnMe) {
     return DomWalker._nextNode(this._node, this._options, returnMe);
   };
 
@@ -53,7 +53,7 @@ function DomWalker(node, options) {
    * to the current node to that node.
    * @returns {null|Node}
    */
-  this.prev = function(returnMe) {
+  prev(returnMe) {
     return this._setNodeIfNotNull(DomWalker._prevNode(this._node, this._options, returnMe));
   };
 
@@ -62,7 +62,7 @@ function DomWalker(node, options) {
    * reference to the current node to that node.
    * @returns {null|Node}
    */
-  this.prefetchPrev = function(returnMe) {
+  prefetchPrev(returnMe) {
     return DomWalker._prevNode(this._node, this._options, returnMe);
   };
 
@@ -72,7 +72,7 @@ function DomWalker(node, options) {
    * the node found.
    * @returns {null|Node}
    */
-  this.first = function() {
+  first() {
     var node = DomWalker.first(this._node, this._options.filter);
     return this._setNodeIfNotNull(node);
   };
@@ -83,7 +83,7 @@ function DomWalker(node, options) {
    * the node found.
    * @returns {null|Node}
    */
-  this.last = function() {
+  last() {
     var node = DomWalker.last(this._node, this._options.filter);
     return this._setNodeIfNotNull(node);
   };
@@ -92,7 +92,7 @@ function DomWalker(node, options) {
    * Sets the internal node from which traversal is made to the given node.
    * @param {Node} node
    */
-  this.setNode = function(node) {
+  setNode(node) {
     if (!node.nodeType) {
       throw new Error('The given node is not a DOM node');
     }
@@ -105,7 +105,7 @@ function DomWalker(node, options) {
    * @param options
    * @returns {*}
    */
-  this.options = function(options) {
+  options(options) {
     this._options = DomWalker.loadOptions(options);
     return this;
   };
@@ -114,7 +114,7 @@ function DomWalker(node, options) {
    * Returns the current node the walker is on.
    * @returns {Node}
    */
-  this.getNode = function() {
+  getNode() {
     return this._node;
   };
 
@@ -128,7 +128,7 @@ function DomWalker(node, options) {
    * @returns {Node|null}
    * @private
    */
-  this._setNodeIfNotNull = function(node) {
+  _setNodeIfNotNull(node) {
     if (node === null) {
       return null;
     }
@@ -136,24 +136,17 @@ function DomWalker(node, options) {
     return node;
   };
 
-}).call(DomWalker.prototype);
-
-/**
- * todo replace DomWalker with "this" where possible
- */
-(function() {
-
   /**
    *
    * @type {Object}
    * @private
    */
-  DomWalker._filterFunctions = {
+  static get _filterFunctions() {return {
     text: '_isTextNodeWithContents',
     textNode: '_isTextNode',
     textual: '_resemblesText',
-    visible: '_isVisible'
-  };
+    visible: '_isVisible',
+  }; }
 
   /**
    *
@@ -161,7 +154,7 @@ function DomWalker(node, options) {
    * @param options
    * @returns {null|Node}
    */
-  DomWalker.next = function(node, options) {
+  static next(node, options) {
     return DomWalker._nextNode(node, DomWalker.loadOptions(options));
   };
 
@@ -171,7 +164,7 @@ function DomWalker(node, options) {
    * @param options
    * @returns {null|Node}
    */
-  DomWalker.prev = function(node, options) {
+  static prev(node, options) {
     return DomWalker._prevNode(node, DomWalker.loadOptions(options));
   };
 
@@ -181,7 +174,7 @@ function DomWalker(node, options) {
    * @param filter
    * @returns {null|Node}
    */
-  DomWalker.first = function(node, filter) {
+  static first(node, filter) {
     var options = DomWalker.loadOptions(filter);
     options.constrainingNode = node;
     return DomWalker._nextNode(node, options, true);
@@ -193,7 +186,7 @@ function DomWalker(node, options) {
    * @param filter
    * @returns {null|Node}
    */
-  DomWalker.last = function(node, filter) {
+  static last(node, filter) {
     var options = DomWalker.loadOptions(filter);
     options.constrainingNode = node;
     return DomWalker._prevNode(node, options, true);
@@ -204,7 +197,7 @@ function DomWalker(node, options) {
    * @param options
    * @returns {*}
    */
-  DomWalker.loadOptions = function(options) {
+  static loadOptions(options) {
 
     // If no options parameter has been passed
     options = options || {};
@@ -235,7 +228,7 @@ function DomWalker(node, options) {
    * @returns {*}
    * @private
    */
-  DomWalker._loadFilter = function(filter) {
+  static _loadFilter(filter) {
     var funcName;
     if (typeof filter === 'string') {
       funcName = DomWalker._filterFunctions[filter];
@@ -280,7 +273,7 @@ function DomWalker(node, options) {
    *     if none is found for the options.filter criteria or
    *     options.constrainingNode has been hit.
    */
-  DomWalker._nextNode = function(node, options, returnMe) {
+  static _nextNode(node, options, returnMe) {
 
     // For later use
     var parent = node.parentNode;
@@ -349,7 +342,7 @@ function DomWalker(node, options) {
    *     if none is found for the options.filter criteria or
    *     options.constrainingNode has been hit.
    */
-  DomWalker._prevNode = function(node, options, returnMe) {
+  static _prevNode(node, options, returnMe) {
 
     // For later use
     var parent = node.parentNode;
@@ -389,7 +382,7 @@ function DomWalker(node, options) {
    * @returns {boolean}
    * @private
    */
-  DomWalker._isTextNode = function(node) {
+  static _isTextNode(node) {
     return node.nodeType === Node.TEXT_NODE;
   };
 
@@ -401,7 +394,7 @@ function DomWalker(node, options) {
    * @returns {boolean}
    * @private
    */
-  DomWalker._isTextNodeWithContents = function(node) {
+  static _isTextNodeWithContents(node) {
     return node.nodeType === Node.TEXT_NODE && /[^\t\n\r ]/.test(node.textContent);
   };
 
@@ -412,7 +405,7 @@ function DomWalker(node, options) {
    * @returns {boolean}
    * @private
    */
-  DomWalker._resemblesText = function(node) {
+  static _resemblesText(node) {
     return node.nodeName.toLocaleLowerCase() === 'br' || DomWalker._isTextNodeWithContents(node);
   };
 
@@ -423,11 +416,8 @@ function DomWalker(node, options) {
    * @returns {boolean}
    * @private
    */
-  DomWalker._isVisible = function(node) {
+  static _isVisible(node) {
     return !!node.offsetHeight;
   };
 
-}).call(DomWalker);
-
-
-module.exports = DomWalker;
+}

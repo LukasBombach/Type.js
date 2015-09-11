@@ -1,63 +1,63 @@
 'use strict';
 
-var OOP = require('./utilities/oop');
-var Eventable = require('./utilities/eventable');
-var Utilities = require('./utilities/utilities');
-var DomUtilities = require('./utilities/dom_utilities');
-var InputPipeline = require('./input/input_pipeline');
-var Formatter = require('./formatter');
 
-/**
- * Creates a new Type editor and sets up the core
- * modules used for WYSIWYG editing. The core
- * class only holds methods for setting and retrieving
- * options as well getters and setters for instances
- * of core modules.
- *
- * @param {{}|Element} options - Either pass
- *     an associative array with options for this
- *     editor or the root element that should be
- *     used to modify its contents for WYSIWYG
- *     editing
- * @param {Element} options.el The root element
- *     that should be used to modify its contents
- *     for WYSIWYG editing
- * @constructor
- */
-function Type(options) {
+import Eventable from './utilities/eventable.es5';
+import Utilities from './utilities/utilities';
+import DomUtilities from './utilities/dom_utilities';
+import InputPipeline from './input/input_pipeline';
+import Formatter from './formatter';
 
-  // Allow passing an element as only parameter
-  if (DomUtilities.isNode(options)) {
-    options = {el: options};
+export default class Type {
+
+  /**
+   * Creates a new Type editor and sets up the core
+   * modules used for WYSIWYG editing. The core
+   * class only holds methods for setting and retrieving
+   * options as well getters and setters for instances
+   * of core modules.
+   *
+   * @param {{}|Element} options - Either pass
+   *     an associative array with options for this
+   *     editor or the root element that should be
+   *     used to modify its contents for WYSIWYG
+   *     editing
+   * @param {Element} options.el The root element
+   *     that should be used to modify its contents
+   *     for WYSIWYG editing
+   * @constructor
+   */
+  constructor(options) {
+
+    // Allow passing an element as only parameter
+    if (DomUtilities.isNode(options)) {
+      options = {el: options};
+    }
+
+    // If no element has been passed, interrupt
+    if (!options.el) {
+      throw new Error('You must provide an element as root node for the editor\'s contents.');
+    }
+
+    // Set settings for this editor
+    this._options = null;
+    this.options(options);
+
+    // Enable editing mode on root element
+    this._setElementEditable(options.el);
+
+    // Core modules
+    this._inputPipeline = new InputPipeline(this);
+    this._formatter = new Formatter(this);
+
+    // Trigger events
+    Type.trigger('ready', this);
+
   }
 
-  // If no element has been passed, interrupt
-  if (!options.el) {
-    throw new Error('You must provide an element as root node for the editor\'s contents.');
-  }
-
-  // Set settings for this editor
-  this._options = null;
-  this.options(options);
-
-  // Enable editing mode on root element
-  this._setElementEditable(options.el);
-
-  // Core modules
-  this._inputPipeline = new InputPipeline(this);
-  this._formatter = new Formatter(this);
-
-  // Trigger events
-  Type.trigger('ready', this);
-
-}
-
-/**
- * Make Type eventable
- */
-OOP.inherits(Type, Eventable);
-
-(function() {
+  /**
+   * Make Type eventable
+   */
+  //OOP.inherits(Type, Eventable);
 
   /**
    * Allows fast detection if an object is a Type Editor
@@ -65,7 +65,7 @@ OOP.inherits(Type, Eventable);
    *
    * @type {boolean}
    */
-  this.typeEditor = true;
+  //typeEditor = true;
 
   /**
    * Holds the default options for every editor. These options
@@ -75,10 +75,10 @@ OOP.inherits(Type, Eventable);
    * @type {{el: null, undoSteps: number}}
    * @private
    */
-  this._defaultOptions = {
+  /*_defaultOptions = {
     el: null,
     undoSteps: 20,
-  };
+  };*/
 
   /**
    * Sets or gets the options to be used by this Type instance.
@@ -107,7 +107,7 @@ OOP.inherits(Type, Eventable);
    * @returns {Type|*} Returns the type instance if you set an
    *     option or the according value if you get an option
    */
-  this.options = function(options, value) {
+  options(options, value) {
     this._options = this._options || Utilities.extend({}, this._defaultOptions);
     return Utilities.getterSetterParams(this, this._options, options, value);
   };
@@ -124,26 +124,34 @@ OOP.inherits(Type, Eventable);
    *     See {Type.DomWalker} for a description of possible arguments
    * @returns {Type.DomWalker}
    */
-  this.createDomWalker = function(node, options) {
-    options = Type.DomWalker.loadOptions(options || {});
-    options.constrainingNode = options.constrainingNode || this._root;
-    return new Type.DomWalker(node, options);
-  };
+  //createDomWalker = function(node, options) {
+  //  options = Type.DomWalker.loadOptions(options || {});
+  //  options.constrainingNode = options.constrainingNode || this._root;
+  //  return new Type.DomWalker(node, options);
+  //};
 
   /**
    * Getter for this instance's root element, i.e. the
    * element that contains this editor's text.
    * @returns {Element}
    */
-  this.getEl = function() {
+  getEl() {
     return this._options.el;
+  };
+
+  /**
+   * Getter for this instance's input pipelein
+   * @returns {InputPipeline}
+   */
+  getInputPipeline() {
+    return this._inputPipeline;
   };
 
   /**
    * Getter for this instance's formatter
    * @returns {Formatter}
    */
-  this.getFormatter = function() {
+  getFormatter() {
     return this._formatter;
   };
 
@@ -158,22 +166,18 @@ OOP.inherits(Type, Eventable);
    * @returns {Type}
    * @private
    */
-  this._setElementEditable = function(el, val) {
+  _setElementEditable(el, val) {
     val = val === false ? 'false' : 'true';
     el.setAttribute('contenteditable', val);
     return this;
   };
 
-}).call(Type.prototype);
+}
 
 /**
  * Exposes Type's prototype as jQuery-style shorthand variable
  * @type {Object}
  */
-Type.fn = Type.prototype;
+//Type.fn = Type.prototype;
 
-/**
- * Module Exports for CommonJs
- * @type {Type}
- */
-module.exports = Type;
+Object.assign(Type, Eventable);
