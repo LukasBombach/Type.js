@@ -1,9 +1,15 @@
 'use strict';
 
 /**
- * Todo should be mixin
+ *
+ * @constructor
  */
-export default class Eventable {
+export default function Eventable() {};
+
+/**
+ * Methods for instance events
+ */
+(function() {
 
   /**
    * Register a callback for a Type specific event
@@ -11,9 +17,9 @@ export default class Eventable {
    * @param {String} eventName - The name of the event on which you wish the
    *     function to be called
    * @param {Function} cb - The function you wish to be called on the event
-   * @returns {Eventable}
+   * @returns {Eventable|*}
    */
-  on(eventName, cb) {
+  this.on = function(eventName, cb) {
     this.eventCallbacks = this.eventCallbacks || {};
     this.eventCallbacks[eventName] = this.eventCallbacks[eventName] || [];
     this.eventCallbacks[eventName].push(cb);
@@ -26,9 +32,9 @@ export default class Eventable {
    * @param {String} eventName - The name of the event on which you wish the
    *     for which you no longer wish to call the function
    * @param {Function} cb - The function you no longer wish to be called
-   * @returns {Eventable}
+   * @returns {Eventable|*}
    */
-  off(eventName, cb) {
+  this.off = function(eventName, cb) {
 
     var index;
 
@@ -49,9 +55,9 @@ export default class Eventable {
    *     call its callbacks for
    * @param {...*} params - Arbitrary parameters you wish to pass to the
    *     callbacks
-   * @returns {Eventable}
+   * @returns {Eventable|*}
    */
-  trigger(eventName, params) {
+  this.trigger = function(eventName, params) {
 
     var i;
 
@@ -67,6 +73,10 @@ export default class Eventable {
 
   };
 
+}).call(Eventable.prototype);
+
+(function() {
+
   /**
    * Register a callback for a global Type event
    *
@@ -75,7 +85,7 @@ export default class Eventable {
    * @param {Function} cb - The function you wish to be called on the event
    * @returns {Eventable|*}
    */
-  static on(eventName, cb) {
+  Eventable.on = function(eventName, cb) {
     this.eventCallbacks = this.eventCallbacks || {};
     this.eventCallbacks[eventName] = this.eventCallbacks[eventName] || [];
     this.eventCallbacks[eventName].push(cb);
@@ -90,7 +100,7 @@ export default class Eventable {
    * @param {Function} cb - The function you no longer wish to be called
    * @returns {Eventable|*}
    */
-  static off(eventName, cb) {
+  Eventable.off = function(eventName, cb) {
 
     var index;
 
@@ -113,7 +123,7 @@ export default class Eventable {
    *     callbacks
    * @returns {Eventable|*}
    */
-  static trigger(eventName, params) {
+  Eventable.trigger = function(eventName, params) {
 
     var i;
 
@@ -128,4 +138,4 @@ export default class Eventable {
     return this;
   };
 
-}
+}).call(Eventable);

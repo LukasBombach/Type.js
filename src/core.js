@@ -1,16 +1,13 @@
 'use strict';
 
-//var OOP = require('./utilities/oop');
-//var Eventable = require('./utilities/eventable');
-//var Utilities = require('./utilities/utilities');
 //var DomUtilities = require('./utilities/dom_utilities');
 //var InputPipeline = require('./input/input_pipeline');
 //var Formatter = require('./formatter');
 
-import Eventable from './utilities/eventable';
+import Eventable from './utilities/eventable.es5';
 import Utilities from './utilities/utilities';
 
-export default class Type extends Eventable {
+export default class Type {
 
   /**
    * Creates a new Type editor and sets up the core
@@ -30,8 +27,6 @@ export default class Type extends Eventable {
    * @constructor
    */
   constructor(options) {
-
-    super();
 
     // Allow passing an element as only parameter
     //if (DomUtilities.isNode(options)) {
@@ -55,7 +50,7 @@ export default class Type extends Eventable {
     //this._formatter = new Formatter(this);
 
     // Trigger events
-    //Type.trigger('ready', this);
+    Type.trigger('ready', this);
 
   }
 
@@ -176,3 +171,5 @@ export default class Type extends Eventable {
  * @type {Object}
  */
 //Type.fn = Type.prototype;
+
+Object.assign(Type, Eventable);
