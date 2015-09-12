@@ -1,7 +1,5 @@
 'use strict';
 
-
-//import Eventable from './utilities/eventable.es5';
 import EventEmitter from './utilities/event_emitter.js';
 import Events from  './utilities/events';
 import Utilities from './utilities/utilities';
@@ -9,6 +7,8 @@ import DomUtilities from './utilities/dom_utilities';
 import InputPipeline from './input/input_pipeline';
 import Formatter from './formatter';
 import TypeSelection from './selection';
+
+const staticEmitter = new EventEmitter();
 
 export default class Type {
 
@@ -55,14 +55,9 @@ export default class Type {
 
     // Events
     this._observeEvents();
-    //Type.emit('ready', this);
+    Type.emit('ready', this);
 
   }
-
-  /**
-   * Make Type eventable
-   */
-  //OOP.inherits(Type, Eventable);
 
   /**
    * Allows fast detection if an object is a Type Editor
@@ -219,13 +214,46 @@ export default class Type {
     return this;
   }
 
+  /**
+   *
+   * @param {string} type
+   * @param {Function} listener
+   * @returns {Type}
+   */
+  static on(type, listener) {
+    staticEmitter.on.call(staticEmitter, type, listener);
+    return this;
+  };
+
+  /**
+   *
+   * @param {string} type
+   * @param {Function} listener
+   * @returns {Type}
+   */
+  static off(type, listener) {
+    staticEmitter.off.call(staticEmitter, type, listener);
+    return this;
+  };
+
+  /**
+   *
+   * @param {string} type
+   * @param args
+   * @returns {Type}
+   */
+  static emit(type, ...args) {
+    staticEmitter.emit.apply(staticEmitter, [type].concat(args));
+    return this;
+  };
+
+  /**
+   * Exposes Type's prototype as jQuery-style shorthand variable
+   *
+   * @returns {Object}
+   */
+  static get fn() {
+    return this.prototype;
+  };
+
 }
-
-/**
- * Exposes Type's prototype as jQuery-style shorthand variable
- * @type {Object}
- */
-//Type.fn = Type.prototype;
-
-//Object.assign(Type, Eventable);
-//Object.assign(Type.prototype, Eventable.prototype);

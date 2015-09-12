@@ -2,7 +2,7 @@
 
 import Development from './development';
 
-var DEFAULT_MAX_LISTENERS = 12;
+let DEFAULT_MAX_LISTENERS = 12;
 
 export default class EventEmitter {
 
@@ -84,7 +84,7 @@ export default class EventEmitter {
   emit(type, ...args) {
 
     if (this._eventListeners[type]) {
-      this._eventListeners.forEach(fn => fn.apply(null, args));
+      this._eventListeners[type].forEach(fn => fn.apply(null, args));
     }
 
     return this;
@@ -104,4 +104,5 @@ export default class EventEmitter {
     this._maxListeners = maxListeners;
     return this;
   }
+
 }
