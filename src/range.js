@@ -39,6 +39,17 @@ export default class TypeRange {
   };
 
   /**
+   * Returns whether or not the start and end containers of this
+   * range are still <em>there</em>.
+   * @returns {boolean}
+   */
+  isValid() {
+    return !!this.startContainer && !!this.endContainer &&
+        this.startOffset <= this.startContainer.length &&
+        this.endOffset <= this.endContainer.length;
+  };
+
+  /**
    * If the startContainer and the endContainer are enclosed by
    * the same element matching the selector, that element will
    * be returned. Otherwise null will be returned.
@@ -93,7 +104,7 @@ export default class TypeRange {
    *     is a parent to the start and endContainer.
    * @returns {boolean}
    */
-  ensureIsInside (el) {
+  ensureIsInside(el) {
     if (this.isInside(el)) {
       return true;
     }

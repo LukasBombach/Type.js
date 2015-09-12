@@ -38,22 +38,15 @@ export default class CommandFilter extends TypeFilter{
   }
 
   /**
-   * @param {InputEvent} e
+   * @param {KeydownEvent} e
    */
   command(e) {
-
-    var range;
-    var elements;
-
     if (e.cmd) {
-
-      range = TypeRange.fromCurrentSelection();
-      elements = this._type.getFormatter().format(this._tags[e.key], range);
-      TypeSelection.select(elements);
-
+      var sel = TypeSelection.fromNativeSelection();
+      this._type.getFormatter().format(this._tags[e.key], sel.getRange());
+      sel.select();
       e.cancel();
     }
-
   };
 
 }

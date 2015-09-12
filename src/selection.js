@@ -7,11 +7,82 @@ export default class TypeSelection {
 
   /**
    *
-   * @returns {{start: number, end: number}}
+   * @param {Text} startContainer
+   * @param {number} startOffset
+   * @param {Text} endContainer
+   * @param {number} endOffset
+   * @param {Type} type
+   * @constructor
    */
-  static save() {
-    TypeRange.fromCurrentSelection().save();
-    return { start: 20, end: 30 };
+  construct(startContainer, startOffset, endContainer, endOffset, type) {
+    this._typeRange = new TypeRange(startContainer, startOffset, endContainer, endOffset);
+    this._absOffsets = this._absoluteOffsetsFrom(type.getEl());
+  };
+
+  /**
+   *
+   * @returns {TypeSelection}
+   */
+  select() {
+    this._typeRange = this._revalidateRange();
+    this.constructor.select(this._typeRange);
+    return this;
+  };
+
+  /**
+   *
+   * @returns {TypeSelection}
+   */
+  deselect() {
+    this.constructor.deselect();
+    return this;
+  };
+
+  /**
+   *
+   * @returns {TypeRange}
+   */
+  getRange() {
+    this._typeRange = this._revalidateRange();
+    return this._typeRange;
+  }
+
+  /**
+   *
+   * @returns {TypeRange}
+   * @private
+   */
+  _revalidateRange() {
+    return this._typeRange.isValid() ? this._typeRange : TypeRange.load(this._absOffsets);
+  };
+
+  /**
+   *
+   * @param {Element} el
+   * @returns {{from: Element, start: number, end: number}}
+   * @private
+   */
+  _absoluteOffsetsFrom(el) {
+    return TypeRange.fromRange(this._getRange()).save(el);
+  };
+
+  /**
+   *
+   * @returns {TypeSelection}
+   * @constructor
+   */
+  static fromNativeSelection() {
+    return TypeSelection.fromRange(window.getSelection().getRangeAt(0));
+  };
+
+  /**
+   *
+   * @param {Range} range
+   * @returns {TypeSelection}
+   * @constructor
+   */
+  static fromRange(range) {
+    return new TypeSelection(range.startContainer, range.startOffset, range.endContainer, range.endOffset);
   };
 
   /**
@@ -35,6 +106,15 @@ export default class TypeSelection {
 
     return this;
 
+  };
+
+  /**
+   *
+   * @returns {TypeSelection}
+   */
+  static deselect() {
+    window.getSelection().removeAllRanges();
+    return this;
   };
 
   /**
