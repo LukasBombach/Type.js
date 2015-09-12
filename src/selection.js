@@ -125,6 +125,17 @@ export default class TypeSelection {
 
   /**
    *
+   * @param {Element} el
+   * @returns {TypeSelection}
+   */
+  static observerSelectionChangeEventFor(el) {
+    Events.addListener(this._options.el, 'select',
+        (e) => this.trigger('select', [TypeSelection.fromNativeSelection()]));
+    return this;
+  };
+
+  /**
+   *
    * @param {Node[]} elements
    * @returns {TypeSelection}
    * @private

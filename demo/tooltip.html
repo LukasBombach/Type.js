@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Type.js Demo</title>
+    <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+
+<div id="document">
+    Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+</div>
+
+<script src="../dist/type.js"></script>
+<script>
+    var el = document.getElementById('document');
+    var type = new Type(el);
+
+    type.on('select', function(typeSelection) {
+        console.log(typeSelection);
+    });
+
+</script>
+</body>
+</html>

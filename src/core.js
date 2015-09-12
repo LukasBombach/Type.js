@@ -1,11 +1,14 @@
 'use strict';
 
 
-import Eventable from './utilities/eventable.es5';
+//import Eventable from './utilities/eventable.es5';
+import EventEmitter from './utilities/event_emitter.js';
+import Events from  './utilities/events';
 import Utilities from './utilities/utilities';
 import DomUtilities from './utilities/dom_utilities';
 import InputPipeline from './input/input_pipeline';
 import Formatter from './formatter';
+import TypeSelection from './selection';
 
 export default class Type {
 
@@ -46,11 +49,13 @@ export default class Type {
     this._setElementEditable(options.el);
 
     // Core modules
+    this._eventEmitter = new EventEmitter();
     this._inputPipeline = new InputPipeline(this);
     this._formatter = new Formatter(this);
 
-    // Trigger events
-    Type.trigger('ready', this);
+    // Events
+    this._observeEvents();
+    //Type.emit('ready', this);
 
   }
 
@@ -113,6 +118,39 @@ export default class Type {
   };
 
   /**
+   *
+   * @param {string} type
+   * @param {Function} listener
+   * @returns {Type}
+   */
+  on(type, listener) {
+    this._eventEmitter.on.call(this._eventEmitter, type, listener);
+    return this;
+  };
+
+  /**
+   *
+   * @param {string} type
+   * @param {Function} listener
+   * @returns {Type}
+   */
+  off(type, listener) {
+    this._eventEmitter.off.call(this._eventEmitter, type, listener);
+    return this;
+  };
+
+  /**
+   *
+   * @param {string} type
+   * @param args
+   * @returns {Type}
+   */
+  emit(type, ...args) {
+    this._eventEmitter.emit.apply(this._eventEmitter, [type].concat(args));
+    return this;
+  };
+
+  /**
    * Creates a {Type.DomWalker} that ist constrained to this
    * instance's root element unless you explicitly pass a
    * constrainingNode as argument. All other DomWalker options
@@ -172,6 +210,15 @@ export default class Type {
     return this;
   };
 
+  /**
+   *
+   * @returns {Type}
+   * @private
+   */
+  _observeEvents() {
+    return this;
+  }
+
 }
 
 /**
@@ -180,4 +227,5 @@ export default class Type {
  */
 //Type.fn = Type.prototype;
 
-Object.assign(Type, Eventable);
+//Object.assign(Type, Eventable);
+//Object.assign(Type.prototype, Eventable.prototype);
