@@ -8,6 +8,8 @@ export default class Utilities {
    * Copying starts from left to right and will overwrite each setting
    * subsequently.
    *
+   * todo use es6
+   *
    * @param {Object} copyTo
    * @param {...Object} copyFrom
    * @returns {Object}
@@ -30,6 +32,8 @@ export default class Utilities {
 
   /**
    * Tests and returns if a given object is a function instance
+   *
+   * todo instanceof Function ?
    *
    * @param {*} obj - An arbitrary object
    * @returns {boolean} - Whether or not the given object is a function instance
@@ -82,6 +86,19 @@ export default class Utilities {
     // If values have been set, return the instance for chaining
     return instance;
 
+  };
+
+  /**
+   * Return's the window's horizontal an vertical scroll positions
+   *
+   * @returns {{top: (number), left: (number)}}
+   * @private
+   */
+  static getScrollPosition() {
+    return {
+      top: window.pageYOffset || document.documentElement.scrollTop,
+      left: window.pageXOffset || document.documentElement.scrollLeft
+    };
   };
 
 }

@@ -40,6 +40,14 @@ export default class TypeSelection {
 
   /**
    *
+   * @returns {{top: number, bottom: number, left: number, right: number}}
+   */
+  getOffsets() {
+    return this._typeRange.getBoundingRect();
+  }
+
+  /**
+   *
    * @returns {TypeRange}
    */
   getRange() {
@@ -94,13 +102,11 @@ export default class TypeSelection {
 
     if (arguments[0] instanceof Range) {
       return TypeSelection._selectRange(arguments[0]);
-    }
 
-    if (arguments[0] instanceof TypeRange) {
+    } else if (arguments[0] instanceof TypeRange) {
       return TypeSelection._selectTypeRange(arguments[0]);
-    }
 
-    if (Array.isArray(arguments[0])) {
+    } else if (Array.isArray(arguments[0])) {
       return TypeSelection._selectElements(arguments[0]);
     }
 

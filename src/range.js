@@ -1,6 +1,7 @@
 'use strict';
 
 import Type from './core';
+import Utilities from './utilities/utilities';
 import DomUtilities from './utilities/dom_utilities';
 
 export default class TypeRange {
@@ -47,6 +48,26 @@ export default class TypeRange {
     return !!this.startContainer && !!this.endContainer &&
         this.startOffset <= this.startContainer.length &&
         this.endOffset <= this.endContainer.length;
+  };
+
+  /**
+   * Returns the position offsets of a rectangle containing this range's
+   * contents.
+   *
+   * @returns {{top: number, bottom: number, left: number, right: number}}
+   */
+  getBoundingRect() {
+
+    var rect = this.getNativeRange().getBoundingClientRect();
+    var scroll = Utilities.getScrollPosition();
+
+    return {
+      top: rect.top + scroll.top,
+      right: rect.right + scroll.left,
+      bottom: rect.bottom + scroll.top,
+      left: rect.left + scroll.left,
+    };
+
   };
 
   /**
