@@ -2,6 +2,7 @@
 
 import TypeRange from './range';
 import DomWalker from './utilities/dom_walker';
+import Events from  './utilities/events';
 
 export default class TypeSelection {
 
@@ -80,7 +81,9 @@ export default class TypeSelection {
    * @constructor
    */
   static fromNativeSelection() {
-    return TypeSelection.fromRange(window.getSelection().getRangeAt(0));
+    var sel = window.getSelection();
+    var range = !sel.isCollapsed ? sel.getRangeAt(0) : document.createRange();
+    return TypeSelection.fromRange(range);
   };
 
   /**
@@ -125,12 +128,12 @@ export default class TypeSelection {
 
   /**
    *
-   * @param {Element} el
+   * @param {Type} type
    * @returns {TypeSelection}
    */
-  static observerSelectionChangeEventFor(el) {
-    Events.addListener(this._options.el, 'select',
-        (e) => this.trigger('select', [TypeSelection.fromNativeSelection()]));
+  static emitEventsFor(type) {
+    Events.addListener(type.getEl(), 'selectstart',
+        (e) => type.emit('select', [TypeSelection.fromNativeSelection()]));
     return this;
   };
 

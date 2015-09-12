@@ -1,7 +1,6 @@
 'use strict';
 
 import EventEmitter from './utilities/event_emitter.js';
-import Events from  './utilities/events';
 import Utilities from './utilities/utilities';
 import DomUtilities from './utilities/dom_utilities';
 import InputPipeline from './input/input_pipeline';
@@ -54,7 +53,7 @@ export default class Type {
     this._formatter = new Formatter(this);
 
     // Events
-    this._observeEvents();
+    TypeSelection.emitEventsFor(this);
     Type.emit('ready', this);
 
   }
@@ -204,15 +203,6 @@ export default class Type {
     el.setAttribute('contenteditable', val);
     return this;
   };
-
-  /**
-   *
-   * @returns {Type}
-   * @private
-   */
-  _observeEvents() {
-    return this;
-  }
 
   /**
    *
