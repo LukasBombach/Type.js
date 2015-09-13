@@ -101,4 +101,44 @@ export default class Utilities {
     };
   };
 
+  /**
+   * Returns a function, that, as long as it continues to be invoked, will not
+   * be triggered. The function will be called after it stops being called for
+   * N milliseconds. If `immediate` is set to false, trigger the function on the
+   * trailing edge, instead of the leading.
+   *
+   * By David Walsh (modified) {@link http://davidwalsh.name/function-debounce}
+   *
+   * @param {Function} func - The function to debounce
+   * @param {number} wait - The milliseconds to debounce the function for
+   * @param {boolean} [immediate] - Optional defaults to true. If set to false
+   *     will trigger the function on the trailing edge, instead of the leading.
+   * @returns {Function} - The debounced function
+   */
+  static debounce(func, wait, immediate) {
+
+    immediate = immediate !== false;
+
+    let timeout;
+
+    return function() {
+
+      const _this = this;
+      const args = arguments;
+
+      const later = function() {
+        timeout = null;
+        if (!immediate) func.apply(_this, args);
+      };
+
+      const callNow = immediate && !timeout;
+
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+
+      if (callNow) func.apply(_this, args);
+
+    };
+  };
+
 }

@@ -17,10 +17,13 @@ export default class Events {
    * @returns {*}
    */
   static addListener(el, type, listener, useCapture) {
-    if (el.addEventListener) {
-      return el.addEventListener(type, listener, useCapture || false);
-    } else if (el.attachEvent)  {
-      return el.attachEvent('on' + type, listener);
+    const multiple = type.split(' ');
+    for (type of multiple) {
+      if (el.addEventListener) {
+        return el.addEventListener(type, listener, useCapture || false);
+      } else if (el.attachEvent) {
+        return el.attachEvent('on' + type, listener);
+      }
     }
   };
 

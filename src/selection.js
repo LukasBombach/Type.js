@@ -41,6 +41,15 @@ export default class TypeSelection {
 
   /**
    *
+   * @param {TypeSelection} that
+   * @returns {boolean}
+   */
+  equals(that) {
+    return this._typeRange.equals(that.getRange());
+  };
+
+  /**
+   *
    * @returns {{top: number, bottom: number, left: number, right: number}}
    */
   getOffsets() {
@@ -123,17 +132,6 @@ export default class TypeSelection {
    */
   static deselect() {
     window.getSelection().removeAllRanges();
-    return this;
-  };
-
-  /**
-   *
-   * @param {Type} type
-   * @returns {TypeSelection}
-   */
-  static emitEventsFor(type) {
-    Events.addListener(type.getEl(), 'selectstart',
-        (e) => type.emit('select', [TypeSelection.fromNativeSelection()]));
     return this;
   };
 

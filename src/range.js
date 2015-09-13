@@ -51,6 +51,18 @@ export default class TypeRange {
   };
 
   /**
+   *
+   * @param {TypeRange} that
+   * @returns {boolean}
+   */
+  equals(that) {
+    return this.startContainer === that.startContainer &&
+        this.startOffset === that.startOffset &&
+        this.endContainer === that.endContainer &&
+        this.endOffset === that.endOffset;
+  };
+
+  /**
    * Returns the position offsets of a rectangle containing this range's
    * contents.
    *

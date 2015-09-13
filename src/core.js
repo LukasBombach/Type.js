@@ -5,7 +5,7 @@ import Utilities from './utilities/utilities';
 import DomUtilities from './utilities/dom_utilities';
 import InputPipeline from './input/input_pipeline';
 import Formatter from './formatter';
-import TypeSelection from './selection';
+import SelectionInput from './input/selection_input';
 
 const staticEmitter = new EventEmitter();
 
@@ -53,7 +53,7 @@ export default class Type {
     this._formatter = new Formatter(this);
 
     // Events
-    TypeSelection.emitEventsFor(this);
+    new SelectionInput(this);
     Type.emit('ready', this);
 
   }
