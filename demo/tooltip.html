@@ -16,8 +16,16 @@
     var el = document.getElementById('document');
     var type = new Type(el);
 
+    type.on('selectstart', function(typeSelection) {
+        console.log('selectstart');
+    });
+
     type.on('select', function(typeSelection) {
-        console.log(typeSelection);
+        console.log('select');
+    });
+
+    type.on('selectend', function(typeSelection) {
+        console.log('selectend');
     });
 
 </script>

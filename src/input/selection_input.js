@@ -22,7 +22,7 @@ export default class SelectionInput {
    * @returns {SelectionInput}
    */
   _addListenersFor(type) {
-    Events.addListener(type.getEl(), 'selectstart', this._selectionStart.bind(this));
+    //Events.addListener(type.getEl(), 'selectstart', this._selectionStart.bind(this));
     Events.addListener(type.getEl(), 'mouseup keydown', this._checkSelectionAndEmit.bind(this));
     return this;
   };
@@ -33,38 +33,28 @@ export default class SelectionInput {
    * @private
    */
   _checkSelectionAndEmit() {
-
     var sel = TypeSelection.fromNativeSelection();
-
-    if (!this._lastSelection.equals(sel)) {
-      this._lastSelection = sel;
-      this._emitSelectionChange(this._lastSelection);
-    }
-
+    this._checkAndEmitStart(sel);
+    this._checkAndEmitChange(sel);
+    this._checkAndEmitEnd(sel);
+    this._lastSelection = !sel.isCollapsed() ? sel : null;
     return this;
-
   };
 
   /**
    *
-   * @private
-   */
-  _selectionStart() {
-    this._lastSelection = TypeSelection.fromNativeSelection();
-    this._emitSelectionStart(this._lastSelection);
-    this._emitSelectionChange(this._lastSelection);
-  }
-
-  /**
-   *
    * @param {TypeSelection} sel
    * @returns {SelectionInput}
    * @private
    */
-  _emitSelectionStart(sel) {
-    this._type.emit('selectstart', sel);
+  _checkAndEmitStart(sel) {
+    if (this._lastSelection === null && !sel.isCollapsed()) {
+      this._type.emit('selectstart', sel);
+      this._type.emit('select', sel);
+    }
+
     return this;
-  }
+  };
 
   /**
    *
@@ -72,8 +62,25 @@ export default class SelectionInput {
    * @returns {SelectionInput}
    * @private
    */
-  _emitSelectionChange(sel) {
-    this._type.emit('select', sel);
+  _checkAndEmitChange(sel) {
+    if (this._lastSelection !== null && !this._lastSelection.equals(sel)) {
+      this._type.emit('select', sel);
+    }
+
+    return this;
+  };
+
+  /**
+   *
+   * @param {TypeSelection} sel
+   * @returns {SelectionInput}
+   * @private
+   */
+  _checkAndEmitEnd(sel) {
+    if (this._lastSelection !== null && sel.isCollapsed()) {
+      this._type.emit('selectend', sel);
+    }
+
     return this;
   }
 

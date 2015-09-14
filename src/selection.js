@@ -15,9 +15,10 @@ export default class TypeSelection {
    * @param {Type} type
    * @constructor
    */
-  construct(startContainer, startOffset, endContainer, endOffset, type) {
+  constructor(startContainer, startOffset, endContainer, endOffset, type) {
     this._typeRange = new TypeRange(startContainer, startOffset, endContainer, endOffset);
-    this._absOffsets = this._absoluteOffsetsFrom(type.getEl());
+    if (type)
+      this._absOffsets = this._absoluteOffsetsFrom(type.getEl());
   };
 
   /**
@@ -46,6 +47,14 @@ export default class TypeSelection {
    */
   equals(that) {
     return this._typeRange.equals(that.getRange());
+  };
+
+  /**
+   *
+   * @returns {boolean}
+   */
+  isCollapsed() {
+    return this._typeRange.isCollapsed();
   };
 
   /**

@@ -95,6 +95,8 @@ export default class Type {
    * this.options({el: myElement, foo:bar})
    * sets both parameters
    *
+   * todo newOptions && getterSetterParams === crap
+   *
    * @param {(string|{el: Element}|{}|*)} options - Either a plain object
    *     with keys and values to be set or a string that will
    *     be used as a name for a option. If you pass a string,
@@ -108,7 +110,9 @@ export default class Type {
    */
   options(options, value) {
     this._options = this._options || Utilities.extend({}, this._defaultOptions);
-    return Utilities.getterSetterParams(this, this._options, options, value);
+    let newOptions = Utilities.getterSetterParams(this, this._options, options, value);
+    //this.emit('optionsChanged', this._options);
+    return newOptions;
   };
 
   /**
