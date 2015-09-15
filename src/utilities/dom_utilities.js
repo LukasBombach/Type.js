@@ -286,6 +286,15 @@ export default class DomUtilities {
   };
 
   /**
+   *
+   * @param node
+   * @returns {boolean}
+   */
+  static isTextNode(node) {
+    return node.nodeType && node.nodeType === Node.TEXT_NODE;
+  }
+
+  /**
    * Returns true if the given node is visible to the user.
    *
    * @param {Element} el - The element to be checked

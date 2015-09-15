@@ -46,8 +46,8 @@ export default class TypeRange {
    */
   isValid() {
     return !!this.startContainer && !!this.endContainer &&
-        this.startOffset <= this.startContainer.length &&
-        this.endOffset <= this.endContainer.length;
+        (!DomUtilities.isTextNode(this.startContainer) || this.startOffset <= this.startContainer.length) &&
+        (!DomUtilities.isTextNode(this.endContainer) || this.endOffset <= this.endContainer.length);
   };
 
   /**
