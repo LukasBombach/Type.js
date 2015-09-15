@@ -61,7 +61,7 @@ export default class TypeSelection {
    *
    * @returns {{top: number, bottom: number, left: number, right: number}}
    */
-  getOffsets() {
+  getBoundingRect() {
     return this._typeRange.getBoundingRect();
   }
 

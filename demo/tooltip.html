@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Type.js Demo</title>
-    <link rel="stylesheet" href="demo.css">
+    <link rel="stylesheet" href="demos.css">
 </head>
 <body>
 
@@ -11,21 +11,43 @@
     Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh ultricies vehicula ut id elit.
 </div>
 
+<ul id="tooltip" class="hidden">
+    <li><button data-tag="strong">B</button></li>
+    <li><button data-tag="em">i</button></li>
+    <li><button data-tag="h1">H1</button></li>
+    <li><button data-tag="h2">H2</button></li>
+    <li><button data-tag="h3">H3</button></li>
+</ul>
+
 <script src="../dist/type.js"></script>
 <script>
+
     var el = document.getElementById('document');
+    var tooltip = document.getElementById('tooltip');
+    var buttons = tooltip.querySelectorAll('[data-tag]');
+
+    var topDelta = tooltip.offsetHeight + 5;
+    var leftDelta = tooltip.offsetWidth / 2;
+
     var type = new Type(el);
 
-    type.on('selectstart', function(typeSelection) {
-        console.log('selectstart');
-    });
+    var format = function() {
+        type.format(this.getAttribute('data-tag'));
+    };
 
     type.on('select', function(typeSelection) {
-        console.log('select');
+        var rect = typeSelection.getBoundingRect();
+        tooltip.style.top = (rect.top - topDelta) + 'px';
+        tooltip.style.left = (rect.left + (rect.right - rect.left)/2 - leftDelta) + 'px';
+        tooltip.className = 'visible';
     });
 
-    type.on('selectend', function(typeSelection) {
-        console.log('selectend');
+    type.on('selectend', function() {
+        tooltip.className = 'hidden';
+    });
+
+    Array.prototype.forEach.call(buttons, function(item) {
+        item.onclick = format;
     });
 
 </script>

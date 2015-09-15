@@ -3,6 +3,7 @@
 import Type from './core';
 import Utilities from './utilities/utilities';
 import DomUtilities from './utilities/dom_utilities';
+import DomWalker from './utilities/dom_walker';
 
 export default class TypeRange {
 
@@ -542,8 +543,8 @@ export default class TypeRange {
    *     given element.
    */
   static fromElement (el) {
-    var startNode = Type.DomWalker.first(el, 'text'),
-      endNode = Type.DomWalker.last(el, 'text');
+    var startNode = DomWalker.first(el, 'text'),
+      endNode = DomWalker.last(el, 'text');
     return new TypeRange(startNode, 0, endNode, endNode.nodeValue.length);
   };
 

@@ -1,0 +1,75 @@
+/**
+ *
+ * Shared demo styles
+ *
+ */
+
+body {
+  background: #fafafa;
+}
+
+#document {
+  background: #fff;
+  border: 1px solid #ddd;
+  margin: 50px auto;
+  max-width: 650px;
+  padding: 30px;
+}
+
+/**
+ *
+ * Tooltip demo
+ *
+ */
+
+#tooltip {
+  position: absolute;
+  list-style-type: none;
+  user-select: none;
+  background: linear-gradient(to bottom, rgba(49,49,47,0.99), #262625) repeat-x;
+  border-radius: 5px;
+  padding: 8px 10px;
+  margin: 0;
+  transition: top .2s, left .2s;
+}
+#tooltip:after {
+  content: " ";
+  border: solid transparent;
+  border-top-color: #252524;
+  border-width: 5px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  height: 0;
+  width: 0;
+  pointer-events: none;
+  margin-left: -5px;
+}
+#tooltip.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity .2s linear;
+}
+#tooltip.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s .2s, opacity .2s linear;
+}
+#tooltip li {
+  display: inline-block;
+  margin: 0 5px;
+}
+#tooltip button {
+  font-family: Times, serif;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+#tooltip button:focus {
+  outline: none;
+}
+#tooltip [data-tag="<em>"] {
+  font-style: italic;
+}

@@ -2,6 +2,7 @@
 
 import DomUtilities  from './utilities/dom_utilities';
 import DomWalker  from './utilities/dom_walker';
+import TypeRange  from './range';
 
 export default class Formatter {
 
