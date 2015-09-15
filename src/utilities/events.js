@@ -16,15 +16,20 @@ export default class Events {
    *     parameter. Read MDN.
    * @returns {*}
    */
-  static addListener(el, type, listener, useCapture) {
+  static addListener(el, type, listener, lazy = false, useCapture = false) {
+
     const multiple = type.split(' ');
+    const modListener = lazy ? () => window.setTimeout(listener, 0) : listener;
+
     for (type of multiple) {
       if (el.addEventListener) {
-        return el.addEventListener(type, listener, useCapture || false);
+        el.addEventListener(type, modListener, useCapture);
       } else if (el.attachEvent) {
-        return el.attachEvent('on' + type, listener);
+        el.attachEvent('on' + type, modListener);
       }
     }
+
+    return this;
   };
 
   /**
@@ -37,12 +42,15 @@ export default class Events {
    *     parameter. Read MDN.
    * @returns {*}
    */
-  static removeListener(el, type, listener, useCapture) {
+  static removeListener(el, type, listener, useCapture = false) {
+
     if (el.removeEventListener) {
-      return el.removeEventListener(type, listener, useCapture || false);
+      el.removeEventListener(type, listener, useCapture);
     } else if (el.detachEvent) {
-      return el.detachEvent('on' + type, listener);
+      el.detachEvent('on' + type, listener);
     }
+
+    return this;
   };
 
 }

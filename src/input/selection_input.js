@@ -22,14 +22,11 @@ export default class SelectionInput {
    * @returns {SelectionInput}
    */
   _addListenersFor(type) {
-    //Events.addListener(type.getEl(), 'selectstart', this._selectionStart.bind(this));
-    Events.addListener(type.getEl(), 'mouseup keydown', this._checkSelectionAndEmit.bind(this));
+    Events.addListener(type.getEl(), 'mousedown mouseup keydown', this._checkSelectionAndEmit.bind(this), true);
     return this;
   };
 
   /**
-   * todo check if the user created a new selection, that does not touch the old selection
-   * todo and emit selectend and selectstart instead of a select (change)
    *
    * @returns {SelectionInput}
    * @private
