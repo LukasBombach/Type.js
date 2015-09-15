@@ -12,6 +12,8 @@ export default class Events {
    * @param {EventTarget} el - The target (element) to add the event listener to.
    * @param {string} type - A string representing the event type to listen for.
    * @param {Function} listener - The callback to be called on the event.
+   * @param {boolean} [lazy] - Optional, defaults to false. Whether or not the listener
+   *     should be called after the event has completed firing.
    * @param {boolean} [useCapture] - Optional, defaults to false. Native useCapture
    *     parameter. Read MDN.
    * @returns {*}
