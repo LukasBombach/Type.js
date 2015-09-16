@@ -16,80 +16,30 @@ export default class Formatter {
   }
 
   /**
-   * A list of tags that are displayed inline. We generate different markup
-   * for inline and block tags. We use this array as reference to determine
-   * what kind of markup to generate.
-   *
-   * todo move me to dom utils
-   *
-   * @type {string[]}
-   * @private
-   */
-  static get _inlineTags() { return ['strong', 'em', 'u', 's']; };
-
-  /**
-   * A list of tags that are displayed as block elements. We generate different
-   * markup for inline and block tags. We use this array as reference to determine
-   * what kind of markup to generate.
-   *
-   * todo move me to dom utils
-   *
-   * @type {string[]}
-   * @private
-   */
-  static get _blockTags() { return ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote']; };
-
-  /**
-   * Will call either this.inline, this.block or this._noop depending on
-   * whether the given tag is an inline or block element or we do not know
-   * this tag yet (the latter would call _noop which would utter no action).
-   *
-   * @param {String} tag - The tag that we want to format the text with
-   * @param {TypeRange} typeRange - An object containing data on which part
-   *     of the text to format
-   * @param {...*} params - Any number of arguments that specify attributes
-   *     for the tag
-   * @returns {Element[]} - The elements created by the formatting function
-   */
-  format(tag, typeRange, params) {
-    typeRange.ensureIsInside(this._type.getEl());
-    const ret = this._handlerFor(tag).apply(this, arguments);
-    this._type.emit('format', ret);
-    return ret;
-  };
-
-  /**
-   *
-   * @param tag
-   * @param range
-   * @returns {*}
-   */
-  removeFormat(tag, range) {
-  };
-
-  /**
    *
    * @param tag
    * @param typeRange
    * @param params
    * @returns {Formatter|Element[]}
    */
-  inline(tag, typeRange, params) {
+  format(tag, typeRange, params) {
 
     var args;
     var startNode;
     var endNode;
     var enclosingTag;
 
+    typeRange.ensureIsInside(this._type.getEl());
+
     // If the selection is enclosed the tag we want to format with
     // remove formatting from selected area
     if (enclosingTag = typeRange.elementEnclosingStartAndEnd(tag)) {
       return this.removeInline(enclosingTag, typeRange);
 
-    // Otherwise add formatting to selected area
+      // Otherwise add formatting to selected area
     } else {
-      startNode = this._getStartNode(tag, typeRange);
-      endNode   = this._getEndNode(tag, typeRange);
+      startNode = this.constructor._getStartNode(tag, typeRange);
+      endNode   = this.constructor._getEndNode(tag, typeRange);
       params    = Array.prototype.slice.call(arguments, 2);
       args      = [tag, startNode, endNode].concat(params);
       return this.insertInline.apply(this, args);
@@ -184,24 +134,12 @@ export default class Formatter {
 
   /**
    *
-   * @param cmd
-   * @param typeRange
-   * @param params
-   * @returns {Formatter}
-   * @private
-   */
-  block(cmd, typeRange, params) {
-    return this.inline.apply(this, arguments);
-  };
-
-  /**
-   *
    * @param tag
    * @param typeRange
    * @returns {*}
    * @private
    */
-  _getStartNode(tag, typeRange) {
+  static _getStartNode(tag, typeRange) {
     return typeRange.startTagIs(tag) ? typeRange.getStartElement() : typeRange.splitStartContainer();
   };
 
@@ -212,38 +150,8 @@ export default class Formatter {
    * @returns {*}
    * @private
    */
-  _getEndNode(tag, typeRange) {
+  static _getEndNode(tag, typeRange) {
     return typeRange.endTagIs(tag) ? typeRange.getEndElement() : typeRange.splitEndContainer();
-  };
-
-  /**
-   * Takes a tag name and returns the handler function for formatting
-   * the DOM with this tag by checking if it is an inline or block tag.
-   *
-   * Todo Maybe use fallback http://stackoverflow.com/a/2881008/1183252 if tag is not found
-   *
-   * @param {String} tag - The name of the tag that the DOM should be
-   *     formatted with.
-   * @returns {inline|block|_noop} - The handler function for inline
-   *     or block tags, or _noop if the tag is unknown.
-   * @private
-   */
-  _handlerFor(tag) {
-    tag = tag.toLowerCase();
-    if (this.constructor._inlineTags.indexOf(tag) > -1) return this.inline;
-    if (this.constructor._blockTags.indexOf(tag) > -1) return this.block;
-    //Type.Development.debug('Tag "' + tag + '" not implemented');
-    return this._noop;
-  };
-
-  /**
-   * Multi-purpose no-op handler
-   *
-   * @returns {Formatter}
-   * @private
-   */
-  _noop() {
-    return this;
   };
 
 }
