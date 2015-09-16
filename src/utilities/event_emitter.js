@@ -17,19 +17,26 @@ export default class EventEmitter {
   /**
    *
    * @param {string} type
+   * @param {boolean|Function} lazy
    * @param {Function} listener
    * @returns {EventEmitter}
    */
-  on(type, listener) {
+  on(type, lazy, listener) {
+
+    if (typeof lazy === 'function') {
+      listener = lazy;
+      lazy = false;
+    }
 
     if (typeof listener !== 'function') {
       throw new TypeError('listener must be a function, got ' + (typeof listener));
     }
 
     const multiple = type.split(' ');
+    const modListener = lazy ? () => window.setTimeout(listener, 0) : listener;
 
     for (type of multiple) {
-      this._addListener(type, listener);
+      this._addListener(type, modListener);
     }
 
     return this;

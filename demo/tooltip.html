@@ -35,8 +35,8 @@
         type.format(this.getAttribute('data-tag'));
     };
 
-    type.on('select format', function(typeSelection) {
-        var rect = typeSelection.getBoundingRect();
+    type.on('select format', true, function() {
+        var rect = Type.Selection.fromNativeSelection().getBoundingRect();
         tooltip.style.top = (rect.top - topDelta) + 'px';
         tooltip.style.left = (rect.left + (rect.right - rect.left)/2 - leftDelta) + 'px';
         tooltip.className = 'visible';

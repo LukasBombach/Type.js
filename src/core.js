@@ -118,11 +118,12 @@ export default class Type {
   /**
    *
    * @param {string} type
+   * @param {boolean|Function} lazy
    * @param {Function} listener
    * @returns {Type}
    */
-  on(type, listener) {
-    this._eventEmitter.on.call(this._eventEmitter, type, listener);
+  on(type, lazy, listener) {
+    this._eventEmitter.on.call(this._eventEmitter, type, lazy, listener);
     return this;
   };
 
@@ -211,11 +212,12 @@ export default class Type {
   /**
    *
    * @param {string} type
+   * @param {boolean|Function} lazy
    * @param {Function} listener
    * @returns {Type}
    */
-  static on(type, listener) {
-    staticEmitter.on.call(staticEmitter, type, listener);
+  static on(type, lazy, listener) {
+    staticEmitter.on.call(staticEmitter, type, lazy, listener);
     return this;
   };
 

@@ -70,6 +70,6 @@ body {
 #tooltip button:focus {
   outline: none;
 }
-#tooltip [data-tag="<em>"] {
+#tooltip [data-tag="em"] {
   font-style: italic;
 }

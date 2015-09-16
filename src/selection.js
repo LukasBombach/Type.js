@@ -115,6 +115,9 @@ export default class TypeSelection {
   };
 
   /**
+   * todo emit type select events, vielleicht 2ter parameter = type als opt in
+   * todo oder Type (base class) verwaltet instanzen und kann die instanz die
+   * todo die selection hat ausfindig machen
    *
    * @param {Range|TypeRange|Node[]} param
    * @returns {TypeSelection}
