@@ -35,7 +35,7 @@
         type.format(this.getAttribute('data-tag'));
     };
 
-    type.on('select', function(typeSelection) {
+    type.on('select format', function(typeSelection) {
         var rect = typeSelection.getBoundingRect();
         tooltip.style.top = (rect.top - topDelta) + 'px';
         tooltip.style.left = (rect.left + (rect.right - rect.left)/2 - leftDelta) + 'px';

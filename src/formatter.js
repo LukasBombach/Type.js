@@ -53,7 +53,9 @@ export default class Formatter {
    */
   format(tag, typeRange, params) {
     typeRange.ensureIsInside(this._type.getEl());
-    return this._handlerFor(tag).apply(this, arguments);
+    const ret = this._handlerFor(tag).apply(this, arguments);
+    this._type.emit('format', ret);
+    return ret;
   };
 
   /**

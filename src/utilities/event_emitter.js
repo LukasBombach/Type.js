@@ -23,19 +23,13 @@ export default class EventEmitter {
   on(type, listener) {
 
     if (typeof listener !== 'function') {
-      throw new TypeError();
+      throw new TypeError('listener must be a function, got ' + (typeof listener));
     }
 
-    this._eventListeners[type] = this._eventListeners[type] || [];
-    this._eventListeners[type].push(listener);
+    const multiple = type.split(' ');
 
-    if (this._eventListeners.length > this._maxListeners) {
-      Development.error(
-          'Possible memory leak, added %i %s listeners, ' +
-          'use EventEmitter#setMaxListeners(number) if you ' +
-          'want to increase the limit (%i now)',
-          this._eventListeners.length, type, this._maxListeners
-      );
+    for (type of multiple) {
+      this._addListener(type, listener);
     }
 
     return this;
@@ -102,6 +96,39 @@ export default class EventEmitter {
     }
 
     this._maxListeners = maxListeners;
+    return this;
+  }
+
+  /**
+   *
+   * @param {string} type
+   * @param {Function} listener
+   * @returns {EventEmitter}
+   * @private
+   */
+  _addListener(type, listener) {
+    this._eventListeners[type] = this._eventListeners[type] || [];
+    this._eventListeners[type].push(listener);
+    this._checkListenerStack(type);
+    return this;
+  }
+
+  /**
+   *
+   * @param {string} type
+   * @returns {EventEmitter}
+   * @private
+   */
+  _checkListenerStack(type) {
+    if (this._eventListeners[type].length > this._maxListeners) {
+      Development.error(
+          'Possible memory leak, added %i %s listeners, ' +
+          'use EventEmitter#setMaxListeners(number) if you ' +
+          'want to increase the limit (%i now)',
+          this._eventListeners[type].length, type, this._maxListeners
+      );
+    }
+
     return this;
   }
 
