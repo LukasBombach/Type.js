@@ -119,7 +119,7 @@ export default class Type {
    *
    * @param {string} type
    * @param {boolean|Function} lazy
-   * @param {Function} listener
+   * @param {Function} [listener]
    * @returns {Type}
    */
   on(type, lazy, listener) {
@@ -213,7 +213,7 @@ export default class Type {
    *
    * @param {string} type
    * @param {boolean|Function} lazy
-   * @param {Function} listener
+   * @param {Function} [listener]
    * @returns {Type}
    */
   static on(type, lazy, listener) {

@@ -18,7 +18,7 @@ export default class EventEmitter {
    *
    * @param {string} type
    * @param {boolean|Function} lazy
-   * @param {Function} listener
+   * @param {Function} [listener]
    * @returns {EventEmitter}
    */
   on(type, lazy, listener) {
