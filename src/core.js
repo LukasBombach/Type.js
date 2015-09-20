@@ -6,6 +6,7 @@ import DomUtilities from './utilities/dom_utilities';
 import InputPipeline from './input/input_pipeline';
 import Formatter from './formatter';
 import SelectionInput from './input/selection_input';
+import DomWalker from './utilities/dom_walker';
 
 const staticEmitter = new EventEmitter();
 
@@ -40,6 +41,9 @@ export default class Type {
       throw new Error('You must provide an element as root node for the editor\'s contents.');
     }
 
+    // Set up event system
+    this._eventEmitter = new EventEmitter();
+
     // Set settings for this editor
     this._options = null;
     this.options(options);
@@ -47,8 +51,10 @@ export default class Type {
     // Enable editing mode on root element
     this._setElementEditable(options.el);
 
+    // Allows fast detection if an object is a Type editor instance
+    this.typeEditor = true;
+
     // Core modules
-    this._eventEmitter = new EventEmitter();
     this._inputPipeline = new InputPipeline(this);
     this._formatter = new Formatter(this);
 
@@ -59,14 +65,6 @@ export default class Type {
   }
 
   /**
-   * Allows fast detection if an object is a Type Editor
-   * instance (or class)
-   *
-   * @type {boolean}
-   */
-  //typeEditor = true;
-
-  /**
    * Holds the default options for every editor. These options
    * will be extended by the options passed to each instance
    * on instantiation.
@@ -74,10 +72,12 @@ export default class Type {
    * @type {{el: null, undoSteps: number}}
    * @private
    */
-  /*_defaultOptions = {
-    el: null,
-    undoSteps: 20,
-  };*/
+  static get defaultOptions() {
+    return {
+      el: null,
+      undoSteps: 20,
+    };
+  }
 
   /**
    * Sets or gets the options to be used by this Type instance.
@@ -109,9 +109,9 @@ export default class Type {
    *     option or the according value if you get an option
    */
   options(options, value) {
-    this._options = this._options || Utilities.extend({}, this._defaultOptions);
+    this._options = this._options || Utilities.extend({}, this.constructor.defaultOptions);
     let newOptions = Utilities.getterSetterParams(this, this._options, options, value);
-    //this.emit('optionsChanged', this._options);
+    this.emit('optionsChanged', this._options);
     return newOptions;
   };
 
@@ -168,14 +168,14 @@ export default class Type {
    * @param {Node} node - Any DOM {Node} to be set as starting
    *     node for the DomWalker
    * @param {Node|string|Function|{constrainingNode: Node, filter: string|Function}} [options]
-   *     See {Type.DomWalker} for a description of possible arguments
-   * @returns {Type.DomWalker}
+   *     See {DomWalker} for a description of possible arguments
+   * @returns {DomWalker}
    */
-  //createDomWalker = function(node, options) {
-  //  options = Type.DomWalker.loadOptions(options || {});
-  //  options.constrainingNode = options.constrainingNode || this._root;
-  //  return new Type.DomWalker(node, options);
-  //};
+  createDomWalker(node, options) {
+    options = DomWalker.loadOptions(options || {});
+    options.constrainingNode = options.constrainingNode || this.getEl();
+    return new DomWalker(node, options);
+  };
 
   /**
    * Getter for this instance's root element, i.e. the
