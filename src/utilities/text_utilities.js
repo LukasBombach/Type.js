@@ -52,7 +52,8 @@ export default class TextUtilities {
     if (node.nodeName.toLocaleLowerCase() === 'br') {
       return 1;
     } else {
-      return node.nodeValue.trim().length;
+      //return node.nodeValue.trim().length;
+      return node.nodeValue.length;
     }
   };
 
@@ -67,6 +68,7 @@ export default class TextUtilities {
     const walker = new DomWalker(node, 'text');
     let offsetWalked = 0;
     let length = 0;
+    node = walker.first();
     do {
       length = this.textLength(node);
       if (offsetWalked + length >= offset)

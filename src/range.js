@@ -47,7 +47,7 @@ export default class TypeRange {
    * @returns {boolean}
    */
   isValid() {
-    return !!this.startContainer && !!this.endContainer &&
+    return this.startContainer.parentNode !== null && !!this.endContainer.parentNode !== null &&
         (!DomUtilities.isTextNode(this.startContainer) || this.startOffset <= this.startContainer.length) &&
         (!DomUtilities.isTextNode(this.endContainer) || this.endOffset <= this.endContainer.length);
   };
@@ -282,6 +282,7 @@ export default class TypeRange {
     if (from) {
       return TextUtilities.offsetFrom(from, this.endContainer, 0, this.endOffset);
     }
+
     return parseInt(this.endOffset, 10);
   };
 
@@ -468,8 +469,8 @@ export default class TypeRange {
    * @returns {TypeRange} - A {TypeRange} instance
    */
   static fromPositions (el, startOffset, endOffset) {
-    var start = Type.TextWalker.nodeAt(el, startOffset),
-      end = Type.TextWalker.nodeAt(el, endOffset);
+    var start = TextUtilities.nodeAtOffset(el, startOffset),
+      end = TextUtilities.nodeAtOffset(el, endOffset);
     return new TypeRange(start.node, start.offset, end.node, end.offset);
   };
 
@@ -528,7 +529,7 @@ export default class TypeRange {
   static fromCaret (caret, selectedChars) {
     var startNode = caret.getNode(),
       startOffset = caret.getNodeOffset(),
-      end = Type.TextWalker.nodeAt(startNode, selectedChars, startOffset);
+      end = TextUtilities.nodeAtOffset(startNode, selectedChars, startOffset);
     return new TypeRange(startNode, startOffset, end.node, end.offset);
   };
 
