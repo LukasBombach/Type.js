@@ -22,7 +22,7 @@ export default class SelectionInput {
    * @returns {SelectionInput}
    */
   _addListenersFor(type) {
-    Events.addListener(type.getEl(), 'mousedown mouseup keydown', this._checkSelectionAndEmit.bind(this), true);
+    Events.addListener(type.getEl(), 'mousedown mouseup keydown keyup', this._checkSelectionAndEmit.bind(this), true);
     return this;
   };
 
