@@ -17,8 +17,7 @@ export default class TypeSelection {
    */
   constructor(startContainer, startOffset, endContainer, endOffset, type) {
     this._typeRange = new TypeRange(startContainer, startOffset, endContainer, endOffset);
-    if (type)
-      this._absOffsets = this._absoluteOffsetsFrom(type.getEl());
+    this._absOffsets = this._absoluteOffsetsFrom(type.getEl());
   };
 
   /**
@@ -90,28 +89,28 @@ export default class TypeSelection {
    * @private
    */
   _absoluteOffsetsFrom(el) {
-    return TypeRange.fromRange(this._getRange()).save(el);
+    return this.getRange().save(el);
   };
 
   /**
    *
+   * @param {Type} [type]
    * @returns {TypeSelection}
    * @constructor
    */
-  static fromNativeSelection() {
-    var sel = window.getSelection();
-    var range = !sel.isCollapsed ? sel.getRangeAt(0) : document.createRange();
-    return TypeSelection.fromRange(range);
+  static fromNativeSelection(type) {
+    return TypeSelection.fromRange(window.getSelection().getRangeAt(0), type);
   };
 
   /**
    *
    * @param {Range} range
+   * @param {Type} [type]
    * @returns {TypeSelection}
    * @constructor
    */
-  static fromRange(range) {
-    return new TypeSelection(range.startContainer, range.startOffset, range.endContainer, range.endOffset);
+  static fromRange(range, type) {
+    return new TypeSelection(range.startContainer, range.startOffset, range.endContainer, range.endOffset, type);
   };
 
   /**

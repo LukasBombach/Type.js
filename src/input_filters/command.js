@@ -42,7 +42,7 @@ export default class CommandFilter extends TypeFilter{
    */
   command(e) {
     if (e.cmd) {
-      var sel = TypeSelection.fromNativeSelection();
+      var sel = this._type.getSelection();
       this._type.getFormatter().format(this._tags[e.key], sel.getRange());
       sel.select();
       e.cancel();

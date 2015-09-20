@@ -2,6 +2,7 @@
 
 import Type from './core';
 import Utilities from './utilities/utilities';
+import TextUtilities from './utilities/text_utilities';
 import DomUtilities from './utilities/dom_utilities';
 import DomWalker from './utilities/dom_walker';
 
@@ -251,7 +252,7 @@ export default class TypeRange {
    * @returns {number}
    */
   getLength () {
-    return Type.TextWalker.offset(this.startContainer, this.endContainer, this.startOffset, this.endOffset);
+    return TextUtilities.offsetFrom(this.startContainer, this.endContainer, this.startOffset, this.endOffset);
   };
 
   /**
@@ -264,7 +265,7 @@ export default class TypeRange {
    */
   getStartOffset (from) {
     if (from) {
-      return Type.TextWalker.offset(from, this.startContainer, 0, this.startOffset);
+      return TextUtilities.offsetFrom(from, this.startContainer, 0, this.startOffset);
     }
     return parseInt(this.startOffset, 10);
   };
@@ -279,7 +280,7 @@ export default class TypeRange {
    */
   getEndOffset (from) {
     if (from) {
-      return Type.TextWalker.offset(from, this.endContainer, 0, this.endOffset);
+      return TextUtilities.offsetFrom(from, this.endContainer, 0, this.endOffset);
     }
     return parseInt(this.endOffset, 10);
   };

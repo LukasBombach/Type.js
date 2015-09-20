@@ -36,7 +36,7 @@
     };
 
     type.on('select format', true, function() {
-        var rect = Type.Selection.fromNativeSelection().getBoundingRect();
+        var rect = type.getSelection().getBoundingRect();
         tooltip.style.top = (rect.top - topDelta) + 'px';
         tooltip.style.left = (rect.left + (rect.right - rect.left)/2 - leftDelta) + 'px';
         tooltip.className = 'visible';

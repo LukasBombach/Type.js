@@ -116,6 +116,16 @@ export default class Type {
   };
 
   /**
+   * Return the current text selection
+   * todo check if native selection is contained within this selection
+   *
+   * @returns {TypeSelection}
+   */
+  getSelection() {
+    return Type.Selection.fromNativeSelection(this);
+  }
+
+  /**
    *
    * @param {string} type
    * @param {boolean|Function} lazy
