@@ -1,10 +1,11 @@
 'use strict';
 
-import DomUtilities  from './utilities/dom_utilities';
-import DomWalker  from './utilities/dom_walker';
-import TypeRange  from './range';
+import Formatter from './formatter';
+import DomUtilities  from '../utilities/dom_utilities';
+import DomWalker  from '../utilities/dom_walker';
+import TypeRange  from '../range';
 
-export default class Formatter {
+export default class InlineFormatter extends Formatter {
 
   /**
    *
@@ -12,37 +13,38 @@ export default class Formatter {
    * @constructor
    */
   constructor(type) {
+    super();
     this._type = type;
   }
 
   /**
    *
-   * @param tag
-   * @param typeRange
-   * @param params
-   * @returns {Formatter|Element[]}
+   * @param {String} tag
+   * @param {TypeRange} typeRange
+   * @returns {InlineFormatter|Element[]}
    */
-  format(tag, typeRange, params) {
+  format(tag, typeRange) {
 
-    var args;
-    var startNode;
-    var endNode;
-    var enclosingTag;
+    let startNode;
+    let endNode;
+    let enclosingTag;
 
     typeRange.ensureIsInside(this._type.getEl());
 
+    // No formatting required if range is collapsed
+    if (typeRange.isCollapsed()) {
+      return this;
+
     // If the selection is enclosed the tag we want to format with
     // remove formatting from selected area
-    if (enclosingTag = typeRange.elementEnclosingStartAndEnd(tag)) {
-      return this.removeInline(enclosingTag, typeRange);
+    } else if (enclosingTag = typeRange.elementEnclosingStartAndEnd(tag)) {
+      return this.remove(enclosingTag, typeRange);
 
-      // Otherwise add formatting to selected area
+    // Otherwise add formatting to selected area
     } else {
       startNode = this.constructor._getStartNode(tag, typeRange);
       endNode   = this.constructor._getEndNode(tag, typeRange);
-      params    = Array.prototype.slice.call(arguments, 2);
-      args      = [tag, startNode, endNode].concat(params);
-      return this.insertInline.apply(this, args);
+      return this.insert(tag, startNode, endNode);
     }
 
   };
@@ -56,10 +58,9 @@ export default class Formatter {
    * @param {String} tag
    * @param {Node} startNode
    * @param {Node} endNode
-   * @param {...*} [params]
    * @returns {Element[]} - The elements created by the formatting function
    */
-  insertInline(tag, startNode, endNode, params) {
+  insert(tag, startNode, endNode) {
 
     // Required variables
     var currentNode = startNode;
@@ -83,7 +84,7 @@ export default class Formatter {
     // If the node where we stopped contains the endNode,
     // apply this algorithm on it recursively
     if (currentNode && DomUtilities.containsButIsnt(currentNode, endNode)) {
-      createdNodes.concat(this.insertInline(tag, currentNode.firstChild, endNode));
+      createdNodes.concat(this.insert(tag, currentNode.firstChild, endNode));
     }
 
     // If we did not find the endNode but there are no more
@@ -91,7 +92,7 @@ export default class Formatter {
     // apply this algorithm on it recursively
     if (currentNode === null) {
       nextNode = DomWalker.next(startNode.parentNode.lastChild, this._type.getEl());
-      createdNodes.concat(this.insertInline(tag, nextNode, endNode));
+      createdNodes.concat(this.insert(tag, nextNode, endNode));
     }
 
     // Wrap the nodes we got so far in the provided tag
@@ -104,29 +105,27 @@ export default class Formatter {
 
   /**
    *
-   * @param {Node} enclosingTag
+   * Todo I do not like this method
+   *
+   * @param {Element} enclosingTag
    * @param {TypeRange} typeRange
-   * @returns {Formatter}
+   * @returns {InlineFormatter}
    */
-  removeInline(enclosingTag, typeRange) {
+  remove(enclosingTag, typeRange) {
 
-    var tagName = enclosingTag.tagName;
-    var tagPositions = TypeRange.fromElement(enclosingTag).save(this._type.getEl());
-    var selPositions = typeRange.save(this._type.getEl());
-    var leftRange;
-    var rightRange;
+    const tagName = enclosingTag.tagName;
+    const tagPositions = TypeRange.fromElement(enclosingTag).save(this._type.getEl());
+    const selPositions = typeRange.save(this._type.getEl());
+    let leftRange;
+    let rightRange;
 
     DomUtilities.unwrap(enclosingTag);
 
     leftRange = TypeRange.fromPositions(this._type.getEl(), tagPositions.start, selPositions.start);
-    if (!leftRange.isCollapsed()) {
-      this.inline(tagName, leftRange);
-    }
+    this.format(tagName, leftRange);
 
     rightRange = TypeRange.fromPositions(this._type.getEl(), selPositions.end, tagPositions.end);
-    if (!rightRange.isCollapsed()) {
-      this.inline(tagName, rightRange);
-    }
+    this.format(tagName, rightRange);
 
     return this;
 

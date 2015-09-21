@@ -52,8 +52,7 @@ export default class TextUtilities {
     if (node.nodeName.toLocaleLowerCase() === 'br') {
       return 1;
     } else {
-      //return node.nodeValue.trim().length;
-      return node.nodeValue.length;
+      return node.nodeValue.length; //return node.nodeValue.trim().length;
     }
   };
 
