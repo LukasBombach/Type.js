@@ -1,15 +1,15 @@
 <p align="center">
-  <img alt="babel" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/logo@2x.png" height="59">
+  <img alt="Type JS" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/logo@2x.png" height="59">
 </p>
 <p align="center">
-  Type js is a WYSIWYG library that lets you implement your own wysiwyg editor.
+  Type JS is a WYSIWYG library that lets you implement your own wysiwyg editor.
 </p>
 
-<hr width="30%" height="1" align="center">
+----------
 
 ## About
 
-Type js is a pure library and does not have a UI.
+Type JS is a pure library and does not have a UI.
 
 * It leaves the implementation of the the editor (the UI) to you.
 * It provides an easy and high-level API for implementing WYSIWYG editors.
