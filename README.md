@@ -7,8 +7,6 @@
 
 --
 
-## In detail
-
 Type js is a pure library and does not have a UI.
 
 * It leaves the implementation of the the editor (the UI) to you.
