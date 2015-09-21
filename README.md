@@ -5,8 +5,6 @@
   Type JS is a WYSIWYG library that lets you implement your own WYSIWYG editor.
 </p>
 
-----------
-
 ## About
 
 Type JS is a pure library and does not have a UI.
