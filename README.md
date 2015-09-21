@@ -1,8 +1,16 @@
 # Type js
 
-Type js is a WYSIWYG library that **lets you implement your own wysiwyg editor**.
-It has no ui but provides a high-level API for all your WYSIWYG needs. Most 
-importantly, **it does not rely contenteditable**.
+Type js is a WYSIWYG library that lets you implement your own wysiwyg editor.
+
+## In detail
+
+Type js is a pure library and does not have a UI.
+
+* It leaves the implementation of the the editor (the UI) to you.
+* It provides an easy and high-level API for implementing WYSIWYG editors.
+* It provides an extensive API, giving you more possiblities and more control than "regular" editors.
+* It creates simple and consistent markup across browsers.
+* It does not rely on `contenteditable`
 
 ## Status
 
