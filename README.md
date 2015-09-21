@@ -19,7 +19,7 @@ Type JS is a pure library and does not have a UI.
 * It provides an easy and high-level API for implementing WYSIWYG editors.
 * It provides an extensive API, giving you more possiblities and more control than "regular" editors.
 * It creates simple and consistent markup across browsers.
-* It does not rely on `contenteditable`
+* It does not rely on `contenteditable`.
 
 ## Status
 
