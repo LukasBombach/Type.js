@@ -1,10 +1,9 @@
-<p align="center">
-  <img alt="babel" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/logo@2x.png" height="59">
-</p>
 
-<p align="center">
+  <img alt="babel" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/logo@2x.png" height="59">
+
+
+
   Type js is a WYSIWYG library that lets you implement your own wysiwyg editor.
-</p>
 
 --
 
