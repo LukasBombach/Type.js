@@ -4,6 +4,9 @@
 <p align="center">
   Type JS is a WYSIWYG library that lets you implement your own WYSIWYG editor.
 </p>
+<p align="center">
+  <img alt="separator" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/separator.png" height="59">
+</p>
 
 ## About
 
