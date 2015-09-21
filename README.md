@@ -1,4 +1,7 @@
 <p align="center">
+  &nbsp; <!-- booo hack, remove me -->
+</p>
+<p align="center">
   <img alt="Type JS" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/logo@2x.png" height="59">
 </p>
 <p align="center">
