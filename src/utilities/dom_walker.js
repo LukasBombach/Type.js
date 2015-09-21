@@ -33,7 +33,7 @@ export default class DomWalker {
   /**
    * Returns the next node in the document flow and sets the internal reference
    * to the current node to that node.
-   * @returns {null|Node}
+   * @returns {null|Node|Element}
    */
   next(returnMe) {
     return this._setNodeIfNotNull(DomWalker._nextNode(this._node, this._options, returnMe));
@@ -42,7 +42,7 @@ export default class DomWalker {
   /**
    * Returns the next node in the document flow but does not set the internal
    * reference to the current node to that node.
-   * @returns {null|Node}
+   * @returns {null|Node|Element}
    */
   prefetchNext(returnMe) {
     return DomWalker._nextNode(this._node, this._options, returnMe);
@@ -51,7 +51,7 @@ export default class DomWalker {
   /**
    * Returns the previous node in the document flow and sets the internal reference
    * to the current node to that node.
-   * @returns {null|Node}
+   * @returns {null|Node|Element}
    */
   prev(returnMe) {
     return this._setNodeIfNotNull(DomWalker._prevNode(this._node, this._options, returnMe));
@@ -60,7 +60,7 @@ export default class DomWalker {
   /**
    * Returns the previous node in the document flow but does not set the internal
    * reference to the current node to that node.
-   * @returns {null|Node}
+   * @returns {null|Node|Element}
    */
   prefetchPrev(returnMe) {
     return DomWalker._prevNode(this._node, this._options, returnMe);
@@ -70,7 +70,7 @@ export default class DomWalker {
    * Returns the first child node matching the given filter or the node passed itself
    * if it matches the filter too. Sets the internal reference for the current node to
    * the node found.
-   * @returns {null|Node}
+   * @returns {null|Node|Element}
    */
   first() {
     var node = DomWalker.first(this._node, this._options.filter);
@@ -81,7 +81,7 @@ export default class DomWalker {
    * Returns the last child node matching the given filter or the node passed itself
    * if it matches the filter too. Sets the internal reference for the current node to
    * the node found.
-   * @returns {null|Node}
+   * @returns {null|Node|Element}
    */
   last() {
     var node = DomWalker.last(this._node, this._options.filter);
@@ -146,13 +146,14 @@ export default class DomWalker {
     textNode: '_isTextNode',
     textual: '_resemblesText',
     visible: '_isVisible',
+    nonWhitespace: '_isNonWhitespace',
   }; }
 
   /**
    *
    * @param node
    * @param options
-   * @returns {null|Node}
+   * @returns {null|Node|Element}
    */
   static next(node, options) {
     return DomWalker._nextNode(node, DomWalker.loadOptions(options));
@@ -162,7 +163,7 @@ export default class DomWalker {
    *
    * @param node
    * @param options
-   * @returns {null|Node}
+   * @returns {null|Node|Element}
    */
   static prev(node, options) {
     return DomWalker._prevNode(node, DomWalker.loadOptions(options));
@@ -172,7 +173,7 @@ export default class DomWalker {
    *
    * @param node
    * @param filter
-   * @returns {null|Node}
+   * @returns {null|Node|Element}
    */
   static first(node, filter) {
     var options = DomWalker.loadOptions(filter);
@@ -184,7 +185,7 @@ export default class DomWalker {
    *
    * @param node
    * @param filter
-   * @returns {null|Node}
+   * @returns {null|Node|Element}
    */
   static last(node, filter) {
     var options = DomWalker.loadOptions(filter);
@@ -269,7 +270,7 @@ export default class DomWalker {
    *     this method might be the node we are looking for, so having this
    *     set to true will return that node (given that the filter
    *     also returns true for that node)
-   * @returns {null|Node} The next node in the DOM tree found or null
+   * @returns {null|Node|Element} The next node in the DOM tree found or null
    *     if none is found for the options.filter criteria or
    *     options.constrainingNode has been hit.
    */
@@ -338,7 +339,7 @@ export default class DomWalker {
    *     this method might be the node we are looking for, so having this
    *     set to true will return that node (given that the filter
    *     also returns true for that node)
-   * @returns {null|Node} The next node in the DOM tree found or null
+   * @returns {null|Node|Element} The next node in the DOM tree found or null
    *     if none is found for the options.filter criteria or
    *     options.constrainingNode has been hit.
    */
@@ -378,6 +379,8 @@ export default class DomWalker {
   /**
    * Returns true if a given node is a text node
    *
+   * todo code duplication with text_utilities
+   *
    * @param {Node} node The node to be checked.
    * @returns {boolean}
    * @private
@@ -389,6 +392,8 @@ export default class DomWalker {
   /**
    * Returns true if a given node is a text node and its contents are not
    * entirely whitespace.
+   *
+   * todo code duplication with text_utilities
    *
    * @param {Node} node The node to be checked.
    * @returns {boolean}
@@ -418,6 +423,16 @@ export default class DomWalker {
    */
   static _isVisible(node) {
     return !!node.offsetHeight;
+  };
+
+  /**
+   * todo what if empty element is found?
+   * @param node
+   * @returns {boolean}
+   * @private
+   */
+  static _isNonWhitespace(node) {
+    return node.nodeType !== Node.TEXT_NODE || /\S/.test(node.textContent);
   };
 
 }

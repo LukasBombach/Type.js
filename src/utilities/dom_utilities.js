@@ -1,6 +1,8 @@
 'use strict';
 
 import Settings  from './settings';
+import DomWalker from './dom_walker';
+import TextUtilities from './text_utilities';
 
 /**
  * @constructor
@@ -183,31 +185,138 @@ export default class DomUtilities {
 
   /**
    *
+   * @param {Element} el
+   * @returns {Element}
+   */
+  static connectLeft(el) {
+
+    //const prevNonWhitespace = DomWalker.prev(el.previousSibling, 'nonWhitespace');
+    //if (!this.isTextNode(prevNonWhitespace) && this.elementsAreSimilar(el, prevNonWhitespace)) {
+    //  return this.mergeInto(prevNonWhitespace, el);
+    //}
+    //return el;
+
+    //const siblings = Array.prototype.slice.call(el.childNodes).reverse();
+    const siblings = [];
+    let curSibl = el;
+
+    while (curSibl = curSibl.previousSibling) {
+
+      if (TextUtilities.isTextNodeWithContents(curSibl)) {
+        return el;
+
+      } else if (TextUtilities.isTextNode(curSibl)) {
+        siblings.push(curSibl);
+
+      } else if (this.elementsAreSimilar(el, curSibl)) {
+        this.moveInside(curSibl, siblings.reverse());
+        this.mergeInto(curSibl, el);
+        curSibl.normalize(); // todo do not use normalize but merge nodes
+        return curSibl;
+
+      } else {
+        return el;
+      }
+    }
+
+  };
+
+  /**
+   *
+   * @param {Element} el
+   * @returns {Element}
+   */
+  static connectRight(el) {
+
+    const siblings = [];
+    let curSibl = el;
+
+    while (curSibl = curSibl.nextSibling) {
+
+      if (TextUtilities.isTextNodeWithContents(curSibl)) {
+        return el;
+
+      } else if (TextUtilities.isTextNode(curSibl)) {
+        siblings.push(curSibl);
+
+      } else if (this.elementsAreSimilar(el, curSibl)) {
+        this.moveInside(el, siblings);
+        this.mergeInto(el, curSibl);
+        el.normalize(); // todo do not use normalize but merge nodes
+        return el;
+
+      } else {
+        return el;
+      }
+    }
+
+  };
+
+  /**
+   * todo account for style, class and maybe all other attributes
+   *
+   * @param {Element} a
+   * @param {Element} b
+   */
+  static elementsAreSimilar(a, b) {
+    return a !== null && b !== null && a.tagName === b.tagName;
+  }
+
+  /**
+   *
    * @param reference
    * @param elems
    * @returns {*}
    */
   static moveAfter(reference, elems) {
 
-    var i;
+    const next = reference.nextSibling;
+    const parent = reference.parentNode;
+    const len = elems.length;
 
-    var next = reference.nextSibling,
-      parent = reference.parentNode;
-
-    elems = !elems.length ? [elems] : Array.prototype.slice.call(elems, 0);
+    elems = !len ? [elems] : Array.prototype.slice.call(elems, 0);
 
     if (next) {
-      for (i = 0; i < elems.length; i += 1) {
+      for (let i = 0; i < len; i += 1) {
         parent.insertBefore(elems[i], next);
       }
     } else {
-      for (i = 0; i < elems.length; i += 1) {
+      for (let i = 0; i < len; i += 1) {
         parent.appendChild(elems[i]);
       }
     }
 
     return this;
   };
+
+  /**
+   *
+   * @param {Element} target
+   * @param {Element[]} elems
+   * @returns {Element}
+   */
+  static moveInside(target, elems) {
+
+    const len = elems.length;
+
+    for (let i = 0; i < len; i++) {
+      target.appendChild(elems[i]);
+    }
+
+    return target;
+  }
+
+  /**
+   *
+   * @param {Element} target - The element that should be merged into
+   * @param {Element} source - The element that should be merged and removed
+   * @returns {Element} - The resulting element
+   */
+  static mergeInto(target, source) {
+    this.moveInside(target, source.childNodes);
+    this.removeVisible(source);
+    return target;
+  }
 
   /**
    * Todo move to dom walker??
@@ -314,12 +423,8 @@ export default class DomUtilities {
    *     other way around and 0 if they are equal.
    */
   static order(a, b) {
-    if (a === b) {
-      return 0;
-    }
-    if (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) {
-      return -1;
-    }
+    if (a === b) return 0;
+    if (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
     return 1;
   };
 

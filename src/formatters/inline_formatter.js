@@ -97,6 +97,7 @@ export default class InlineFormatter extends Formatter {
 
     // Wrap the nodes we got so far in the provided tag
     createdNodes.push(DomUtilities.wrap(tag, nodesToWrap));
+    this.constructor._connectAdjacent(createdNodes);
 
     // Return all nodes that have been created
     return createdNodes;
@@ -129,6 +130,20 @@ export default class InlineFormatter extends Formatter {
 
     return this;
 
+  };
+
+  /**
+   *
+   * @param {Element[]} elems
+   * @returns {Element[]}
+   * @private
+   */
+  static _connectAdjacent(elems) {
+    if (elems.length) {
+      elems[0] = DomUtilities.connectLeft(elems[0]);
+      elems[elems.length - 1] = DomUtilities.connectRight(elems[elems.length - 1]);
+    }
+    return elems;
   };
 
   /**

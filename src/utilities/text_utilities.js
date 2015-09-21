@@ -57,6 +57,29 @@ export default class TextUtilities {
   };
 
   /**
+   * Returns true if a given node is a text node
+   *
+   * @param {Node} node The node to be checked.
+   * @returns {boolean}
+   * @private
+   */
+  static isTextNode(node) {
+    return node.nodeType === Node.TEXT_NODE;
+  };
+
+  /**
+   * Returns true if a given node is a text node and its contents are not
+   * entirely whitespace.
+   *
+   * @param {Node} node The node to be checked.
+   * @returns {boolean}
+   * @private
+   */
+  static isTextNodeWithContents(node) {
+    return node.nodeType === Node.TEXT_NODE && /[^\t\n\r ]/.test(node.textContent);
+  };
+
+  /**
    *
    * @param {Node} node
    * @param {number} offset
