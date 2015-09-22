@@ -12,11 +12,11 @@ body {
     margin: 50px auto;
     max-width: 600px;
     background: #fff;
-    border: 1px solid #ddd;
     border-top: 4px solid #1FBB94;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 0 0 0.75pt rgba(209,209,209,.3),0 0 3pt 0.75pt rgba(204,204,204,.3);
 }
 #controls {
     list-style-type: none;
@@ -51,6 +51,13 @@ body {
     padding: 30px;
     font: 15px/1.5em "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #4b4b4b;
+
+    border: 1px solid #ddd;
+    border-top: none;
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius:  0 0 4px 4px;
+    border-radius:  0 0 4px 4px;
+
 }
 #document:focus {
     outline: none;
