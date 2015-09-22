@@ -1,0 +1,57 @@
+/**
+ * General styles
+ */
+body {
+  background: #fafafa;
+}
+
+/**
+ * Editor
+ */
+#editor {
+    margin: 50px auto;
+    max-width: 600px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-top: 4px solid #1FBB94;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+#controls {
+    list-style-type: none;
+    user-select: none;
+    background: linear-gradient(to bottom, rgba(49,49,47,0.99), #262625) repeat-x;
+    padding: 8px 10px;
+    margin: 0;
+}
+#controls li {
+    display: inline-block;
+    margin: 0 5px;
+}
+#controls button {
+    font-family: Times, serif;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+#controls button:focus {
+    outline: none;
+}
+#controls [data-tag="em"] {
+    font-style: italic;
+}
+
+/**
+ * Editable area
+ */
+#document {
+    padding: 30px;
+    font: 15px/1.5em "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #4b4b4b;
+}
+#document:focus {
+    outline: none;
+}

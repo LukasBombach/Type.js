@@ -1,27 +1,13 @@
 /**
- *
- * Shared demo styles
- *
+ * General styles
  */
-
 body {
-  background: #fafafa;
-}
-
-#document {
-  background: #fff;
-  border: 1px solid #ddd;
-  margin: 50px auto;
-  max-width: 650px;
-  padding: 30px;
+    background: #fafafa;
 }
 
 /**
- *
- * Tooltip demo
- *
+ * Tooltip
  */
-
 #tooltip {
   position: absolute;
   list-style-type: none;
@@ -72,4 +58,25 @@ body {
 }
 #tooltip [data-tag="em"] {
   font-style: italic;
+}
+
+/**
+ * Editable area
+ */
+#document {
+    margin: 50px auto;
+    max-width: 600px;
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-top: 4px solid #1FBB94;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+
+    font: 15px/1.5em "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #4b4b4b;
+}
+#document:focus {
+    outline: none;
 }

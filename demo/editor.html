@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Type.js Demo</title>
+    <link rel="stylesheet" href="stylesheets/editor.css">
+</head>
+<body>
+
+<div id="editor">
+    <ul id="controls">
+        <li><button data-tag="strong">B</button></li>
+        <li><button data-tag="em">i</button></li>
+        <li><button data-tag="h1">H1</button></li>
+        <li><button data-tag="h2">H2</button></li>
+        <li><button data-tag="h3">H3</button></li>
+    </ul>
+    <div id="document">
+      Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+    </div>
+</div>
+
+<script src="../dist/type.js"></script>
+<script>
+
+    var el = document.getElementById('document');
+    var buttons = document.querySelectorAll('[data-tag]');
+
+    var type = new Type(el);
+
+    var format = function() {
+        type.format(this.getAttribute('data-tag'));
+    };
+
+    Array.prototype.forEach.call(buttons, function(item) {
+        item.onclick = format;
+    });
+
+</script>
+</body>
+</html>
