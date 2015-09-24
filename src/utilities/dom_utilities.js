@@ -190,13 +190,6 @@ export default class DomUtilities {
    */
   static connectLeft(el) {
 
-    //const prevNonWhitespace = DomWalker.prev(el.previousSibling, 'nonWhitespace');
-    //if (!this.isTextNode(prevNonWhitespace) && this.elementsAreSimilar(el, prevNonWhitespace)) {
-    //  return this.mergeInto(prevNonWhitespace, el);
-    //}
-    //return el;
-
-    //const siblings = Array.prototype.slice.call(el.childNodes).reverse();
     const siblings = [];
     let curSibl = el;
 
@@ -218,6 +211,8 @@ export default class DomUtilities {
         return el;
       }
     }
+
+    return el;
 
   };
 
@@ -249,6 +244,8 @@ export default class DomUtilities {
         return el;
       }
     }
+
+    return el;
 
   };
 

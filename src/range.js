@@ -185,13 +185,11 @@ export default class TypeRange {
    */
   splitStartContainer () {
 
-    var startsAndEndsInSameNode;
-
     if (this.startOffset === 0) {
       return this.startContainer;
     }
 
-    startsAndEndsInSameNode = this.startsAndEndsInSameNode();
+    const startsAndEndsInSameNode = this.startsAndEndsInSameNode();
     this.startContainer = this.startContainer.splitText(this.startOffset);
 
     if (startsAndEndsInSameNode) {

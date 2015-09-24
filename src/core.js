@@ -19,7 +19,7 @@ export default class Type {
    * options as well getters and setters for instances
    * of core modules.
    *
-   * @param {{}|Element} options - Either pass
+   * @param {{}|Element|string} options - Either pass
    *     an associative array with options for this
    *     editor or the root element that should be
    *     used to modify its contents for WYSIWYG
@@ -31,8 +31,10 @@ export default class Type {
    */
   constructor(options) {
 
-    // Allow passing an element as only parameter
-    if (DomUtilities.isNode(options)) {
+    // Allow passing an element or an element id as only parameter
+    if (typeof options === 'string') {
+      options = {el: document.getElementById(options)};
+    } else if (DomUtilities.isNode(options)) {
       options = {el: options};
     }
 

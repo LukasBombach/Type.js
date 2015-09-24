@@ -12,7 +12,17 @@
         Select text to show formatting controls.
     </div>
     <div id="document">
-        Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+        <h1>Integer posuere erat</h1>
+        <p>
+            A ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor
+            ligula, eget lacinia odio sem nec elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis
+            vestibulum.
+        </p>
+        <h2>Curabitur blandit tempus</h2>
+        <p>
+            Porttitor fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo
+            sit amet risus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+        </p>
     </div>
 </div>
 
@@ -28,14 +38,10 @@
 <script src="../dist/type.js"></script>
 <script>
 
-    var el = document.getElementById('document');
+    var type = new Type('document');
+
     var tooltip = document.getElementById('tooltip');
     var buttons = tooltip.querySelectorAll('[data-tag]');
-
-    var topDelta = tooltip.offsetHeight + 5;
-    var leftDelta = tooltip.offsetWidth / 2;
-
-    var type = new Type(el);
 
     var format = function() {
         type.format(this.getAttribute('data-tag'));
@@ -43,8 +49,8 @@
 
     type.on('select format', true, function() {
         var rect = type.getSelection().getBoundingRect();
-        tooltip.style.top = (rect.top - topDelta) + 'px';
-        tooltip.style.left = (rect.left + (rect.right - rect.left)/2 - leftDelta) + 'px';
+        tooltip.style.top = (rect.top - tooltip.offsetHeight - 8) + 'px';
+        tooltip.style.left = (rect.left + (rect.right - rect.left) / 2 - tooltip.offsetWidth / 2) + 'px';
         tooltip.className = 'visible';
     });
 
@@ -52,8 +58,8 @@
         tooltip.className = 'hidden';
     });
 
-    Array.prototype.forEach.call(buttons, function(item) {
-        item.onclick = format;
+    Array.prototype.forEach.call(buttons, function(button) {
+        button.onclick = format;
     });
 
 </script>
