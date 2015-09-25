@@ -33,7 +33,7 @@ export default class SelectionInput {
    */
   _checkSelectionAndEmit() {
     var sel = TypeSelection.fromNativeSelection(this._type);
-    sel = sel.isCollapsed() ? null : sel;
+    sel = sel === null || sel.isCollapsed() ? null : sel;
     this._checkAndEmitStart(sel);
     this._checkAndEmitChange(sel);
     this._checkAndEmitEnd(sel);

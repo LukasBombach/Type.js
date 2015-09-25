@@ -93,13 +93,16 @@ export default class TypeSelection {
   };
 
   /**
-   *
+   * todo not sure if returning null is good here
    * @param {Type} [type]
    * @returns {TypeSelection}
    * @constructor
    */
   static fromNativeSelection(type) {
-    return TypeSelection.fromRange(window.getSelection().getRangeAt(0), type);
+    const range = window.getSelection().getRangeAt(0);
+    if (type.getEl().contains(range.startContainer) && type.getEl().contains(range.endContainer))
+      return TypeSelection.fromRange(range, type);
+    return null;
   };
 
   /**
