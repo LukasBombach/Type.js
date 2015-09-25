@@ -99,7 +99,7 @@ export default class TypeRange {
    * @returns {HTMLElement|null} - Will either return the common
    *     ancestor matching the selector or null otherwise.
    */
-  elementEnclosingStartAndEnd (selector, constrainingNode) {
+  elementEnclosingStartAndEnd(selector, constrainingNode) {
 
     var tagEnclosingStartNode = DomUtilities.parent(this.startContainer, selector, constrainingNode),
       tagEnclosingEndNode;
@@ -126,7 +126,7 @@ export default class TypeRange {
    *     is a parent to the start and endContainer.
    * @returns {boolean}
    */
-  isInside (node) {
+  isInside(node) {
     return node.contains(this.startContainer) && node.contains(this.endContainer);
   };
 
@@ -153,7 +153,7 @@ export default class TypeRange {
    *
    * @returns {TypeRange} - This instance
    */
-  ensureStartNodePrecedesEndNode () {
+  ensureStartNodePrecedesEndNode() {
 
     var startIsEnd, startPrecedesEnd;
     startIsEnd = this.startContainer === this.endContainer;
@@ -210,7 +210,7 @@ export default class TypeRange {
    *
    * @returns {Node} - The new endContainer
    */
-  splitEndContainer () {
+  splitEndContainer() {
     if (this.endOffset !== this.endContainer.length) {
       this.endContainer = this.endContainer.splitText(this.endOffset).previousSibling;
       this.endOffset = this.endContainer.length;
@@ -222,7 +222,7 @@ export default class TypeRange {
    * Creates a native {Range} object and returns it.
    * @returns {Range}
    */
-  getNativeRange () {
+  getNativeRange() {
     var range = document.createRange();
     range.setEnd(this.endContainer, this.endOffset);
     range.setStart(this.startContainer, this.startOffset);
@@ -238,7 +238,7 @@ export default class TypeRange {
    * @param {Element} fromNode
    * @returns {{from: Element, start: number, end: number}}
    */
-  save (fromNode) {
+  save(fromNode) {
     var start, end;
     start = this.getStartOffset(fromNode);
     end = this.startsAndEndsInSameNode() ? start - this.startOffset + this.endOffset : this.getEndOffset(fromNode);
@@ -249,7 +249,7 @@ export default class TypeRange {
    * Returns the length of this range as numbers of characters.
    * @returns {number}
    */
-  getLength () {
+  getLength() {
     return TextUtilities.offsetFrom(this.startContainer, this.endContainer, this.startOffset, this.endOffset);
   };
 
@@ -261,7 +261,7 @@ export default class TypeRange {
    * @param {Node} [from] - The node to start counting characters from
    * @returns {number|null}
    */
-  getStartOffset (from) {
+  getStartOffset(from) {
     if (from) {
       return TextUtilities.offsetFrom(from, this.startContainer, 0, this.startOffset);
     }
@@ -276,7 +276,7 @@ export default class TypeRange {
    * @param {Node} [from] - The node to start counting characters from
    * @returns {number|null}
    */
-  getEndOffset (from) {
+  getEndOffset(from) {
     if (from) {
       return TextUtilities.offsetFrom(from, this.endContainer, 0, this.endOffset);
     }
@@ -289,7 +289,7 @@ export default class TypeRange {
    *
    * @returns {Node}
    */
-  getStartElement () {
+  getStartElement() {
     return this.startContainer.parentNode;
   };
 
@@ -298,7 +298,7 @@ export default class TypeRange {
    *
    * @returns {Node}
    */
-  getEndElement () {
+  getEndElement() {
     return this.endContainer.parentNode;
   };
 
@@ -308,7 +308,7 @@ export default class TypeRange {
    *
    * @returns {string}
    */
-  getStartTagName () {
+  getStartTagName() {
     return this.getStartElement().tagName.toLowerCase();
   };
 
@@ -318,7 +318,7 @@ export default class TypeRange {
    *
    * @returns {string}
    */
-  getEndTagName () {
+  getEndTagName() {
     return this.getEndElement().tagName.toLowerCase();
   };
 
@@ -329,7 +329,7 @@ export default class TypeRange {
    * @param {string} tagName - The tag name to compare.
    * @returns {boolean}
    */
-  startTagIs (tagName) {
+  startTagIs(tagName) {
     return this.getStartTagName() === tagName.toLowerCase();
   };
 
@@ -340,7 +340,7 @@ export default class TypeRange {
    * @param {string} tagName - The tag name to compare.
    * @returns {boolean}
    */
-  endTagIs (tagName) {
+  endTagIs(tagName) {
     return this.getEndTagName() === tagName.toLowerCase();
   };
 
@@ -350,7 +350,7 @@ export default class TypeRange {
    *
    * @returns {boolean}
    */
-  startsAndEndsInSameNode () {
+  startsAndEndsInSameNode() {
     return this.startContainer === this.endContainer;
   };
 
@@ -360,7 +360,7 @@ export default class TypeRange {
    *
    * @returns {boolean}
    */
-  isCollapsed () {
+  isCollapsed() {
     return this.startOffset === this.endOffset && this.startsAndEndsInSameNode();
   };
 
@@ -371,7 +371,7 @@ export default class TypeRange {
    *     this range.
    * @returns {TypeRange} - This instance
    */
-  mergeWith (that) {
+  mergeWith(that) {
 
     var startOrder, endOrder;
 
@@ -395,6 +395,22 @@ export default class TypeRange {
   };
 
   /**
+   * Getter for the start container
+   * @returns {Text}
+   */
+  getStartContainer() {
+    return this.startContainer;
+  }
+
+  /**
+   * Getter for the end container
+   * @returns {Text}
+   */
+  getEndContainer() {
+    return this.endContainer;
+  }
+
+  /**
    * Internal method to swap the start and end containers as well
    * as their offsets when it is initialized with the endContainer
    * preceding the startContainer.
@@ -402,7 +418,7 @@ export default class TypeRange {
    * @returns {TypeRange} - This instance
    * @private
    */
-  _swapStartAndEnd () {
+  _swapStartAndEnd() {
     this._swapContainers();
     this._swapOffsets();
     return this;
@@ -414,7 +430,7 @@ export default class TypeRange {
    * @returns {TypeRange} - This instance
    * @private
    */
-  _swapContainers () {
+  _swapContainers() {
     var swapContainer = this.startContainer;
     this.startContainer = this.endContainer;
     this.endContainer = swapContainer;
@@ -427,7 +443,7 @@ export default class TypeRange {
    * @returns {TypeRange} - This instance
    * @private
    */
-  _swapOffsets () {
+  _swapOffsets() {
     var swapOffset = this.startOffset;
     this.startOffset = this.endOffset;
     this.endOffset = swapOffset;
@@ -449,7 +465,7 @@ export default class TypeRange {
    *     where the selection should end
    * @returns {TypeRange} - A {TypeRange} instance
    */
-  static load (bookmark) {
+  static load(bookmark) {
     return TypeRange.fromPositions(bookmark.from, bookmark.start, bookmark.end);
   };
 
@@ -466,7 +482,7 @@ export default class TypeRange {
    *     selection should end
    * @returns {TypeRange} - A {TypeRange} instance
    */
-  static fromPositions (el, startOffset, endOffset) {
+  static fromPositions(el, startOffset, endOffset) {
     var start = TextUtilities.nodeAtOffset(el, startOffset),
       end = TextUtilities.nodeAtOffset(el, endOffset);
     return new TypeRange(start.node, start.offset, end.node, end.offset);
@@ -481,7 +497,7 @@ export default class TypeRange {
    *
    * @returns {TypeRange|null} - A {TypeRange} instance or null
    */
-  static fromCurrentSelection () {
+  staticfromCurrentSelection () {
     var sel = document.getSelection();
     return sel.isCollapsed ? null : TypeRange.fromRange(sel.getRangeAt(0));
   };
@@ -500,7 +516,7 @@ export default class TypeRange {
    * @returns {TypeRange} - The {TypeRange} corresponding to the given
    *     {Range}
    */
-  static fromRange (range) {
+  static fromRange(range) {
 
     //var endContainer = range.endContainer,
     //  endOffset = range.endOffset;
@@ -524,7 +540,7 @@ export default class TypeRange {
    * @param {number} selectedChars
    * @returns {TypeRange}
    */
-  static fromCaret (caret, selectedChars) {
+  static fromCaret(caret, selectedChars) {
     var startNode = caret.getNode(),
       startOffset = caret.getNodeOffset(),
       end = TextUtilities.nodeAtOffset(startNode, selectedChars, startOffset);
@@ -542,7 +558,7 @@ export default class TypeRange {
    * @returns {TypeRange} - A {TypeRange} spanning over the contents of the
    *     given element.
    */
-  static fromElement (el) {
+  static fromElement(el) {
     var startNode = DomWalker.first(el, 'text'),
       endNode = DomWalker.last(el, 'text');
     return new TypeRange(startNode, 0, endNode, endNode.nodeValue.length);
@@ -557,7 +573,7 @@ export default class TypeRange {
    * @returns {TypeRange|null} - Returns a new TypeRange or null if the
    *     event has not been triggered from inside a text node
    */
-  static fromMouseEvent (e) {
+  static fromMouseEvent(e) {
     return TypeRange.fromPoint(e.clientX, e.clientY);
   };
 
@@ -571,7 +587,7 @@ export default class TypeRange {
    * @returns {TypeRange|null} - Returns a new TypeRange or null if the
    *     position is not inside a text node
    */
-  static fromPoint (x, y) {
+  static fromPoint(x, y) {
 
     var range, node, offset;
 

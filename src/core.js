@@ -78,6 +78,7 @@ export default class Type {
     return {
       el: null,
       undoSteps: 20,
+      defaultBlockTag: 'p' // possible htmlString, '', false // todo '<p>'
     };
   }
 

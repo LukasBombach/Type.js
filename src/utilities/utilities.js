@@ -69,7 +69,7 @@ export default class Utilities {
     }
 
     // Pass a name to get a value
-    if (typeof nameOrObject === 'string' && arguments.length === 3) {
+    if (typeof nameOrObject === 'string' && value === undefined) { // arguments.length === 3) { // todo fix me, this is all crap
       return base[nameOrObject];
     }
 
