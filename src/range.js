@@ -101,8 +101,8 @@ export default class TypeRange {
    */
   elementEnclosingStartAndEnd(selector, constrainingNode) {
 
-    var tagEnclosingStartNode = DomUtilities.parent(this.startContainer, selector, constrainingNode),
-      tagEnclosingEndNode;
+    var tagEnclosingStartNode = DomUtilities.parent(this.startContainer, selector, constrainingNode);
+    var tagEnclosingEndNode;
 
     if (tagEnclosingStartNode === null) {
       return null;
@@ -143,6 +143,7 @@ export default class TypeRange {
     if (this.isInside(el)) {
       return true;
     }
+
     throw new Error('Range is not contained by given node.');
   };
 
@@ -155,7 +156,8 @@ export default class TypeRange {
    */
   ensureStartNodePrecedesEndNode() {
 
-    var startIsEnd, startPrecedesEnd;
+    var startIsEnd;
+    var startPrecedesEnd;
     startIsEnd = this.startContainer === this.endContainer;
 
     if (startIsEnd && this.startOffset <= this.endOffset) {
@@ -183,7 +185,7 @@ export default class TypeRange {
    *
    * @returns {Node} - The new startContainer
    */
-  splitStartContainer () {
+  splitStartContainer() {
 
     if (this.startOffset === 0) {
       return this.startContainer;
@@ -215,6 +217,7 @@ export default class TypeRange {
       this.endContainer = this.endContainer.splitText(this.endOffset).previousSibling;
       this.endOffset = this.endContainer.length;
     }
+
     return this.endContainer;
   };
 
@@ -239,7 +242,8 @@ export default class TypeRange {
    * @returns {{from: Element, start: number, end: number}}
    */
   save(fromNode) {
-    var start, end;
+    var start;
+    var end;
     start = this.getStartOffset(fromNode);
     end = this.startsAndEndsInSameNode() ? start - this.startOffset + this.endOffset : this.getEndOffset(fromNode);
     return { from: fromNode, start: start, end: end };
@@ -265,6 +269,7 @@ export default class TypeRange {
     if (from) {
       return TextUtilities.offsetFrom(from, this.startContainer, 0, this.startOffset);
     }
+
     return parseInt(this.startOffset, 10);
   };
 
@@ -373,7 +378,8 @@ export default class TypeRange {
    */
   mergeWith(that) {
 
-    var startOrder, endOrder;
+    var startOrder;
+    var endOrder;
 
     startOrder = DomUtilities.order(this.startContainer, that.startContainer);
     endOrder = DomUtilities.order(this.endContainer, that.endContainer);
@@ -483,8 +489,8 @@ export default class TypeRange {
    * @returns {TypeRange} - A {TypeRange} instance
    */
   static fromPositions(el, startOffset, endOffset) {
-    var start = TextUtilities.nodeAtOffset(el, startOffset),
-      end = TextUtilities.nodeAtOffset(el, endOffset);
+    var start = TextUtilities.nodeAtOffset(el, startOffset);
+    var end = TextUtilities.nodeAtOffset(el, endOffset);
     return new TypeRange(start.node, start.offset, end.node, end.offset);
   };
 
@@ -497,7 +503,7 @@ export default class TypeRange {
    *
    * @returns {TypeRange|null} - A {TypeRange} instance or null
    */
-  staticfromCurrentSelection () {
+  staticfromCurrentSelection() {
     var sel = document.getSelection();
     return sel.isCollapsed ? null : TypeRange.fromRange(sel.getRangeAt(0));
   };
@@ -541,9 +547,9 @@ export default class TypeRange {
    * @returns {TypeRange}
    */
   static fromCaret(caret, selectedChars) {
-    var startNode = caret.getNode(),
-      startOffset = caret.getNodeOffset(),
-      end = TextUtilities.nodeAtOffset(startNode, selectedChars, startOffset);
+    var startNode = caret.getNode();
+    var startOffset = caret.getNodeOffset();
+    var end = TextUtilities.nodeAtOffset(startNode, selectedChars, startOffset);
     return new TypeRange(startNode, startOffset, end.node, end.offset);
   };
 
@@ -559,8 +565,8 @@ export default class TypeRange {
    *     given element.
    */
   static fromElement(el) {
-    var startNode = DomWalker.first(el, 'text'),
-      endNode = DomWalker.last(el, 'text');
+    var startNode = DomWalker.first(el, 'text');
+    var endNode = DomWalker.last(el, 'text');
     return new TypeRange(startNode, 0, endNode, endNode.nodeValue.length);
   };
 
@@ -589,7 +595,9 @@ export default class TypeRange {
    */
   static fromPoint(x, y) {
 
-    var range, node, offset;
+    var range;
+    var node;
+    var offset;
 
     if (document.caretPositionFromPoint) {
       range = document.caretPositionFromPoint(x, y);

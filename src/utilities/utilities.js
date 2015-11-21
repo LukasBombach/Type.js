@@ -97,7 +97,7 @@ export default class Utilities {
   static getScrollPosition() {
     return {
       top: window.pageYOffset || document.documentElement.scrollTop,
-      left: window.pageXOffset || document.documentElement.scrollLeft
+      left: window.pageXOffset || document.documentElement.scrollLeft,
     };
   };
 

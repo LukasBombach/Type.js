@@ -87,9 +87,11 @@ export default class DomUtilities {
         this.removeTag(el.childNodes[i], tag, deep);
       }
     }
+
     if (el.nodeType === 1 && el.tagName.toLowerCase() === tag.toLowerCase()) {
       this.unwrap(el);
     }
+
     return this;
   };
 
@@ -100,8 +102,8 @@ export default class DomUtilities {
    * @returns {NodeList} - The elements represented by the string
    */
   static parseHTML(htmlString) {
-    var fragment = document.createDocumentFragment(),
-      div = fragment.appendChild(document.createElement('div'));
+    var fragment = document.createDocumentFragment();
+    var div = fragment.appendChild(document.createElement('div'));
     div.innerHTML = htmlString;
     return div.childNodes;
   };
@@ -124,11 +126,11 @@ export default class DomUtilities {
 
     // Prepare vars and cache the current parent
     // and sibling of the first element.
-    var el = elms[0],
-      parent = el.parentNode,
-      sibling = el.nextSibling,
-      wrapper = document.createElement(tag),
-      i;
+    var el = elms[0];
+    var parent = el.parentNode;
+    var sibling = el.nextSibling;
+    var wrapper = document.createElement(tag);
+    var i;
 
     // If the first element had a sibling, insert the wrapper before the
     // sibling to maintain the HTML structure; otherwise, just append it
@@ -163,9 +165,9 @@ export default class DomUtilities {
    */
   static unwrap(el) {
 
-    var next = el.nextSibling,
-      parent = el.parentNode,
-      childNodes = el.childNodes;
+    var next = el.nextSibling;
+    var parent = el.parentNode;
+    var childNodes = el.childNodes;
 
     if (next) {
       while (childNodes.length) {
@@ -328,8 +330,10 @@ export default class DomUtilities {
       if (this.matches(el, selector)) {
         return el;
       }
+
       el = el.parentNode;
     }
+
     return null;
   };
 
@@ -354,6 +358,7 @@ export default class DomUtilities {
         if (nodes[i] === el)
           return true;
       }
+
       return false;
     }
   };
@@ -369,6 +374,7 @@ export default class DomUtilities {
       container.setAttribute('id', this._containerId());
       window.document.body.appendChild(container);
     }
+
     return container;
   };
 

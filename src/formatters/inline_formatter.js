@@ -143,6 +143,7 @@ export default class InlineFormatter extends Formatter {
       elems[0] = DomUtilities.connectLeft(elems[0]);
       elems[elems.length - 1] = DomUtilities.connectRight(elems[elems.length - 1]);
     }
+
     return elems;
   };
 

@@ -96,6 +96,7 @@ export default class DomWalker {
     if (!node.nodeType) {
       throw new Error('The given node is not a DOM node');
     }
+
     this._node = node;
     return this;
   };
@@ -132,6 +133,7 @@ export default class DomWalker {
     if (node === null) {
       return null;
     }
+
     this._node = node;
     return node;
   };
@@ -235,6 +237,7 @@ export default class DomWalker {
       funcName = DomWalker._filterFunctions[filter];
       return DomWalker[funcName];
     }
+
     return filter;
   };
 
@@ -299,6 +302,7 @@ export default class DomWalker {
       if (parent.nextSibling !== null) {
         return DomWalker._nextNode(parent.nextSibling, options, true);
       }
+
       parent = parent.parentNode;
     }
 
@@ -368,6 +372,7 @@ export default class DomWalker {
       if (parent.previousSibling !== null) {
         return DomWalker._prevNode(parent.previousSibling, options, true);
       }
+
       parent = parent.parentNode;
     }
 

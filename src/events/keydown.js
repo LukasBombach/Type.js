@@ -57,7 +57,7 @@ export default class KeydownEvent extends TypeEvent {
       39: 'right',
       40: 'down',
       46: 'del',
-    }
+    };
   }
 
   /**
