@@ -26,7 +26,7 @@ Type JS is a pure library and does not have a UI.
 I am currently rewriting my old project [Type.js](https://github.com/LukasBombach/Type.js). 
 This is a 100% WIP right now.
 
-Other projects that are interesting right now (because they too avoid `contenteditable`:
+Other projects that are interesting right now (because they too avoid `contenteditable`):
 
 * https://github.com/basecamp/trix
 * https://github.com/ProseMirror/prosemirror
