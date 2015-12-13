@@ -38,7 +38,7 @@ export default class DomRenderer {
    */
   _renderNode(documentNode) {
 
-    var domNode = this._getNodeFromDocumentNode(documentNode);
+    var domNode = DomRenderer._getNodeFromDocumentNode(documentNode);
     const len = documentNode.children.length;
 
     for (let i = 0; i < len; i++) {
@@ -54,7 +54,7 @@ export default class DomRenderer {
    * @returns {HTMLElement|Text}
    * @private
    */
-  _getNodeFromDocumentNode(documentNode) {
+  static _getNodeFromDocumentNode(documentNode) {
     if (documentNode.nodeName === HtmlNode.TEXT_NODE)
       return document.createTextNode(documentNode.nodeValue);
     else
