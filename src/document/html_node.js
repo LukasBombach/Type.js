@@ -13,7 +13,13 @@ export default class HtmlNode extends DocumentNode {
    * @returns {HtmlNode}
    */
   static fromDomNode(domNode) {
-    return new HtmlNode(domNode.nodeName);
+    const nodeName = domNode.nodeType === Node.TEXT_NODE ? HtmlNode.TEXT_NODE : domNode.nodeName;
+    const nodeValue = domNode.nodeType === Node.TEXT_NODE ? domNode.nodeValue : undefined;
+    return new HtmlNode(nodeName, nodeValue);
+  }
+
+  static get TEXT_NODE() {
+    return 'text';
   }
 
 }
