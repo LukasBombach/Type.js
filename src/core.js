@@ -7,6 +7,7 @@ import InputPipeline from './input/input_pipeline';
 import Formatter from './formatter';
 import SelectionInput from './input/selection_input';
 import DomWalker from './utilities/dom_walker';
+import DomReader from './readers/dom_reader';
 
 const staticEmitter = new EventEmitter();
 
@@ -63,6 +64,8 @@ export default class Type {
     // Events
     new SelectionInput(this);
     Type.emit('ready', this);
+
+    console.log(DomReader.parse(options.el));
 
   }
 
