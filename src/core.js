@@ -8,6 +8,7 @@ import Formatter from './formatter';
 import SelectionInput from './input/selection_input';
 import DomWalker from './utilities/dom_walker';
 import DomReader from './readers/dom_reader';
+import DomRenderer from './renderers/dom_renderer';
 
 const staticEmitter = new EventEmitter();
 
@@ -61,11 +62,17 @@ export default class Type {
     this._inputPipeline = new InputPipeline(this);
     this._formatter = new Formatter(this);
 
-    // Events
+    // Editor contents
+    this._document = DomReader.getDocument(options.el);
+    this._renderer = new DomRenderer(this);
+    this._renderer.render();
+
+    // Events todo SelectionInput makes no sense when this comment says "Events"
     new SelectionInput(this);
     Type.emit('ready', this);
 
-    console.log(DomReader.parse(options.el));
+    // DEV
+    console.log(this._document);
 
   }
 
@@ -186,7 +193,7 @@ export default class Type {
   /**
    * Getter for this instance's root element, i.e. the
    * element that contains this editor's text.
-   * @returns {Element}
+   * @returns {HTMLElement}
    */
   getEl() {
     return this._options.el;
@@ -207,6 +214,14 @@ export default class Type {
   getFormatter() {
     return this._formatter;
   };
+
+  /**
+   *
+   * @returns {DocumentNode[]}
+   */
+  getDocument() {
+    return this._document;
+  }
 
   /**
    * Sets the editing mode of an element. The second parameter

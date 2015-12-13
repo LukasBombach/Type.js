@@ -1,15 +1,23 @@
 'use strict';
 
+import Development from '../utilities/development';
+
 export default class DocumentNode {
 
   /**
    *
    * @param {String} nodeName
-   * @param {DocumentNode[]} children
+   * @param {DocumentNode[]|String} contents - Either child nodes or a string containing the nodeValue
    */
-  constructor(nodeName = null, children = []) {
+  constructor(nodeName = null, contents = []) {
+
+    const nodeValue = typeof contents === 'string' ? contents : null;
+    const children = typeof contents === 'object' ? contents : [];
+
     this.setNodeName(nodeName);
+    this.setNodeValue(nodeValue);
     this.setChildren(children);
+
   }
 
   /**
@@ -39,6 +47,16 @@ export default class DocumentNode {
    */
   setChildren(children) {
     this.children = children;
+    return this;
+  }
+
+  /**
+   *
+   * @param {String} nodeValue
+   * @returns {DocumentNode}
+   */
+  setNodeValue(nodeValue) {
+    this.nodeValue = nodeValue;
     return this;
   }
 
