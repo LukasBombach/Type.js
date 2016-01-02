@@ -5,13 +5,12 @@
   <img alt="Type JS" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/logo@2x.png" height="59">
 </p>
 <p align="center">
-  Type JS is a WYSIWYG library that lets you implement your own WYSIWYG editor.
+  Type JS is a WYSIWYG library that lets you implement your own WYSIWYG editor.<br>
+  Type JS is a pure library and does not have a UI.
 </p>
 <p align="center">
   <img alt="separator" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/separator.png" height="59">
 </p>
-
-Type JS is a pure library and does not have a UI.
 
 * It leaves the implementation of the the editor (the UI) to you.
 * It provides an easy and high-level API for implementing WYSIWYG editors.
