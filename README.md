@@ -20,8 +20,8 @@
 
 ## Status
 
-I am currently rewriting my old project [Type.js](https://github.com/LukasBombach/Type.js). 
-This is a 100% WIP right now.
+I am currently rewriting my old project [Type.js](https://github.com/LukasBombach/old-type-js). 
+It's pretty much WIP right now.
 
 Other projects that are interesting right now (because they too avoid `contenteditable`):
 
