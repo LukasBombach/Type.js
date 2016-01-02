@@ -51,4 +51,4 @@ editor.format('<strong>', 10, 20);
 
 ## License
 
-Type.js is licenced under the [MIT license](https://github.com/LukasBombach/new-type-js/blob/master/LICENSE).
+Type.js is licenced under the [MIT license](https://github.com/LukasBombach/Type.js/blob/master/LICENSE).
