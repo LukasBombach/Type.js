@@ -5,7 +5,7 @@
   <img alt="Type JS" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/logo@2x.png" height="59">
 </p>
 <p align="center">
-  Type JS is a WYSIWYG library that lets you implement your own WYSIWYG editor.<br>
+  **Write your own WYSIWYG editor with Type.js**<br>
   Type JS is a pure library and does not have a UI.
 </p>
 <p align="center">
