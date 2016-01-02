@@ -11,11 +11,7 @@
   <img alt="separator" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/separator.png" height="59">
 </p>
 
-* Type.js leaves the implementation of the the editor (the UI) to you.
-* It provides an easy and high-level API that lets you implement your own WYSIWYG editor simple and fast.
-* It provides an extensive API, giving you more possiblities and more control than "regular" editors.
-* It creates simple and consistent markup across all browsers.
-* It does not rely on `contenteditable`.
+Type.js is a library that provides a simple high-level API that lets you implement your own WYSIWYG editor easily and reliably. It provides all the functionality but leaves the implementation of the the editor (the UI) to you. The API is as simple as jQuery and gives you more possiblities and control than "regular" editors. It creates the same markup across all browsers. Most importantly, it does not rely on `contenteditable`.
 
 ## Status
 
