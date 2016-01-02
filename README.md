@@ -11,8 +11,6 @@
   <img alt="separator" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/separator.png" height="59">
 </p>
 
-## About
-
 Type JS is a pure library and does not have a UI.
 
 * It leaves the implementation of the the editor (the UI) to you.
