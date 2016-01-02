@@ -13,7 +13,7 @@
 </p>
 
 * Type.js leaves the implementation of the the editor (the UI) to you.
-* It provides a really easy and high-level API for implementing WYSIWYG editors.
+* It provides an easy and high-level API that lets you implement your own WYSIWYG editor simple and fast.
 * It provides an extensive API, giving you more possiblities and more control than "regular" editors.
 * It creates simple and consistent markup across all browsers.
 * It does not rely on `contenteditable`.
