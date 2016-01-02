@@ -14,7 +14,7 @@ export default class HtmlNode extends DocumentNode {
    */
   static fromDomNode(domNode) {
     const nodeName = domNode.nodeType === Node.TEXT_NODE ? HtmlNode.TEXT_NODE : domNode.nodeName;
-    const nodeValue = domNode.nodeType === Node.TEXT_NODE ? domNode.nodeValue : undefined;
+    const nodeValue = domNode.nodeType === Node.TEXT_NODE ? domNode.nodeValue.trim() : undefined;
     return new HtmlNode(nodeName, nodeValue);
   }
 
