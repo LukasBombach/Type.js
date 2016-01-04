@@ -71,4 +71,29 @@ export default class DomReader {
     return !(node.nodeType !== Node.TEXT_NODE || /[^\t\n\r ]/.test(node.textContent));
   }
 
+  /**
+   *
+   * @param tag
+   * @returns {*}
+   */
+  getTextAttributeForTag(tag) {
+    var aliases = this.attributeAliases;
+    for (var key in aliases)
+      if (aliases.hasOwnProperty(key) && aliases[key].indexOf(tag) !== -1)
+        return key;
+    return null;
+  }
+
+  /**
+   *
+   * @returns {{bold: string[], italic: string[], underline: string[]}}
+   */
+  static get attributeAliases() {
+    return {
+      bold: ['strong', 'b'],
+      italic: ['em', 'i'],
+      underline: ['u'],
+    };
+  }
+
 }
