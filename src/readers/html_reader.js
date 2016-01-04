@@ -28,12 +28,13 @@ export default class HtmlReader {
 
     Array.prototype.forEach.call(domNode.childNodes, function(node) {
       if (HtmlReader._isBlockNode(node)) childNodes.push(HtmlReader._getBlockNode(node, attributes));
-      if (HtmlReader._isTextNodeWithContents(node)) childNodes.push(HtmlReader._getTextNode(node, attributes));
-      if (HtmlReader._isAttributeNode(node))
+      else if (HtmlReader._isTextNodeWithContents(node)) childNodes.push(HtmlReader._getTextNode(node, attributes));
+      else if (HtmlReader._isAttributeNode(node))
         childNodes = childNodes.concat(HtmlReader._getChildrenFor(node, HtmlReader._addAttributeForNode(attributes, node)));
     });
 
     return childNodes;
+
   }
 
   /**
