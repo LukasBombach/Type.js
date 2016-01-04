@@ -12,13 +12,10 @@ export default class HtmlReader {
    * @returns {DocumentNode[]}
    */
   static getDocument(rootNode) {
-
     // var parsedNodes = HtmlReader._parse(rootNode);
     // return parsedNodes.children || [parsedNodes];
-
-
+    return HtmlReader._getChildrenFor(rootNode);
   }
-
 
   static _getBlockNode(domNode, attributes = []) {
     var nodeType = domNode.tagName.toLowerCase();
@@ -33,27 +30,30 @@ export default class HtmlReader {
     Array.prototype.forEach.call(domNode.childNodes, function(node) {
 
       if (HtmlReader._isBlockNode(node)) childNodes.push(HtmlReader._getBlockNode(node, attributes));
-      if (HtmlReader._isTextNode(node)) childNodes.push(HtmlReader._getTextNode(node, attributes));
+      if (HtmlReader._isTextNodeWithContents(node)) childNodes.push(HtmlReader._getTextNode(node, attributes));
 
-      if (HtmlReader._isAttributeNode(node)) {
-        attributes = HtmlReader._addAttributeForNode(attributes, node);
-      }
+      if (HtmlReader._isAttributeNode(node))
+        childNodes = childNodes.concat(HtmlReader._getChildrenFor(node, HtmlReader._addAttributeForNode(attributes, node)));
 
     });
 
     return childNodes;
   }
 
+  static _isTextNodeWithContents(node) {
+    return node.nodeType === Node.TEXT_NODE && /[^\t\n\r ]/.test(node.textContent);
+  };
+
   /*Array.prototype.forEach.call(domNode.childNodes, function(node) {
 
-    if (HtmlReader._isBlockNode(node)) childNodes.push(HtmlReader._getBlockNode(node));
-    if (HtmlReader._isTextNode(node)) childNodes.push(HtmlReader._getTextNode(node, attributes));
+   if (HtmlReader._isBlockNode(node)) childNodes.push(HtmlReader._getBlockNode(node));
+   if (HtmlReader._isTextNode(node)) childNodes.push(HtmlReader._getTextNode(node, attributes));
 
-    if (HtmlReader._isAttributeNode(node)) {
-      attributes = HtmlReader._addAttributeForNode(attributes, node);
-    }
+   if (HtmlReader._isAttributeNode(node)) {
+   attributes = HtmlReader._addAttributeForNode(attributes, node);
+   }
 
-  });*/
+   });*/
 
   /**
    *
@@ -70,11 +70,17 @@ export default class HtmlReader {
     var attributeMap = HtmlReader._tagAttributeMap;
     var tagName = node.tagName ? node.tagName.toLowerCase() : '';
     attributes = attributes.slice(0);
-    if (attributeMap[tagName] && attributes.indexOf(tagName) !== -1)
+    if (attributeMap[tagName] && attributes.indexOf(tagName) === -1)
       attributes.push(attributeMap[tagName]);
     return attributes;
   }
 
+  /**
+   *
+   * @param domNode
+   * @returns {*|string|boolean}
+   * @private
+   */
   static _isBlockNode(domNode) {
     return domNode.tagName && HtmlReader._blockTags.indexOf(domNode.tagName.toLowerCase()) !== -1;
   }
