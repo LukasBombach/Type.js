@@ -1,6 +1,7 @@
 'use strict';
 
-import HtmlNode from '../document/html_node';
+import BlockNode from '../document/block_node';
+import TextNode from '../document/text_node';
 
 export default class DomRenderer {
 
@@ -18,47 +19,55 @@ export default class DomRenderer {
    * @returns {DomRenderer}
    */
   render() {
-
-    const len = this._document.length;
-
     this._el.innerHTML = '';
-
-    for (let i = 0; i < len; i++) {
-      this._el.appendChild(this._renderNode(this._document[i]));
-    }
-
-    return this;
+    this._el.appendChild();
+    return DomRenderer._renderNodes(this._document);
   }
 
   /**
    *
-   * @param {DocumentNode} documentNode
-   * @returns {HTMLElement|Node}
+   * @param {DocumentNode[]} nodes
+   * @returns {Node[]}
    * @private
    */
-  _renderNode(documentNode) {
-
-    var domNode = DomRenderer._getNodeFromDocumentNode(documentNode);
-    const len = documentNode.children.length;
-
-    for (let i = 0; i < len; i++) {
-      domNode.appendChild(this._renderNode(documentNode.children[i]));
-    }
-
-    return domNode;
+  static _renderNodes(nodes) {
+    nodes = nodes.length ? nodes : [nodes];
+    const len = nodes.length;
+    const domNodes = [];
+    for (let i = 0; i < len; i++)
+      domNodes.push(DomRenderer._getDomNodeFor(node[i]));
+    return domNodes;
   }
 
   /**
    *
-   * @param documentNode
+   * @param {BlockNode|TextNode} node
    * @returns {HTMLElement|Text}
    * @private
    */
-  static _getNodeFromDocumentNode(documentNode) {
-    if (documentNode.nodeName === HtmlNode.TEXT_NODE)
-      return document.createTextNode(documentNode.nodeValue);
-    else
-      return document.createElement(documentNode.nodeName);
+  static _getDomNodeFor(node) {
+    if (nodes[i] instanceof BlockNode) return DomRenderer._getDomNodeForBlockNode(node);
+    if (nodes[i] instanceof TextNode) return DomRenderer._getDomNodeForTextNode(node);
+  }
+
+  /**
+   *
+   * @param {BlockNode} blockNode
+   * @returns {HTMLElement}
+   * @private
+   */
+  static _getDomNodeForBlockNode(blockNode) {
+    return document.createElement(blockNode.nodeType);
+  }
+
+  /**
+   *
+   * @param {TextNode} textNode
+   * @returns {Text}
+   * @private
+   */
+  static _getDomNodeForTextNode(textNode) {
+    return document.createTextNode(textNode.nodeValue);
   }
 
 }
