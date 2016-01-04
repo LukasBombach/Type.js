@@ -7,7 +7,7 @@ import InputPipeline from './input/input_pipeline';
 import Formatter from './formatter';
 import SelectionInput from './input/selection_input';
 import DomWalker from './utilities/dom_walker';
-import DomReader from './readers/dom_reader';
+import HtmlReader from './readers/html_reader';
 import DomRenderer from './renderers/dom_renderer';
 
 const staticEmitter = new EventEmitter();
@@ -63,9 +63,10 @@ export default class Type {
     this._formatter = new Formatter(this);
 
     // Editor contents
-    this._document = DomReader.getDocument(options.el);
-    this._renderer = new DomRenderer(this);
-    this._renderer.render();
+    this._document = HtmlReader.getDocument(options.el);
+
+    //this._renderer = new DomRenderer(this);
+    //this._renderer.render();
 
     // Events todo SelectionInput makes no sense when this comment says "Events"
     new SelectionInput(this);

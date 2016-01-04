@@ -6,9 +6,10 @@ export default class DocumentNode {
 
   /**
    *
+   * @param attributes
    */
-  constructor() {
-    this.attributes = [];
+  constructor(attributes = []) {
+    this.attributes = attributes;
   }
 
   /**

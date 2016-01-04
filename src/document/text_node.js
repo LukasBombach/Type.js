@@ -8,9 +8,8 @@ import DocumentNode from './document_node';
 export default class TextNode extends DocumentNode {
 
   constructor(nodeValue = null, attributes = []) {
-    super();
-    this.nodeValue = nodeValue;
-    this.attributes = attributes;
+    super(attributes);
+    this.setNodeValue(nodeValue);
   }
 
   /**
@@ -21,6 +20,19 @@ export default class TextNode extends DocumentNode {
   setNodeValue(nodeValue) {
     this.nodeValue = nodeValue;
     return this;
+  }
+
+  /**
+   *
+   * @returns {{BOLD: string, ITALIC: string, UNDERLINE: string}}
+   * @constructor
+   */
+  static get ATTRIBUTES() {
+    return {
+      BOLD: 'bold',
+      ITALIC: 'italic',
+      UNDERLINE: 'underline',
+    };
   }
 
 }
