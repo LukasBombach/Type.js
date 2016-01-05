@@ -1,6 +1,7 @@
 /**
  * General styles
  */
+
 body {
   background: #fafafa;
 }
@@ -8,16 +9,18 @@ body {
 /**
  * Editor
  */
+
 #editor {
     margin: 50px auto;
     max-width: 600px;
     background: #fff;
-    border-top: 4px solid #1FBB94;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
-    border-radius: 4px 4px 0 0;
+    border-top: 5px solid #1FBB94;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
     box-shadow: 0 0 0 0.75pt rgba(209,209,209,.3),0 0 3pt 0.75pt rgba(204,204,204,.3);
 }
+
 #controls {
     list-style-type: none;
     user-select: none;
@@ -25,10 +28,12 @@ body {
     padding: 8px 10px;
     margin: 0;
 }
+
 #controls li {
     display: inline-block;
     margin: 0 5px;
 }
+
 #controls button {
     font-family: Times, serif;
     font-size: 16px;
@@ -37,9 +42,11 @@ body {
     background: transparent;
     border: none;
 }
+
 #controls button:focus {
     outline: none;
 }
+
 #controls [data-tag="em"] {
     font-style: italic;
 }
@@ -47,6 +54,7 @@ body {
 /**
  * Editable area
  */
+
 #document {
     padding: 30px;
     font: 15px/1.5em "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -59,6 +67,7 @@ body {
     border-radius:  0 0 4px 4px;
 
 }
+
 #document:focus {
     outline: none;
 }
