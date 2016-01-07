@@ -13,6 +13,7 @@ export default class BlockRenderNode extends RenderNode {
    * @param {BlockNode} documentBlockNode
    */
   constructor(documentBlockNode) {
+    super();
     this.setDocumentNode(documentBlockNode);
   }
 

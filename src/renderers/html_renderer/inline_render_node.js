@@ -12,6 +12,7 @@ export default class InlineRenderNode extends RenderNode {
    * @param {TextNode} textNode
    */
   constructor(textNode) {
+    super();
     this._attributes = textNode.getAttributes();
     this._children = [textNode.getNodeValue()];
   }
