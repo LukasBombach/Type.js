@@ -1,9 +1,9 @@
 'use strict';
 
-import BlockNode from '../document/block_node';
-import TextNode from '../document/text_node';
+import BlockNode from '../../document/block_node';
+import TextNode from '../../document/text_node';
 
-export default class DomRenderer {
+export default class HtmlRenderer {
 
   /**
    *
@@ -16,12 +16,20 @@ export default class DomRenderer {
 
   /**
    *
-   * @returns {DomRenderer}
+   * @returns {HtmlRenderer}
    */
   render() {
-    this._el.innerHTML = '';
-    this._el.appendChild();
-    return DomRenderer._renderNodes(this._document);
+    var renderNodes = HtmlRenderer._getRenderNodes(this._document);
+  }
+
+  /**
+   *
+   * @param document
+   * @returns {RenderNode[]}
+   * @private
+   */
+  static _getRenderNodes(document) {
+
   }
 
   /**
@@ -35,7 +43,7 @@ export default class DomRenderer {
     const len = nodes.length;
     const domNodes = [];
     for (let i = 0; i < len; i++)
-      domNodes.push(DomRenderer._getDomNodeFor(node[i]));
+      domNodes.push(HtmlRenderer._getDomNodeFor(nodes[i]));
     return domNodes;
   }
 
@@ -46,8 +54,8 @@ export default class DomRenderer {
    * @private
    */
   static _getDomNodeFor(node) {
-    if (nodes[i] instanceof BlockNode) return DomRenderer._getDomNodeForBlockNode(node);
-    if (nodes[i] instanceof TextNode) return DomRenderer._getDomNodeForTextNode(node);
+    if (node instanceof BlockNode) return HtmlRenderer._getDomNodeForBlockNode(node);
+    if (node instanceof TextNode) return HtmlRenderer._getDomNodeForTextNode(node);
   }
 
   /**
