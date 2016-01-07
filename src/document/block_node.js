@@ -13,7 +13,7 @@ export default class BlockNode extends DocumentNode {
    * @param children
    * @param attributes
    */
-  constructor(nodeType = null, children = [], attributes = []) {
+  constructor(nodeType = '', children = [], attributes = []) {
     super(attributes);
     this.setNodeType(nodeType);
     this.setChildren(children);
@@ -21,7 +21,7 @@ export default class BlockNode extends DocumentNode {
 
   /**
    *
-   * @param nodeType
+   * @param {string} nodeType
    * @returns {BlockNode}
    */
   setNodeType(nodeType = '') {
@@ -29,8 +29,16 @@ export default class BlockNode extends DocumentNode {
       throw 'You tried to set the nodeType "' + nodeType + '" ' +
       'for a BlockNode. You can only use these block types: ' +
       this.validBlockTypes.toString();
-    this.nodeType = nodeType;
+    this._nodeType = nodeType;
     return this;
+  }
+
+  /**
+   * 
+   * @returns {string}
+   */
+  getNodeType() {
+    return this._nodeType;
   }
 
   /**
@@ -39,7 +47,7 @@ export default class BlockNode extends DocumentNode {
    * @returns {BlockNode}
    */
   addChild(child) {
-    this.children.push(child);
+    this._children.push(child);
     return this;
   }
 
@@ -49,8 +57,12 @@ export default class BlockNode extends DocumentNode {
    * @returns {BlockNode}
    */
   setChildren(children) {
-    this.children = children;
+    this._children = children;
     return this;
+  }
+
+  getChildren() {
+    return this._children;
   }
 
   /**

@@ -45,7 +45,8 @@ export default class HtmlRenderer {
    */
   static _getRenderNodeFor(node) {
     if (node instanceof BlockNode) return new BlockRenderNode(node);
-    if (node instanceof TextNode) return new InlineRenderNode(node);
+    //if (node instanceof TextNode) return new InlineRenderNode(node);
+    else throw 'Node is not a BlockNode. What is this? What are you trying to do?'; // todo dev code
     return null;
   }
 

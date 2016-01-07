@@ -18,8 +18,16 @@ export default class TextNode extends DocumentNode {
    * @returns {TextNode}
    */
   setNodeValue(nodeValue) {
-    this.nodeValue = nodeValue;
+    this._nodeValue = nodeValue;
     return this;
+  }
+
+  /**
+   *
+   * @returns {String}
+   */
+  getNodeValue() {
+    return this._nodeValue;
   }
 
   /**
