@@ -32,7 +32,7 @@ export default class HtmlRenderer {
    * @private
    */
   static _getRenderNodes(nodes) {
-    return nodes.map(function (node) {
+    return nodes.map(function(node) {
       return HtmlRenderer._getRenderNodeFor(node);
     });
   }

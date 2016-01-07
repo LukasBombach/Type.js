@@ -8,7 +8,6 @@ import InlineRenderNode from './inline_render_node';
  */
 export default class BlockRenderNode extends RenderNode {
 
-
   /**
    *
    * @param {BlockNode} documentBlockNode
@@ -33,7 +32,7 @@ export default class BlockRenderNode extends RenderNode {
    */
   getDomNode() {
     const domBlockNode = document.createElement(this._documentNode.getNodeType());
-    const blockRenderNodeChildren = this._getBlockRenderNodeChildren(this._documentNode);
+    const renderChildren = this._getBlockRenderNodeChildren(this._documentNode);
     return domBlockNode;
   }
 
@@ -44,9 +43,12 @@ export default class BlockRenderNode extends RenderNode {
    * @private
    */
   _getBlockRenderNodeChildren(documentBlockNode) {
-    return this._documentNode.getChildren().map(function(textNode) {
+
+    const inlineRenderNodes =  documentBlockNode.getChildren().map(function(textNode) {
       return new InlineRenderNode(textNode);
     });
+
+    return BlockRenderNode._mergeInlineNodes(inlineRenderNodes);
   }
 
   /**
@@ -55,9 +57,24 @@ export default class BlockRenderNode extends RenderNode {
    * @returns {InlineRenderNode[]}
    * @private
    */
-  _mergeInlineNodes(inlineNodes) {
+  static _mergeInlineNodes(inlineNodes) {
+
     inlineNodes = inlineNodes.slice(0);
+    const len = inlineNodes.length;
+    let currentNode = inlineNodes[0];
+
+    if (len === 1)
+      return inlineNodes;
+
+    for (let i = 0; i < len; i++) {
+      if (currentNode.canContain(inlineNodes[i]))
+        currentNode.addAsChild(inlineNodes[i]);
+      else
+        currentNode = inlineNodes[i];
+    }
+
     return inlineNodes;
+
   }
 
 }

@@ -18,19 +18,56 @@ export default class InlineRenderNode extends RenderNode {
 
   /**
    *
-   * @param {InlineRenderNode} that
+   * @param that
+   * @returns {InlineRenderNode}
    */
-  canBeMergedWith(that) {
-    return that instanceof InlineRenderNode &&
-        that.getAttributes().toString() == this._attributes.toString(); // todo this is a hack ja?
+  addAsChild(that) {
+    return this;
   }
 
   /**
    *
-   * @returns {Array}
+   * @param {InlineRenderNode} that
+   * @returns {boolean}
    */
-  getAttributes() {
-    return this._attributes;
+  canContain(that) {
+    return !that.missingAttributes(this._attributes);
+  }
+
+  /**
+   *
+   * @param attrs
+   * @returns {boolean}
+   */
+  missingAttributes(attrs) {
+    const len = attrs.length;
+    for (let i = 0; i < len; i++)
+      if (this._indexOfAttribute(attrs[i]) === -1) return true;
+    return false;
+  }
+
+  /**
+   *
+   * @param attr
+   * @returns {number}
+   * @private
+   */
+  _indexOfAttribute(attr) {
+    const len = this._attributes.length;
+    for (let i = 0; i < len; i++)
+      if (InlineRenderNode._attributesAreEqual(this._attributes[i], attr)) return i;
+    return -1;
+  }
+
+  /**
+   *
+   * @param a
+   * @param b
+   * @returns {boolean}
+   * @private
+   */
+  static _attributesAreEqual(a, b) {
+    return a[0] == b[0] && a[1] == b[1];
   }
 
 }
