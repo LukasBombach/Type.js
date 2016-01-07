@@ -68,7 +68,7 @@ export default class BlockRenderNode extends RenderNode {
 
     for (let i = 0; i < len; i++) {
       if (currentNode.canContain(inlineNodes[i]))
-        currentNode.addAsChild(inlineNodes[i]);
+        currentNode.appendAsChild(inlineNodes[i]);
       else
         currentNode = inlineNodes[i];
     }

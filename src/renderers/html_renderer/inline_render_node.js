@@ -13,7 +13,7 @@ export default class InlineRenderNode extends RenderNode {
    */
   constructor(textNode) {
     this._attributes = textNode.getAttributes();
-    this._text = textNode.getNodeValue();
+    this._children = [textNode.getNodeValue()];
   }
 
   /**
@@ -21,7 +21,9 @@ export default class InlineRenderNode extends RenderNode {
    * @param that
    * @returns {InlineRenderNode}
    */
-  addAsChild(that) {
+  appendAsChild(that) {
+    that.removeAttributes(this._attributes);
+    this._children.push(that);
     return this;
   }
 
@@ -44,6 +46,18 @@ export default class InlineRenderNode extends RenderNode {
     for (let i = 0; i < len; i++)
       if (this._indexOfAttribute(attrs[i]) === -1) return true;
     return false;
+  }
+
+  /**
+   *
+   * @param attrs
+   * @returns {InlineRenderNode}
+   */
+  removeAttributes(attrs) {
+    const len = attrs.length;
+    let index = -1;
+    for (let i = 0; i < len; i++)
+      if (index = this._indexOfAttribute(attrs[i]) > -1) this._attributes.splice(index, 1);
   }
 
   /**
