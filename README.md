@@ -39,7 +39,7 @@ editor.format('<strong>');
 // Will format characters 10 to 20 italic
 editor.format('<em>', 10, 20);
 
-// Will select the character 5 to 10
+// Will select the characters 5 to 10
 editor.select('<em>', 5, 10);
 ```
 
