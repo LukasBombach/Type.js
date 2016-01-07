@@ -218,7 +218,7 @@ export default class Type {
 
   /**
    *
-   * @returns {DocumentNode[]}
+   * @returns {TypeDocument}
    */
   getDocument() {
     return this._document;

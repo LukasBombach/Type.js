@@ -21,7 +21,7 @@ export default class DomRenderer {
   render() {
     this._el.innerHTML = '';
     this._el.appendChild();
-    return DomRenderer._renderNodes(this._document);
+    return DomRenderer._renderNodes(this._document.getNodes());
   }
 
   /**
@@ -31,7 +31,7 @@ export default class DomRenderer {
    * @private
    */
   static _renderNodes(nodes) {
-    nodes = nodes.length ? nodes : [nodes];
+    nodes = Array.isArray(nodes) ? nodes : [nodes];
     const len = nodes.length;
     const domNodes = [];
     for (let i = 0; i < len; i++)
@@ -57,7 +57,13 @@ export default class DomRenderer {
    * @private
    */
   static _getDomNodeForBlockNode(blockNode) {
-    return document.createElement(blockNode.nodeType);
+    var domNode = document.createElement(blockNode.nodeType);
+    const children = blockNode.children;
+    const len = children.length;
+    let currentChild = children[0];
+    for (let i = 0; i < len; i++)
+      domNode.appendChild(DomRenderer._getDomNodeFor(children[i]));
+    return domNode;
   }
 
   /**

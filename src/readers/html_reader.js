@@ -1,5 +1,6 @@
 'use strict';
 
+import TypeDocument from '../document/type_document';
 import BlockNode from '../document/block_node';
 import TextNode from '../document/text_node';
 import Development from '../utilities/development';
@@ -9,17 +10,17 @@ export default class HtmlReader {
   /**
    *
    * @param {HTMLElement|Node} rootNode
-   * @returns {DocumentNode[]}
+   * @returns {TypeDocument}
    */
   static getDocument(rootNode) {
-    return HtmlReader._getChildrenFor(rootNode);
+    return new TypeDocument(HtmlReader._getChildrenFor(rootNode));
   }
 
   /**
    *
    * @param domNode
    * @param attributes
-   * @returns {Array}
+   * @returns {DocumentNode[]}
    * @private
    */
   static _getChildrenFor(domNode, attributes = []) {
