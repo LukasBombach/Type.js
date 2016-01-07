@@ -19,6 +19,32 @@ export default class InlineRenderNode extends RenderNode {
 
   /**
    *
+   * @returns {Text|Element}
+   */
+  getDomNode() {
+
+    if (!this._attributes.length)
+      return document.createTextNode(this._children[0]);
+
+    // todo lol what am I doing. Code properly tired lukas!
+
+    const map = {bold: 'strong', italic: 'em'};
+    let attrs = this._attributes.slice(0);
+    const el = document.createElement(map[attrs.pop()]);
+    let innerElement = el;
+
+    while(attrs.length) {
+      innerElement = document.createElement(map[attrs.pop()]);
+      el.appendChild(innerElement);
+    }
+
+    innerElement.textContent = this._children[0];
+
+    return el;
+  }
+
+  /**
+   *
    * @param that
    * @returns {InlineRenderNode}
    */

@@ -19,20 +19,25 @@ export default class HtmlRenderer {
 
   /**
    *
-   * @returns {HtmlRenderer}
+   * @returns {Element[]}
    */
   render() {
-    var renderNodes = HtmlRenderer._getRenderNodes(this._document);
+    const renderNodes = HtmlRenderer._getRenderNodes(this._document);
+    const domNodes = [];
+    for (let i = 0; i < renderNodes.length; i++)
+      domNodes.push(renderNodes[i].getDomNode());
+    console.log(domNodes[1]);
+    return domNodes;
   }
 
   /**
    *
-   * @param {DocumentNode[]} nodes
+   * @param {TypeDocument} document
    * @returns {RenderNode[]}
    * @private
    */
-  static _getRenderNodes(nodes) {
-    return nodes.map(function(node) {
+  static _getRenderNodes(document) {
+    return document.getNodes().map(function(node) {
       return HtmlRenderer._getRenderNodeFor(node);
     });
   }

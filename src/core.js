@@ -74,6 +74,8 @@ export default class Type {
 
     // DEV
     console.log(this._document);
+    this._renderer = new HtmlRenderer(this);
+    this._renderer.render();
 
   }
 
