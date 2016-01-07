@@ -22,8 +22,18 @@ export default class InlineRenderNode extends RenderNode {
    * @returns {InlineRenderNode}
    */
   appendAsChild(that) {
+
     that.removeAttributes(this._attributes);
-    this._children.push(that);
+    let currentNode = this._children[this._children.length - 1];
+
+    if (typeof currentNode === InlineRenderNode && currentNode.canContain(that)) {
+      currentNode.appendChild(that);
+    } else if (that.getAttributes().length) {
+      this._children.push(that);
+    } else {
+      this._children = this._children.concat(that.getChildren());
+    }
+
     return this;
   }
 
@@ -58,6 +68,22 @@ export default class InlineRenderNode extends RenderNode {
     let index = -1;
     for (let i = 0; i < len; i++)
       if (index = this._indexOfAttribute(attrs[i]) > -1) this._attributes.splice(index, 1);
+  }
+
+  /**
+   *
+   * @returns {Array}
+   */
+  getAttributes() {
+    return this._attributes.slice(0);
+  }
+
+  /**
+   *
+   * @returns {Array}
+   */
+  getChildren() {
+    return this._children.slice(0);
   }
 
   /**

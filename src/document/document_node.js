@@ -37,7 +37,7 @@ export default class DocumentNode {
    * @returns {Array}
    */
   getAttributes() {
-    return this._attributes;
+    return this._attributes.slice(0);
   }
 
 }
