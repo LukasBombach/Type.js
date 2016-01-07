@@ -8,7 +8,7 @@ import Formatter from './formatter';
 import SelectionInput from './input/selection_input';
 import DomWalker from './utilities/dom_walker';
 import HtmlReader from './readers/html_reader';
-import DomRenderer from './renderers/dom_renderer';
+import HtmlRenderer from './renderers/html_renderer/html_renderer';
 
 const staticEmitter = new EventEmitter();
 

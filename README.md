@@ -11,21 +11,16 @@
   <img alt="separator" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/separator.png" height="59">
 </p>
 
-Type.js is a library that provides a simple high-level API that lets you implement your own WYSIWYG editor easily and reliably. It provides all the functionality but leaves the implementation of the UI to you. The API is as simple as jQuery and gives you more possiblities and control than "regular" editors. It is really easy to create an editor with that will work stable across browsers and will always create the same simple markup. As an important sidenote, it does not rely on `contenteditable`.
+Type.js is a library that provides a simple high-level API that lets you implement your own WYSIWYG editor easily and reliably. Usually WYSIWYG-editors do not match the UI and the use-case of your project and it is a hassle to customize them. This is why Type.js provides all the functionality but leaves the implementation of the UI to you. The API is as simple as jQuery and gives you more possiblities and control than "regular" editors. It is really easy to create an editor that will work stable across browsers and will always create the same simple markup on all devices. As an important sidenote, it does not rely on `contenteditable`, which makes all of this possible.
 
 ## Status
 
-I am currently rewriting my old project [Type.js](https://github.com/LukasBombach/old-type-js). 
-It's pretty much WIP right now.
+This project is a rewrite of my [master's thesis](https://github.com/LukasBombach/old-type-js). I am currently rewriting the document model [in a separate branch](https://github.com/LukasBombach/Type.js/tree/document-model). This project is under heavy development and I am aiming to release the first beta this quarter.
 
 Other projects that are interesting right now (because they too avoid `contenteditable`):
 
 * https://github.com/basecamp/trix
 * https://github.com/ProseMirror/prosemirror
-
-## Installation
-
-Include `type.min.js` from the `dist` folder on your website. AMD / CommmonJs coming soon.
 
 ## Basic usage:
 
@@ -34,9 +29,19 @@ Include `type.min.js` from the `dist` folder on your website. AMD / CommmonJs co
 var el = document.getElementById('editor-contents');
 var editor = new Type(el);
 
-// Will format characters 10 to 20 as bold
-editor.format('<strong>', 10, 20);
+// Will format the current selection bold
+editor.format('<strong>');
+
+// Will format characters 10 to 20 italic
+editor.format('<em>', 10, 20);
+
+// Will select the characters 5 to 10
+editor.select('<em>', 5, 10);
 ```
+
+## Installation
+
+Include `type.min.js` from the `dist` folder on your website. AMD / CommmonJs coming soon.
 
 ## Building
 

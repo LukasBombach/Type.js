@@ -9,7 +9,7 @@ export default class DocumentNode {
    * @param attributes
    */
   constructor(attributes = []) {
-    this.attributes = attributes;
+    this._attributes = attributes;
   }
 
   /**
@@ -18,7 +18,7 @@ export default class DocumentNode {
    * @returns {DocumentNode}
    */
   setAttributes(attributes = []) {
-    this.attributes = attributes;
+    this._attributes = attributes;
     return this;
   }
 
@@ -28,8 +28,16 @@ export default class DocumentNode {
    * @returns {DocumentNode}
    */
   addAttribute(attribute) {
-    this.attributes.push(attribute);
+    this._attributes.push(attribute);
     return this;
+  }
+
+  /**
+   *
+   * @returns {Array}
+   */
+  getAttributes() {
+    return this._attributes;
   }
 
 }
