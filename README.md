@@ -22,10 +22,6 @@ Other projects that are interesting right now (because they too avoid `contented
 * https://github.com/basecamp/trix
 * https://github.com/ProseMirror/prosemirror
 
-## Installation
-
-Include `type.min.js` from the `dist` folder on your website. AMD / CommmonJs coming soon.
-
 ## Basic usage:
 
 ```javascript
@@ -42,6 +38,10 @@ editor.format('<em>', 10, 20);
 // Will select the characters 5 to 10
 editor.select('<em>', 5, 10);
 ```
+
+## Installation
+
+Include `type.min.js` from the `dist` folder on your website. AMD / CommmonJs coming soon.
 
 ## Building
 
