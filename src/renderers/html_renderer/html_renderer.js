@@ -3,6 +3,9 @@
 import BlockNode from '../../document/block_node';
 import TextNode from '../../document/text_node';
 
+import BlockRenderNode from './block_render_node';
+import InlineRenderNode from './inline_render_node';
+
 export default class HtmlRenderer {
 
   /**
@@ -24,12 +27,26 @@ export default class HtmlRenderer {
 
   /**
    *
-   * @param document
+   * @param {DocumentNode[]} nodes
    * @returns {RenderNode[]}
    * @private
    */
-  static _getRenderNodes(document) {
+  static _getRenderNodes(nodes) {
+    return nodes.map(function (node) {
+      return HtmlRenderer._getRenderNodeFor(node);
+    });
+  }
 
+  /**
+   *
+   * @param node
+   * @returns {BlockRenderNode|InlineRenderNode|null}
+   * @private
+   */
+  static _getRenderNodeFor(node) {
+    if (node instanceof BlockNode) return new BlockRenderNode(node);
+    if (node instanceof TextNode) return new InlineRenderNode(node);
+    return null;
   }
 
   /**
