@@ -9,7 +9,7 @@ export default class DocumentNode {
    * @param attributes
    */
   constructor(attributes = []) {
-    this._attributes = attributes;
+    this.setAttributes(attributes);
   }
 
   /**
@@ -18,7 +18,11 @@ export default class DocumentNode {
    * @returns {DocumentNode}
    */
   setAttributes(attributes = []) {
-    this._attributes = attributes;
+
+    this._attributes = attributes.map(function(attr) {
+      return typeof attr === 'string' ? [attr,true] : attr;
+    });
+
     return this;
   }
 

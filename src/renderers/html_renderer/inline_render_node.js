@@ -30,11 +30,11 @@ export default class InlineRenderNode extends RenderNode {
 
     const map = {bold: 'strong', italic: 'em'};
     let attrs = this._attributes.slice(0);
-    const el = document.createElement(map[attrs.pop()]);
+    const el = document.createElement(map[attrs.pop()[0]]);
     let innerElement = el;
 
     while(attrs.length) {
-      innerElement = document.createElement(map[attrs.pop()]);
+      innerElement = document.createElement(map[attrs.pop()[0]]);
       el.appendChild(innerElement);
     }
 
@@ -70,7 +70,7 @@ export default class InlineRenderNode extends RenderNode {
    * @returns {boolean}
    */
   canContain(that) {
-    return !that.missingAttributes(this._attributes);
+    return this._attributes.length && !that.missingAttributes(this._attributes);
   }
 
   /**
@@ -94,7 +94,7 @@ export default class InlineRenderNode extends RenderNode {
     const len = attrs.length;
     let index = -1;
     for (let i = 0; i < len; i++)
-      if (index = this._indexOfAttribute(attrs[i]) > -1) this._attributes.splice(index, 1);
+      if ((index = this._indexOfAttribute(attrs[i])) !== -1) this._attributes.splice(index, 1);
   }
 
   /**

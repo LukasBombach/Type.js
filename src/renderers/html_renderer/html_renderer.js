@@ -26,7 +26,7 @@ export default class HtmlRenderer {
     const domNodes = [];
     for (let i = 0; i < renderNodes.length; i++)
       domNodes.push(renderNodes[i].getDomNode());
-    console.log(domNodes[1]);
+    console.log(domNodes[0]);
     return domNodes;
   }
 
