@@ -15,8 +15,7 @@ Type.js is a library that provides a simple high-level API that lets you impleme
 
 ## Status
 
-I am currently rewriting my old project [Type.js](https://github.com/LukasBombach/old-type-js). 
-It's pretty much WIP right now.
+This project is a rewrite of my [master's thesis](https://github.com/LukasBombach/old-type-js). I am currently rewriting the document model [in a separate branch](https://github.com/LukasBombach/Type.js/tree/document-model). This project is under heavy development and I am aiming to release the first beta this quarter.
 
 Other projects that are interesting right now (because they too avoid `contenteditable`):
 
@@ -34,8 +33,14 @@ Include `type.min.js` from the `dist` folder on your website. AMD / CommmonJs co
 var el = document.getElementById('editor-contents');
 var editor = new Type(el);
 
-// Will format characters 10 to 20 as bold
-editor.format('<strong>', 10, 20);
+// Will format the current selection bold
+editor.format('<strong>');
+
+// Will format characters 10 to 20 italic
+editor.format('<em>', 10, 20);
+
+// Will select the characters 5 to 10
+editor.select('<em>', 5, 10);
 ```
 
 ## Building
