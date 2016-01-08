@@ -33,7 +33,7 @@ export default class InlineRenderNode extends RenderNode {
     const el = document.createElement(map[attrs.pop()[0]]);
     let innerElement = el;
 
-    while(attrs.length) {
+    while (attrs.length) {
       innerElement = document.createElement(map[attrs.pop()[0]]);
       el.appendChild(innerElement);
     }
