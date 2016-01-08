@@ -63,21 +63,23 @@ export default class BlockRenderNode extends RenderNode {
    */
   static _mergeInlineNodes(inlineNodes) {
 
-    inlineNodes = inlineNodes.slice(0);
     const len = inlineNodes.length;
+    const mergedNodes = [];
     let currentNode = inlineNodes[0];
 
     if (len === 1)
       return inlineNodes;
 
     for (let i = 0; i < len; i++) {
-      if (currentNode.canContain(inlineNodes[i]))
+      if (currentNode.canContain(inlineNodes[i])) {
         currentNode.appendAsChild(inlineNodes[i]);
-      else
+      } else {
+        mergedNodes.push(currentNode);
         currentNode = inlineNodes[i];
+      }
     }
 
-    return inlineNodes;
+    return mergedNodes;
 
   }
 
