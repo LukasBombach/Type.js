@@ -38,7 +38,12 @@ export default class InlineRenderNode extends RenderNode {
       el.appendChild(innerElement);
     }
 
-    innerElement.textContent = this._children[0];
+    for (let i = 0; i < this._children.length; i++) {
+      if (typeof this._children[i] === 'string')
+        innerElement.appendChild(document.createTextNode(this._children[i]));
+      else
+        innerElement.appendChild(this._children[i].getDomNode());
+    }
 
     return el;
   }
