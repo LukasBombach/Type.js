@@ -40,6 +40,16 @@ export default class HtmlRendererCache {
   }
 
   /**
+   * Returns whether or not a given document node is in the cache
+   *
+   * @param documentNodeId
+   * @returns {boolean}
+   */
+  isCached(documentNodeId) {
+    return documentNodeId.toString() in this._cache;
+  }
+
+  /**
    *
    * @param {DocumentNode} documentNode
    * @returns {RenderNode}
@@ -54,6 +64,27 @@ export default class HtmlRendererCache {
     }
 
     return cachedItem;
+  }
+
+  /**
+   *
+   * @param {TypeDocument} document
+   * @returns {{}}
+   */
+  getOrCreateNodesForDocument(document) {
+
+    const documentNodes = document.getNodes();
+    const len = documentNodes.length;
+    const renderNodes = {};
+    let id;
+
+    for (let i = 0; i < len; i++) {
+      id = documentNodes[i].id.toString();
+      renderNodes[id] = this.getOrCreateForDocumentNode(documentNodes[i]);
+    }
+
+    return renderNodes;
+
   }
 
 }

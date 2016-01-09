@@ -32,12 +32,14 @@ export default class BlockRenderNode extends RenderNode {
    * @returns {Element}
    */
   getDomNode() {
-    const domBlockNode = document.createElement(this._documentNode.getNodeType());
+    if (this._domNode)
+      return this._domNode;
+    this._domNode = document.createElement(this._documentNode.getNodeType());
     const renderChildren = this._getBlockRenderNodeChildren(this._documentNode);
     const len = renderChildren.length;
     for (let i = 0; i < len; i++)
-      domBlockNode.appendChild(renderChildren[i].getDomNode());
-    return domBlockNode;
+      this._domNode.appendChild(renderChildren[i].getDomNode());
+    return this._domNode;
   }
 
   /**

@@ -16,30 +16,89 @@ export default class HtmlRenderer {
    */
   constructor(type) {
     this._document = type.getDocument();
-    this._el = type.getEl();
-    this._cache = new HtmlRendererCache();
 
     // todo devcode
-    this._devEl = document.getElementById('development-output');
+    // this._el = type.getEl();
+    this._el = document.getElementById('development-output');
+
+    this._cache = new HtmlRendererCache();
+    this._currentlyRenderedNodes = {};
+
   }
 
   /**
    *
-   * @returns {Element[]}
+   * @returns {HtmlRenderer}
    */
   render() {
 
-    const renderNodes = HtmlRenderer._getRenderNodes(this._document);
-    const domNodes = [];
-    let domNode;
+    const nodesToRender = this._cache.getOrCreateNodesForDocument(this._document);
+    let lastIdInCurrentlyRenderedNodes = null;
 
-    for (let i = 0; i < renderNodes.length; i++) {
-      domNode = renderNodes[i].getDomNode();
-      this._devEl.appendChild(domNode);
-      domNodes.push(domNode);
+    for (let id in nodesToRender) {
+      if (!nodesToRender.hasOwnProperty(id)) continue;
+      if (id in this._currentlyRenderedNodes) lastIdInCurrentlyRenderedNodes = id;
+      else this._renderNode(nodesToRender[id], this._currentlyRenderedNodes[id]);
+      delete this._currentlyRenderedNodes[id];
     }
 
-    return domNodes;
+    for (let id in this._currentlyRenderedNodes) {
+      if (!this._currentlyRenderedNodes.hasOwnProperty(id)) continue;
+      this._removeNodeFromDom(this._currentlyRenderedNodes[id]);
+    }
+
+    this._currentlyRenderedNodes = nodesToRender;
+
+    return this;
+
+    // const nodesToRender = HtmlRenderer._getRenderNodes(this._document);
+    // const domNodes = [];
+    // let domNode;
+
+    // for (let i = 0; i < nodesToRender.length; i++) {
+    //   domNode = nodesToRender[i].getDomNode();
+    //   this._devEl.appendChild(domNode);
+    //   domNodes.push(domNode);
+    // }
+
+    // return domNodes;
+
+  }
+
+  /**
+   *
+   * @param {RenderNode|BlockRenderNode|InlineRenderNode} nodeToRender
+   * @param {RenderNode|BlockRenderNode|InlineRenderNode} [afterNode]
+   * @returns {HtmlRenderer}
+   * @private
+   */
+  _renderNode(nodeToRender, afterNode) {
+
+    if (!afterNode) {
+      this._el.appendChild(nodeToRender.getDomNode());
+      return this;
+    }
+
+    const afterDomNode = afterNode.getDomNode();
+
+    if (afterDomNode.nextSibling)
+      afterDomNode.parentNode.insertBefore(nodeToRender.getDomNode(), afterDomNode.nextSibling);
+    else
+      afterDomNode.parentNode.appendChild(nodeToRender.getDomNode());
+
+    return this;
+  }
+
+  /**
+   *
+   * @param {RenderNode|BlockRenderNode|InlineRenderNode} nodeToRemove
+   * @returns {HtmlRenderer}
+   * @private
+   */
+  _removeNodeFromDom(nodeToRemove) {
+    const removeDomNode = nodeToRemove.getDomNode();
+    removeDomNode.parentNode.removeChild(removeDomNode);
+    return this;
   }
 
   /**

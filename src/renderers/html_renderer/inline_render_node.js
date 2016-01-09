@@ -23,19 +23,22 @@ export default class InlineRenderNode extends RenderNode {
    */
   getDomNode() {
 
+    if (this._domNode)
+      return this._domNode;
+
     if (!this._attributes.length)
-      return document.createTextNode(this._children[0]);
+      return this._domNode = document.createTextNode(this._children[0]);
 
     // todo lol what am I doing. Code properly tired lukas!
 
     const map = {bold: 'strong', italic: 'em'};
     let attrs = this._attributes.slice(0);
-    const el = document.createElement(map[attrs.pop()[0]]);
-    let innerElement = el;
+    this._domNode = document.createElement(map[attrs.pop()[0]]);
+    let innerElement = this._domNode;
 
     while (attrs.length) {
-      innerElement = document.createElement(map[attrs.pop()[0]]);
-      el.appendChild(innerElement);
+      innerElement.appendChild(document.createElement(map[attrs.pop()[0]]));
+      innerElement = innerElement.childNodes[0];
     }
 
     for (let i = 0; i < this._children.length; i++) {
@@ -45,7 +48,7 @@ export default class InlineRenderNode extends RenderNode {
         innerElement.appendChild(this._children[i].getDomNode());
     }
 
-    return el;
+    return this._domNode;
   }
 
   /**
