@@ -1,5 +1,7 @@
 'use strict';
 
+import HtmlRendererCache from './html_renderer_cache';
+
 import BlockNode from '../../document/block_node';
 import TextNode from '../../document/text_node';
 
@@ -15,11 +17,10 @@ export default class HtmlRenderer {
   constructor(type) {
     this._document = type.getDocument();
     this._el = type.getEl();
+    this._cache = new HtmlRendererCache();
 
     // todo devcode
-
     this._devEl = document.getElementById('development-output');
-
   }
 
   /**
@@ -49,7 +50,7 @@ export default class HtmlRenderer {
    */
   static _getRenderNodes(document) {
     return document.getNodes().map(function(node) {
-      return HtmlRenderer._getRenderNodeFor(node);
+      return HtmlRenderer.getRenderNodeFor(node);
     });
   }
 
@@ -57,9 +58,8 @@ export default class HtmlRenderer {
    *
    * @param node
    * @returns {BlockRenderNode|InlineRenderNode|null}
-   * @private
    */
-  static _getRenderNodeFor(node) {
+  static getRenderNodeFor(node) {
     if (node instanceof BlockNode) return new BlockRenderNode(node);
     //if (node instanceof TextNode) return new InlineRenderNode(node);
     else throw 'Node is not a BlockNode. What is this? What are you trying to do?'; // todo dev code

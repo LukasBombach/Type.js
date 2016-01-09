@@ -1,5 +1,9 @@
 'use strict';
 
+import HtmlRenderer from './html_renderer';
+import BlockNode from '../../document/block_node';
+import TextNode from '../../document/text_node';
+
 export default class HtmlRendererCache {
 
   /**
@@ -33,6 +37,32 @@ export default class HtmlRendererCache {
   set(documentNodeId, renderNode) {
     this._cache[documentNodeId.toString()] = renderNode;
     return this;
+  }
+
+  /**
+   *
+   * @param {DocumentNode} documentNode
+   * @returns {RenderNode}
+   */
+  getOrCreateForDocumentNode(documentNode) {
+
+    let cachedItem = this.get(documentNode.id);
+
+    if (!cachedItem) {
+      cachedItem = HtmlRendererCache._createForDocumentNode(documentNode);
+      this.set(documentNode.id, cachedItem);
+    }
+
+    return cachedItem;
+  }
+
+  /**
+   *
+   * @param {DocumentNode} documentNode
+   * @returns {BlockRenderNode|InlineRenderNode}
+   */
+  static _createForDocumentNode(documentNode) {
+    return HtmlRenderer.getRenderNodeFor(documentNode);
   }
 
 }
