@@ -50,7 +50,7 @@ export default class HtmlRenderer {
    */
   static _getRenderNodes(document) {
     return document.getNodes().map(function(node) {
-      return HtmlRenderer.getRenderNodeFor(node);
+      return this._cache.getOrCreateForDocumentNode(node);
     });
   }
 
@@ -61,9 +61,9 @@ export default class HtmlRenderer {
    */
   static getRenderNodeFor(node) {
     if (node instanceof BlockNode) return new BlockRenderNode(node);
-    //if (node instanceof TextNode) return new InlineRenderNode(node);
-    else throw 'Node is not a BlockNode. What is this? What are you trying to do?'; // todo dev code
-    return null;
+    // if (node instanceof TextNode) return new InlineRenderNode(node);
+    // return null;
+    throw 'Node is not a BlockNode. What is this? What are you trying to do?'; // todo dev code
   }
 
   /**
