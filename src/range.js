@@ -503,7 +503,7 @@ export default class TypeRange {
    *
    * @returns {TypeRange|null} - A {TypeRange} instance or null
    */
-  staticfromCurrentSelection() {
+  static fromCurrentSelection() {
     var sel = document.getSelection();
     return sel.isCollapsed ? null : TypeRange.fromRange(sel.getRangeAt(0));
   };

@@ -15,6 +15,18 @@ export default class TypeDocument {
 
   /**
    *
+   * @param {DocumentRange} range
+   * @returns {TextNode[]} - All nodes within the range
+   */
+  splitTextNodesAtRange(range) {
+
+    const startNode = range.getStartNode();
+    const endNode = range.getEndNode();
+
+  }
+
+  /**
+   *
    * @returns {DocumentNode[]}
    */
   getNodes() {
