@@ -49,20 +49,11 @@ export default class HtmlRendererCache {
     let cachedItem = this.get(documentNode.id);
 
     if (!cachedItem) {
-      cachedItem = HtmlRendererCache._createForDocumentNode(documentNode);
+      cachedItem = HtmlRenderer.getRenderNodeFor(documentNode);
       this.set(documentNode.id, cachedItem);
     }
 
     return cachedItem;
-  }
-
-  /**
-   *
-   * @param {DocumentNode} documentNode
-   * @returns {BlockRenderNode|InlineRenderNode}
-   */
-  static _createForDocumentNode(documentNode) {
-    return HtmlRenderer.getRenderNodeFor(documentNode);
   }
 
 }
