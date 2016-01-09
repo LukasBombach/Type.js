@@ -32,7 +32,7 @@ export default class TextNode extends DocumentNode {
 
   /**
    *
-   * @returns {{BOLD: string, ITALIC: string, UNDERLINE: string}}
+   * @returns {{BOLD: string, ITALIC: string, UNDERLINE: string, DEL: string}}
    * @constructor
    */
   static get ATTRIBUTES() {
@@ -40,6 +40,7 @@ export default class TextNode extends DocumentNode {
       BOLD: 'bold',
       ITALIC: 'italic',
       UNDERLINE: 'underline',
+      DEL: 'del',
     };
   }
 

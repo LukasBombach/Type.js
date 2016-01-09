@@ -86,13 +86,14 @@ export default class DomReader {
 
   /**
    *
-   * @returns {{bold: string[], italic: string[], underline: string[]}}
+   * @returns {{bold: string[], italic: string[], underline: string[], del: string[]}}
    */
   static get attributeAliases() {
     return {
       bold: ['strong', 'b'],
       italic: ['em', 'i'],
       underline: ['u'],
+      del: ['del'],
     };
   }
 

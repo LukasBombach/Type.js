@@ -122,6 +122,7 @@ export default class HtmlReader {
       em: ATTRIBUTES.ITALIC,
       i: ATTRIBUTES.ITALIC,
       u: ATTRIBUTES.UNDERLINE,
+      del: ATTRIBUTES.DEL,
     };
   }
 

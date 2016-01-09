@@ -31,7 +31,7 @@ export default class InlineRenderNode extends RenderNode {
 
     // todo lol what am I doing. Code properly tired lukas!
 
-    const map = {bold: 'strong', italic: 'em'};
+    const map = {bold: 'strong', italic: 'em', underline: 'u', del: 'del'};
     let attrs = this._attributes.slice(0);
     this._domNode = document.createElement(map[attrs.pop()[0]]);
     let innerElement = this._domNode;
