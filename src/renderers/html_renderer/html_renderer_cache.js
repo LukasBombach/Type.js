@@ -1,0 +1,38 @@
+'use strict';
+
+export default class HtmlRendererCache {
+
+  /**
+   * Initializes the cache data structure
+   * @constructor
+   */
+  constructor() {
+    this._cache = {};
+  }
+
+  /**
+   * Returns a RenderNode from the cache or null if the RenderNode
+   * cannot be found. To retrieve a RenderNode pass the corresponding
+   * ID of the DocumentNode
+   *
+   * @param {number} documentNodeId
+   * @returns {RenderNode|null}
+   */
+  get(documentNodeId) {
+    return this._cache[documentNodeId] || null;
+  }
+
+  /**
+   * Writes a RenderNode to the cache identified by the ID of the
+   * corresponding DocumentNode
+   *
+   * @param {number} documentNodeId
+   * @param {RenderNode} renderNode
+   * @returns {HtmlRendererCache}
+   */
+  set(documentNodeId, renderNode) {
+    this._cache[documentNodeId.toString()] = renderNode;
+    return this;
+  }
+
+}
