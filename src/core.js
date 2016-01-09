@@ -52,6 +52,9 @@ export default class Type {
     this._options = null;
     this.options(options);
 
+    // Init the ID system
+    this._currentUniqueId = 0;
+
     // Enable editing mode on root element
     this._setElementEditable(options.el);
 
@@ -63,7 +66,7 @@ export default class Type {
     this._formatter = new Formatter(this);
 
     // Editor contents
-    this._document = HtmlReader.getDocument(options.el);
+    this._document = HtmlReader.getDocument(this);
 
     //this._renderer = new DomRenderer(this);
     //this._renderer.render();
@@ -224,6 +227,14 @@ export default class Type {
    */
   getDocument() {
     return this._document;
+  }
+
+  /**
+   * Returns an ID that is unique within this editor's instance
+   * @returns {number}
+   */
+  getUniqueId() {
+    return ++this._currentUniqueId;
   }
 
   /**

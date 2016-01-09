@@ -9,12 +9,13 @@ export default class BlockNode extends DocumentNode {
 
   /**
    *
+   * @param {Type} type
    * @param nodeType
    * @param children
    * @param attributes
    */
-  constructor(nodeType = '', children = [], attributes = []) {
-    super(attributes);
+  constructor(type, nodeType = '', children = [], attributes = []) {
+    super(type, attributes);
     this.setNodeType(nodeType);
     this.setChildren(children);
   }

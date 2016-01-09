@@ -6,9 +6,11 @@ export default class DocumentNode {
 
   /**
    *
+   * @param {Type} type
    * @param attributes
    */
-  constructor(attributes = []) {
+  constructor(type, attributes = []) {
+    this.id = type.getUniqueId();
     this.setAttributes(attributes);
   }
 

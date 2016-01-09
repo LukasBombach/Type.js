@@ -9,11 +9,12 @@ export default class HtmlReader {
 
   /**
    *
-   * @param {HTMLElement|Node} rootNode
+   * @param {Type} type
    * @returns {TypeDocument}
    */
-  static getDocument(rootNode) {
-    return new TypeDocument(HtmlReader._getChildrenFor(rootNode));
+  static getDocument(type) {
+    this._type = type;
+    return new TypeDocument(HtmlReader._getChildrenFor(type.getEl()));
   }
 
   /**
@@ -48,7 +49,7 @@ export default class HtmlReader {
   static _getBlockNode(domNode, attributes = []) {
     var nodeType = domNode.tagName.toLowerCase();
     var children = HtmlReader._getChildrenFor(domNode, attributes);
-    return new BlockNode(nodeType, children);
+    return new BlockNode(this._type, nodeType, children);
   }
 
   /**
@@ -59,7 +60,7 @@ export default class HtmlReader {
    * @private
    */
   static _getTextNode(node, attributes = []) {
-    return new TextNode(node.nodeValue, attributes);
+    return new TextNode(this._type, node.nodeValue, attributes);
   }
 
   /**

@@ -7,8 +7,8 @@ import DocumentNode from './document_node';
  */
 export default class TextNode extends DocumentNode {
 
-  constructor(nodeValue = null, attributes = []) {
-    super(attributes);
+  constructor(type, nodeValue = null, attributes = []) {
+    super(type, attributes);
     this.setNodeValue(nodeValue);
   }
 
