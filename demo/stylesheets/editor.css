@@ -59,10 +59,10 @@ body {
 }
 
 /**
- * Editable area
+ * Editable area & Development
  */
 
-#document {
+#document, #development-output {
     padding: 30px;
     font: 15px/1.5em "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #4b4b4b;
@@ -72,7 +72,11 @@ body {
     -webkit-border-radius: 0 0 4px 4px;
     -moz-border-radius:  0 0 4px 4px;
     border-radius:  0 0 4px 4px;
+}
 
+#development-output {
+    background: #fff;
+    box-shadow: 0 0 0 0.75pt rgba(209,209,209,.3),0 0 3pt 0.75pt rgba(204,204,204,.3);
 }
 
 #document:focus {

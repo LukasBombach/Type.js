@@ -15,6 +15,11 @@ export default class HtmlRenderer {
   constructor(type) {
     this._document = type.getDocument();
     this._el = type.getEl();
+
+    // todo devcode
+
+    this._devEl = document.getElementById('development-output');
+
   }
 
   /**
@@ -22,11 +27,17 @@ export default class HtmlRenderer {
    * @returns {Element[]}
    */
   render() {
+
     const renderNodes = HtmlRenderer._getRenderNodes(this._document);
     const domNodes = [];
-    for (let i = 0; i < renderNodes.length; i++)
-      domNodes.push(renderNodes[i].getDomNode());
-    console.log(domNodes[0]);
+    let domNode;
+
+    for (let i = 0; i < renderNodes.length; i++) {
+      domNode = renderNodes[i].getDomNode();
+      this._devEl.appendChild(domNode);
+      domNodes.push(domNode);
+    }
+
     return domNodes;
   }
 
