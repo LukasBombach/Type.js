@@ -7,6 +7,8 @@ import InputPipeline from './input/input_pipeline';
 import Formatter from './formatter';
 import SelectionInput from './input/selection_input';
 import DomWalker from './utilities/dom_walker';
+import HtmlReader from './readers/html_reader';
+import HtmlRenderer from './renderers/html_renderer/html_renderer';
 
 const staticEmitter = new EventEmitter();
 
@@ -50,6 +52,9 @@ export default class Type {
     this._options = null;
     this.options(options);
 
+    // Init the ID system
+    this._currentUniqueId = 0;
+
     // Enable editing mode on root element
     this._setElementEditable(options.el);
 
@@ -60,9 +65,20 @@ export default class Type {
     this._inputPipeline = new InputPipeline(this);
     this._formatter = new Formatter(this);
 
-    // Events
+    // Editor contents
+    this._document = HtmlReader.getDocument(this);
+
+    //this._renderer = new DomRenderer(this);
+    //this._renderer.render();
+
+    // Events todo SelectionInput makes no sense when this comment says "Events"
     new SelectionInput(this);
     Type.emit('ready', this);
+
+    // DEV
+    console.log(this._document);
+    this._renderer = new HtmlRenderer(this);
+    this._renderer.render();
 
   }
 
@@ -183,7 +199,7 @@ export default class Type {
   /**
    * Getter for this instance's root element, i.e. the
    * element that contains this editor's text.
-   * @returns {Element}
+   * @returns {HTMLElement}
    */
   getEl() {
     return this._options.el;
@@ -204,6 +220,22 @@ export default class Type {
   getFormatter() {
     return this._formatter;
   };
+
+  /**
+   *
+   * @returns {TypeDocument}
+   */
+  getDocument() {
+    return this._document;
+  }
+
+  /**
+   * Returns an ID that is unique within this editor's instance
+   * @returns {number}
+   */
+  getUniqueId() {
+    return ++this._currentUniqueId;
+  }
 
   /**
    * Sets the editing mode of an element. The second parameter
