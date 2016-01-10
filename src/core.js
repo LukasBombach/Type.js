@@ -232,6 +232,14 @@ export default class Type {
   }
 
   /**
+   *
+   * @returns {HtmlRenderer}
+   */
+  getRenderer() {
+    return this._renderer;
+  }
+
+  /**
    * Returns an ID that is unique within this editor's instance
    * @returns {number}
    */

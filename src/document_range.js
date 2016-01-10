@@ -1,5 +1,7 @@
 'use strict';
 
+import TextUtilities from './utilities/text_utilities';
+
 export default class DocumentRange {
 
   /**
@@ -15,29 +17,73 @@ export default class DocumentRange {
     this.startDomOffset = startOffset;
     this.endDomNode = endContainer;
     this.endDomOffset = endOffset;
-    this._startBlock = null;
-    this._endBlock = null;
+    this._startBlockNode = null;
+    this._endBlockNode = null;
+    this._startTextNode = null;
+    this._endTextNode = null;
     this._type = type;
   };
 
   /**
    *
-   * @returns {BlockNode|null}
+   * @returns {TextNode}
    */
-  getStartBlock() {
-    if (this._startBlock) return this._startBlock;
-    this._startBlock = this._type.getDocument().getParentBlock(this.startDomNode);
-    return this._startBlock;
+  getStartTextNode() {
+    if (this._startTextNode) return this._startTextNode;
+    const startBlockOffset = this._getStartDomBlockOffset();
+    this._startTextNode = this.getStartBlockNode().getTextNodeAtOffset(startBlockOffset);
+    return this._startTextNode;
+  }
+
+  /**
+   *
+   * @returns {TextNode}
+   */
+  getEndTextNode() {
+    if (this._endTextNode) return this._endTextNode;
+    const endBlockOffset = this._getEndDomBlockOffset();
+    this._endTextNode = this.getStartBlockNode().getTextNodeAtOffset(endBlockOffset);
+    return this._endTextNode;
   }
 
   /**
    *
    * @returns {BlockNode|null}
    */
-  getEndBlock() {
-    if (this._endBlock) return this._endBlock;
-    this._endBlock = this._type.getDocument().getParentBlock(this.endDomNode);
-    return this._endBlock;
+  getStartBlockNode() {
+    if (this._startBlockNode) return this._startBlockNode;
+    this._startBlockNode = this._type.getDocument().getParentBlock(this.startDomNode);
+    return this._startBlockNode;
+  }
+
+  /**
+   *
+   * @returns {BlockNode|null}
+   */
+  getEndBlockNode() {
+    if (this._endBlockNode) return this._endBlockNode;
+    this._endBlockNode = this._type.getDocument().getParentBlock(this.endDomNode);
+    return this._endBlockNode;
+  }
+
+  /**
+   *
+   * @returns {number}
+   * @private
+   */
+  _getStartDomBlockOffset() {
+    var domBlockNode = this._type.getRenderer().getDomNodeFor(this.getStartBlockNode());
+    return TextUtilities.offsetFrom(domBlockNode, this.startDomNode, 0, this.startDomOffset);
+  }
+
+  /**
+   *
+   * @returns {number}
+   * @private
+   */
+  _getEndDomBlockOffset() {
+    var domBlockNode = this._type.getRenderer().getDomNodeFor(this.getEndBlockNode());
+    return TextUtilities.offsetFrom(domBlockNode, this.endDomNode, 0, this.endDomOffset);
   }
 
   /**

@@ -51,18 +51,16 @@ export default class HtmlRenderer {
 
     return this;
 
-    // const nodesToRender = HtmlRenderer._getRenderNodes(this._document);
-    // const domNodes = [];
-    // let domNode;
+  }
 
-    // for (let i = 0; i < nodesToRender.length; i++) {
-    //   domNode = nodesToRender[i].getDomNode();
-    //   this._devEl.appendChild(domNode);
-    //   domNodes.push(domNode);
-    // }
 
-    // return domNodes;
-
+  /**
+   *
+   * @param blockNode
+   * @returns {Text|Element|Element}
+   */
+  getDomNodeFor(blockNode) {
+    return this._cache.get(blockNode.id).getDomNode();
   }
 
   /**

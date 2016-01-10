@@ -1,6 +1,7 @@
 'use strict';
 
 import DocumentNode from './document_node';
+import TextNode from './text_node';
 
 /**
  * @augments DocumentNode
@@ -62,8 +63,55 @@ export default class BlockNode extends DocumentNode {
     return this;
   }
 
+  /**
+   *
+   * @returns {TextNode[]|*}
+   */
   getChildren() {
     return this._children;
+  }
+
+  /**
+   *
+   * @param {number} offset
+   * @returns {TextNode|null}
+   */
+  getTextNodeAtOffset(offset) {
+
+    const textNodes = this.getTextNodes();
+    const len = textNodes.length;
+    let nodeLen = 0;
+    let offsetWalked = 0;
+
+    for (let i = 0; i < len; i++) {
+      nodeLen = textNodes[i].length;
+      if (offset >= offsetWalked && offset < offsetWalked + nodeLen)
+        return textNodes[i];
+      offsetWalked += nodeLen;
+    }
+
+    return null;
+  }
+
+  /**
+   *
+   * @returns {TextNode[]}
+   */
+  getTextNodes() {
+
+    const children = this._children;
+    const len = children.length;
+    let textNodes = [];
+
+    for (let i = 0; i < len; i++) {
+      if (typeof children[i] === TextNode)
+        textNodes.push(children[i]);
+      else if (typeof children[i] === BlockNode)
+        textNodes = textNodes.concat(children[i].getTextNodes());
+    }
+
+    return textNodes;
+
   }
 
   /**

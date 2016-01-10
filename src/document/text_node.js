@@ -19,6 +19,7 @@ export default class TextNode extends DocumentNode {
    */
   setNodeValue(nodeValue) {
     this._nodeValue = nodeValue;
+    this.length = this._nodeValue.length;
     return this;
   }
 
