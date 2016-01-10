@@ -1,5 +1,6 @@
 'use strict';
 
+import Type from '../../core';
 import RenderNode from './render_node';
 import InlineRenderNode from './inline_render_node';
 
@@ -39,6 +40,7 @@ export default class BlockRenderNode extends RenderNode {
     const len = renderChildren.length;
     for (let i = 0; i < len; i++)
       this._domNode.appendChild(renderChildren[i].getDomNode());
+    Type.fn.data(this._domNode, 'documentNodeId', this._documentNode.id);
     return this._domNode;
   }
 

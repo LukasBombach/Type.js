@@ -14,7 +14,7 @@ export default class HtmlReader {
    */
   static getDocument(type) {
     this._type = type;
-    return new TypeDocument(HtmlReader._getChildrenFor(type.getEl()));
+    return new TypeDocument(type, HtmlReader._getChildrenFor(type.getEl()));
   }
 
   /**

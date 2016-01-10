@@ -10,6 +10,8 @@ import DomWalker from './utilities/dom_walker';
 import HtmlReader from './readers/html_reader';
 import HtmlRenderer from './renderers/html_renderer/html_renderer';
 
+const version = '0.2.1';
+const expando = 'typejs' + (version + Math.random()).replace(/\D/g, '');
 const staticEmitter = new EventEmitter();
 
 export default class Type {
@@ -287,6 +289,23 @@ export default class Type {
     staticEmitter.emit.apply(staticEmitter, [type].concat(args));
     return this;
   };
+
+  /**
+   * Returns the library's current version
+   *
+   * @returns {string}
+   */
+  static get version() {
+    return version;
+  }
+
+  /**
+   * Returns the expando identifier
+   * @returns {string}
+   */
+  static get expando() {
+    return expando;
+  }
 
   /**
    * Exposes Type's prototype as jQuery-style shorthand variable
