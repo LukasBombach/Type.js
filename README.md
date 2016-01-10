@@ -19,10 +19,10 @@ This project is a rewrite of my [master's thesis](https://github.com/LukasBombac
 
 ### Agenda:
 
- * [ ] Write document model & renderer for editing <strong> – heavy WIP :fire:</strong>
- * [ ] Undo / Redo based on document model
- * [ ] Write tests
- * [ ] Go alpha
+1. [ ] :fire: **Heavy WIP** :fire: Write document model & renderer for editing
+1. [ ] Undo / Redo based on document model
+1. [ ] Write tests
+1. [ ] Go alpha
 
 Other projects that are interesting right now (because they too avoid `contenteditable`):
 
