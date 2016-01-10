@@ -15,7 +15,7 @@
 
 ## Status
 
-This project is a rewrite of my [master's thesis](https://github.com/LukasBombach/old-type-js) and is pretty much WIP. Since I am not expecting much traffic I am actively working on the master branch and it might be broken from time to time. **I am aiming to release the first beta this quarter.**
+This project is a rewrite of my [master's thesis](https://github.com/LukasBombach/old-type-js) and is pretty much WIP. Since I am not expecting much traffic I am actively working on the master branch and it might be broken from time to time. **I am aiming to release a first version this quarter.**
 
 ### Agenda:
 
