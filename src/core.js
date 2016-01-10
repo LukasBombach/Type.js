@@ -53,6 +53,7 @@ export default class Type {
     this.options(options);
 
     // Init the ID system
+    this._expando = 'typejs' + (Type.version + Math.random()).replace(/\D/g, '');
     this._currentUniqueId = 0;
 
     // Enable editing mode on root element
@@ -287,6 +288,15 @@ export default class Type {
     staticEmitter.emit.apply(staticEmitter, [type].concat(args));
     return this;
   };
+
+  /**
+   * Returns the library's current version
+   *
+   * @returns {string}
+   */
+  static get version() {
+    return '0.2.1';
+  }
 
   /**
    * Exposes Type's prototype as jQuery-style shorthand variable
