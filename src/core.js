@@ -148,8 +148,7 @@ export default class Type {
    * @returns {DocumentRange|null}
    */
   getRange() {
-    const sel = document.getSelection();
-    return sel.isCollapsed ? null : DocumentRange.fromRange(sel.getRangeAt(0), this);
+    return DocumentRange.fromCurrentSelection(this);
   }
 
   /**

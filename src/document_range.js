@@ -13,6 +13,7 @@ export default class DocumentRange {
    * @param {Type} type
    */
   constructor(startContainer, startOffset, endContainer, endOffset, type) {
+    this.isCollapsed = startContainer === endContainer && startOffset === endOffset;
     this.startDomNode = startContainer;
     this.startDomOffset = startOffset;
     this.endDomNode = endContainer;
@@ -90,9 +91,8 @@ export default class DocumentRange {
    *
    * @returns {DocumentRange|null}
    */
-  static fromCurrentSelection() {
-    const sel = document.getSelection();
-    return sel.isCollapsed ? null : DocumentRange.fromRange(sel.getRangeAt(0));
+  static fromCurrentSelection(type) {
+    return DocumentRange.fromRange(document.getSelection().getRangeAt(0), type);
   };
 
   /**
