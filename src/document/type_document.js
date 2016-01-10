@@ -1,5 +1,8 @@
 'use strict';
 
+import BlockNode from './block_node';
+import TextNode from './block_node';
+
 /**
  * @augments DocumentNode
  */
@@ -12,19 +15,34 @@ export default class TypeDocument {
    */
   constructor(type, nodes = []) {
     this._type = type;
+    this._renderer = type.getRenderer();
     this.setNodes(nodes);
   }
 
   /**
    *
+   * @param {string|Array} attribute
    * @param {DocumentRange} range
-   * @returns {TextNode[]} - All nodes within the range
+   * @returns {TypeDocument}
    */
-  splitTextNodesAtRange(range) {
+  addAttributeAtRange(attribute, range) {
+    attribute = typeof attribute === 'string' ? [attribute, true] : attribute;
+    const affectedTextNodes = this._textNodesBetween.apply(this, TypeDocument._splitTextNodesAtRange(range));
+    for (let node of affectedTextNodes) node.addAttribute(attribute);
+    this._renderer.render();
+    return this;
+  }
 
-    const startNode = range.getStartNode();
-    const endNode = range.getEndNode();
+  _textNodesBetween(startNode, endNode) {
+    
+    let nodes = [];
 
+    for (let node of this._nodes) {
+      if (node instanceof BlockNode) nodes = nodes.concat(node.getTextNodes());
+      else if (node instanceof TextNode) nodes.push(node);
+    }
+
+    return nodes;
   }
 
   /**
@@ -54,6 +72,7 @@ export default class TypeDocument {
     this._refreshNodeMap();
     return this;
   }
+
   /**
    *
    * @returns {TypeDocument}
@@ -83,6 +102,17 @@ export default class TypeDocument {
     }
 
     return null;
+  }
+
+  /**
+   *
+   * @param {DocumentRange} range
+   * @returns {TextNode[]} - All nodes within the range
+   */
+  static _splitTextNodesAtRange(range) {
+    const [, startNode] = range.getStartTextNode().splitAt(range.startDomOffset);
+    const [, endNode] = range.getEndTextNode().splitAt(range.endDomOffset);
+    return [startNode, endNode];
   }
 
   /**
