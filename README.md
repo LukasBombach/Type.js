@@ -22,7 +22,7 @@ This project is a rewrite of my [master's thesis](https://github.com/LukasBombac
  * [ ] Write document model & renderer for editing <strong> – heavy WIP :fire:</strong>
  * [ ] Undo / Redo based on document model
  * [ ] Write tests
- * [ ] Go beta
+ * [ ] Go alpha
 
 Other projects that are interesting right now (because they too avoid `contenteditable`):
 
