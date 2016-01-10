@@ -1,10 +1,8 @@
 'use strict';
 
 import HtmlRendererCache from './html_renderer_cache';
-
 import BlockNode from '../../document/block_node';
 import TextNode from '../../document/text_node';
-
 import BlockRenderNode from './block_render_node';
 import InlineRenderNode from './inline_render_node';
 
@@ -16,14 +14,9 @@ export default class HtmlRenderer {
    */
   constructor(type) {
     this._document = type.getDocument();
-
-    // todo devcode
-    this._el = type.getEl();
-    //this._el = document.getElementById('development-output');
-
     this._cache = new HtmlRendererCache();
     this._currentlyRenderedNodes = {};
-
+    this._el = type.getEl();
   }
 
   /**
@@ -52,7 +45,6 @@ export default class HtmlRenderer {
     return this;
 
   }
-
 
   /**
    *
