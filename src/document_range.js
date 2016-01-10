@@ -8,28 +8,36 @@ export default class DocumentRange {
    * @param {number} startOffset
    * @param {Node} endContainer
    * @param {number} endOffset
+   * @param {Type} [type]
    */
-  constructor(startContainer, startOffset, endContainer, endOffset) {
+  constructor(startContainer, startOffset, endContainer, endOffset, type) {
     this.startDomNode = startContainer;
     this.startDomOffset = startOffset;
     this.endDomNode = endContainer;
     this.endDomOffset = endOffset;
+    this._startBlock = null;
+    this._endBlock = null;
+    this._type = type;
   };
 
   /**
    *
-   * @returns {TextNode}
+   * @returns {BlockNode|null}
    */
-  getStartNode() {
-
+  getStartBlock() {
+    if (this._startBlock) return this._startBlock;
+    this._startBlock = this._type.getDocument().getParentBlock(this.startDomNode);
+    return this._startBlock;
   }
 
   /**
    *
-   * @returns {TextNode}
+   * @returns {BlockNode|null}
    */
-  getEndNode() {
-
+  getEndBlock() {
+    if (this._endBlock) return this._endBlock;
+    this._endBlock = this._type.getDocument().getParentBlock(this.endDomNode);
+    return this._endBlock;
   }
 
   /**
