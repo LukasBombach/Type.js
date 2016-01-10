@@ -10,6 +10,8 @@ import DomWalker from './utilities/dom_walker';
 import HtmlReader from './readers/html_reader';
 import HtmlRenderer from './renderers/html_renderer/html_renderer';
 
+const version = '0.2.1';
+const expando = 'typejs' + (version + Math.random()).replace(/\D/g, '');
 const staticEmitter = new EventEmitter();
 
 export default class Type {
@@ -53,7 +55,6 @@ export default class Type {
     this.options(options);
 
     // Init the ID system
-    this._expando = 'typejs' + (Type.version + Math.random()).replace(/\D/g, '');
     this._currentUniqueId = 0;
 
     // Enable editing mode on root element
@@ -295,7 +296,15 @@ export default class Type {
    * @returns {string}
    */
   static get version() {
-    return '0.2.1';
+    return version;
+  }
+
+  /**
+   * Returns the expando identifier
+   * @returns {string}
+   */
+  static get expando() {
+    return expando;
   }
 
   /**
