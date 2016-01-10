@@ -104,7 +104,7 @@ export default class BlockNode extends DocumentNode {
     let textNodes = [];
 
     for (let i = 0; i < len; i++) {
-      if (typeof children[i] === TextNode)
+      if (children[i] instanceof TextNode)
         textNodes.push(children[i]);
       else if (typeof children[i] === BlockNode)
         textNodes = textNodes.concat(children[i].getTextNodes());

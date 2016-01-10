@@ -9,6 +9,7 @@ import SelectionInput from './input/selection_input';
 import DomWalker from './utilities/dom_walker';
 import HtmlReader from './readers/html_reader';
 import HtmlRenderer from './renderers/html_renderer/html_renderer';
+import DocumentRange from './document_range';
 
 const version = '0.2.1';
 const expando = 'typejs' + (version + Math.random()).replace(/\D/g, '');
@@ -70,18 +71,14 @@ export default class Type {
     // Editor contents
     this._document = HtmlReader.getDocument(this);
 
-    //this._renderer = new DomRenderer(this);
-    //this._renderer.render();
+    // Initial rendering of the document
+    this._renderer = new HtmlRenderer(this);
+    this._renderer.clearElement();
+    this._renderer.render();
 
     // Events todo SelectionInput makes no sense when this comment says "Events"
     new SelectionInput(this);
     Type.emit('ready', this);
-
-    // DEV
-    console.log(this._document);
-    this._renderer = new HtmlRenderer(this);
-    this._renderer.render();
-
   }
 
   /**
@@ -144,6 +141,15 @@ export default class Type {
    */
   getSelection() {
     return Type.Selection.fromNativeSelection(this);
+  }
+
+  /**
+   * todo this is DEV - remove me!
+   * @returns {DocumentRange|null}
+   */
+  getRange() {
+    const sel = document.getSelection();
+    return sel.isCollapsed ? null : DocumentRange.fromRange(sel.getRangeAt(0), this);
   }
 
   /**

@@ -83,7 +83,6 @@ export default class BlockRenderNode extends RenderNode {
       }
     }
 
-    console.log(mergedNodes);
     return mergedNodes;
 
   }

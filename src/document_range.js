@@ -10,7 +10,7 @@ export default class DocumentRange {
    * @param {number} startOffset
    * @param {Node} endContainer
    * @param {number} endOffset
-   * @param {Type} [type]
+   * @param {Type} type
    */
   constructor(startContainer, startOffset, endContainer, endOffset, type) {
     this.startDomNode = startContainer;
@@ -98,10 +98,11 @@ export default class DocumentRange {
   /**
    *
    * @param {Range} range
+   * @param {Type} type
    * @returns {DocumentRange}
    */
-  static fromRange(range) {
-    return new DocumentRange(range.startContainer, range.startOffset, range.endContainer, range.endOffset);
+  static fromRange(range, type) {
+    return new DocumentRange(range.startContainer, range.startOffset, range.endContainer, range.endOffset, type);
   };
 
 }

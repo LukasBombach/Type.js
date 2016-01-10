@@ -18,8 +18,8 @@ export default class HtmlRenderer {
     this._document = type.getDocument();
 
     // todo devcode
-    // this._el = type.getEl();
-    this._el = document.getElementById('development-output');
+    this._el = type.getEl();
+    //this._el = document.getElementById('development-output');
 
     this._cache = new HtmlRendererCache();
     this._currentlyRenderedNodes = {};
@@ -61,6 +61,15 @@ export default class HtmlRenderer {
    */
   getDomNodeFor(blockNode) {
     return this._cache.get(blockNode.id).getDomNode();
+  }
+
+  /**
+   *
+   * @returns {HtmlRenderer}
+   */
+  clearElement() {
+    this._el.innerHTML = '';
+    return this;
   }
 
   /**

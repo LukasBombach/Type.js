@@ -72,11 +72,16 @@ export default class TypeDocument {
    * @returns {BlockNode}
    */
   getParentBlock(el) {
+
     let documentNodeId = null;
     let documentEl = this._type.getEl();
-    while (el !== documentEl)
-      if (documentNodeId = type.data(el, 'documentNodeId'))
-        return this.getNode(documentNodeId);
+
+    while (el !== documentEl) {
+      documentNodeId = type.data(el, 'documentNodeId');
+      if (documentNodeId) return this.getNode(documentNodeId);
+      el = el.parentNode;
+    }
+
     return null;
   }
 
