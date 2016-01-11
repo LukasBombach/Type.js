@@ -21,16 +21,34 @@ export default class TypeDocument {
 
   /**
    *
-   * @param {string|Array} attribute
+   * @param {string|Array} attributes
    * @param {DocumentRange} range
    * @returns {TypeDocument}
    */
-  addAttributeAtRange(attribute, range) {
-    attribute = typeof attribute === 'string' ? [attribute, true] : attribute;
-    const affectedTextNodes = this._textNodesBetween.apply(this, TypeDocument._splitTextNodesAtRange(range));
-    for (let node of affectedTextNodes) node.addAttribute(attribute);
-    this._renderer.render();
-    return this;
+  copyWithAttributesAtRange(attributes, range) {
+
+    // const newDocument = this._duplicate();
+    // const affectedBlocks = newDocument.getBlocksInRange(range);
+    // const alteredBlocks = TypeDocument.copyBlocksWithAttributes(affectedBlocks, range);
+
+    const newBlocks = this.getNodes().slice(0);
+    const startBlockIndex = newBlocks.indexOf(range.getStartBlockNode());
+    const endBlockIndex = newBlocks.indexOf(range.getEndBlockNode());
+
+    newBlocks[startBlockIndex] = newBlocks[startBlockIndex].copyWithTextAttributes(attributes, range.startDomOffset);
+    newBlocks[endBlockIndex] = newBlocks[endBlockIndex].copyWithTextAttributes(attributes, 0, range.endDomOffset);
+
+    for (let i = startBlockIndex + 1; i < endBlockIndex; i++) {
+      newBlocks[i] = newBlocks[i].copyWithTextAttributes(attributes);
+    }
+
+    return new TypeDocument(this._type, newBlocks);
+
+    // const affectedTextNodes = this._textNodesBetween.apply(this, TypeDocument._splitTextNodesAtRange(range));
+    // attributes = typeof attributes === 'string' ? [attributes, true] : attributes;
+    // for (let node of affectedTextNodes) node.addAttribute(attributes);
+    // this._renderer.render();
+    // return this;
   }
 
   _textNodesBetween(startNode, endNode) {

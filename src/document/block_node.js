@@ -23,6 +23,66 @@ export default class BlockNode extends DocumentNode {
 
   /**
    *
+   * @param attributes
+   * @param startNode
+   * @param endNode
+   * @returns {BlockNode}
+   */
+  addAttributesFromNodeToNode(attributes, startNode, endNode) {
+
+    const children = this._children;
+    const startIndex = children.indexOf(startNode);
+    const endIndex = children.indexOf(endNode);
+
+    for (let i = startIndex; i < endIndex; i++)
+      children[i].addAttribute(attributes);
+
+    return this;
+  }
+
+  /**
+   *
+   * @param attributes
+   * @param [fromOffset]
+   * @param [toOffset]
+   * @returns {BlockNode}
+   */
+  copyWithTextAttributes(attributes, fromOffset, toOffset) {
+
+
+    const newBlockNode = this.copy();
+    const [, newStartTextNode] = newBlockNode.splitTextNodesAt(fromOffset);
+    const [newEndTextNode,] = newBlockNode.splitTextNodesAt(toOffset);
+
+    newBlockNode.addAttributesFromNodeToNode(newStartTextNode, newEndTextNode);
+
+    // let newChildren = this.getChildren().slice(0);
+    // let splitfirstNode;
+    // let splitLastNode;
+    // let firstNode;
+    // let lastNode;
+
+    // if (fromOffset === undefined) {
+    //   firstNode = newChildren[0];
+    // } else {
+    //   splitfirstNode = this.getTextNodeAtOffset(fromOffset)
+    //   a1.splice.apply(a1, [2, 0].concat(a2));
+    // }
+
+    // if (toOffset === undefined) {
+    //   lastNode = newChildren[newChildren.length - 1];
+    // } else {
+
+    // }
+
+    // for (child of newChildren) {
+
+    // }
+
+  }
+
+  /**
+   *
    * @param {string} nodeType
    * @returns {BlockNode}
    */
