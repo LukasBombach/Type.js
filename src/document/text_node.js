@@ -33,6 +33,17 @@ export default class TextNode extends DocumentNode {
 
   /**
    *
+   * @param offset
+   * @returns {[TextNode,TextNode]}
+   */
+  splitAtOffset(offset) {
+    const left = new TextNode(this._type, this._nodeValue.substr(0, offset));
+    const right = new TextNode(this._type, this._nodeValue.substr(offset));
+    return [left, right];
+  }
+
+  /**
+   *
    * @returns {{BOLD: string, ITALIC: string, UNDERLINE: string, DEL: string}}
    * @constructor
    */

@@ -30,3 +30,14 @@ Type.fn.data = function(el, key, value) {
   data[key] = value;
   return this;
 };
+
+/**
+ *
+ * @param format
+ * @returns {Type}
+ */
+Type.fn.format = function(format) {
+  this._document = this.getDocument().copyWithAttributesAtRange(format, this.getRange());
+  this._renderer.render();
+  return this;
+};

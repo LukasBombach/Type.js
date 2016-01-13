@@ -42,6 +42,19 @@ export default class BlockNode extends DocumentNode {
 
   /**
    *
+   * @param offset
+   * @returns {BlockNode}
+   */
+  splitTextNodesAt(offset) {
+    const [textNode, offsetInNode] = this.getTextNodeAtOffset(offset);
+    const [leftNode, rightNode] = textNode.splitAtOffset(offsetInNode);
+    const textNodeIndex = this._children.indexOf(textNode);
+    this._children.splice(textNodeIndex, 1, leftNode, rightNode);
+    return this;
+  }
+
+  /**
+   *
    * @param attributes
    * @param [fromOffset]
    * @param [toOffset]
@@ -134,7 +147,7 @@ export default class BlockNode extends DocumentNode {
   /**
    *
    * @param {number} offset
-   * @returns {TextNode|null}
+   * @returns {[TextNode,number]|null}
    */
   getTextNodeAtOffset(offset) {
 
@@ -146,11 +159,12 @@ export default class BlockNode extends DocumentNode {
     for (let i = 0; i < len; i++) {
       nodeLen = textNodes[i].length;
       if (offset >= offsetWalked && offset < offsetWalked + nodeLen)
-        return textNodes[i];
+        return [textNodes[i], offset - offsetWalked];
       offsetWalked += nodeLen;
     }
 
     return null;
+
   }
 
   /**
