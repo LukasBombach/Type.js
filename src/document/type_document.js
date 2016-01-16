@@ -35,12 +35,17 @@ export default class TypeDocument {
     const startBlockIndex = newBlocks.indexOf(range.getStartBlockNode());
     const endBlockIndex = newBlocks.indexOf(range.getEndBlockNode());
 
-    newBlocks[startBlockIndex] = newBlocks[startBlockIndex].copyWithTextAttributes(attributes, range.startDomOffset);
-    newBlocks[endBlockIndex] = newBlocks[endBlockIndex].copyWithTextAttributes(attributes, 0, range.endDomOffset);
+    if (startBlockIndex === endBlockIndex) {
+      newBlocks[startBlockIndex] = newBlocks[startBlockIndex].copyWithTextAttributes(attributes, range.startDomOffset, range.endDomOffset);
+    } else {
+      newBlocks[startBlockIndex] = newBlocks[startBlockIndex].copyWithTextAttributes(attributes, range.startDomOffset);
+      newBlocks[endBlockIndex] = newBlocks[endBlockIndex].copyWithTextAttributes(attributes, 0, range.endDomOffset);
 
-    for (let i = startBlockIndex + 1; i < endBlockIndex; i++) {
-      newBlocks[i] = newBlocks[i].copyWithTextAttributes(attributes);
+      for (let i = startBlockIndex + 1; i < endBlockIndex; i++) {
+        newBlocks[i] = newBlocks[i].copyWithTextAttributes(attributes);
+      }
     }
+
 
     return new TypeDocument(this._type, newBlocks);
 
@@ -52,7 +57,7 @@ export default class TypeDocument {
   }
 
   _textNodesBetween(startNode, endNode) {
-    
+
     let nodes = [];
 
     for (let node of this._nodes) {

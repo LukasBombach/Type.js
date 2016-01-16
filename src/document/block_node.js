@@ -43,14 +43,22 @@ export default class BlockNode extends DocumentNode {
   /**
    *
    * @param offset
-   * @returns {BlockNode}
+   * @returns {[TextNode,TextNode]}
    */
   splitTextNodesAt(offset) {
     const [textNode, offsetInNode] = this.getTextNodeAtOffset(offset);
     const [leftNode, rightNode] = textNode.splitAtOffset(offsetInNode);
     const textNodeIndex = this._children.indexOf(textNode);
     this._children.splice(textNodeIndex, 1, leftNode, rightNode);
-    return this;
+    return [leftNode, rightNode];
+  }
+
+  /**
+   *
+   * @returns {BlockNode}
+   */
+  copy() {
+    return new BlockNode(this._type, this._nodeType, this._children.slice(0));
   }
 
   /**
@@ -62,12 +70,18 @@ export default class BlockNode extends DocumentNode {
    */
   copyWithTextAttributes(attributes, fromOffset, toOffset) {
 
-
     const newBlockNode = this.copy();
-    const [, newStartTextNode] = newBlockNode.splitTextNodesAt(fromOffset);
-    const [newEndTextNode,] = newBlockNode.splitTextNodesAt(toOffset);
+    let newStartTextNode;
+    let newEndTextNode;
+    [, newStartTextNode] = newBlockNode.splitTextNodesAt(fromOffset);
+    if (toOffset !== undefined)
+      [newEndTextNode,] = newBlockNode.splitTextNodesAt(toOffset);
+    else
+      newEndTextNode = newBlockNode.getChildren()[newBlockNode.getChildren().length - 1];
 
-    newBlockNode.addAttributesFromNodeToNode(newStartTextNode, newEndTextNode);
+    newBlockNode.addAttributesFromNodeToNode(attributes, newStartTextNode, newEndTextNode);
+
+    return newBlockNode;
 
     // let newChildren = this.getChildren().slice(0);
     // let splitfirstNode;

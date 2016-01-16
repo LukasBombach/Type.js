@@ -31,11 +31,12 @@ export default class DocumentNode {
 
   /**
    *
-   * @param attribute
+   * @param attr
    * @returns {DocumentNode}
    */
-  addAttribute(attribute) {
-    this._attributes.push(attribute);
+  addAttribute(attr) {
+    attr = typeof attr === 'string' ? [attr,true] : attr;
+    this._attributes.push(attr);
     return this;
   }
 
