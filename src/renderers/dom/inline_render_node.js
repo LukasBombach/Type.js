@@ -38,7 +38,7 @@ export default class InlineRenderNode {
   canContain(that) {
     const thisAttrs = this.attributes;
     const thatAttrs = that.attributes;
-    return that !== this && !!thisAttrs.length() && !!thisAttrs.diff(thatAttrs).length();
+    return that !== this && !!thisAttrs.length() && !thisAttrs.diff(thatAttrs).length();
   }
 
   /**

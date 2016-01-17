@@ -73,7 +73,7 @@ export default class Attributes  {
    * @returns {Attributes}
    */
   diff(that) {
-    return new Attributes(this._attributes.filter(function(i) {return that.indexOf(i) < 0;}));
+    return new Attributes(this._attributes.filter(function(attr) { return that.indexOf(attr) < 0; }));
   }
 
   /**
