@@ -60,7 +60,7 @@ export default class HtmlReader {
    * @private
    */
   static _getTextNode(node, attributes = []) {
-    return new TextNode(this._type, node.nodeValue, attributes);
+    return new TextNode(this._type, attributes, node.nodeValue);
   }
 
   /**
