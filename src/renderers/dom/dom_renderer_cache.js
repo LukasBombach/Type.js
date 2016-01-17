@@ -3,6 +3,7 @@
 import DomRenderer from './dom_renderer';
 import BlockNode from '../../document/block_node';
 import TextNode from '../../document/text_node';
+import BlockRenderNode from './block_render_node';
 
 export default class DomRendererCache {
 
@@ -40,16 +41,6 @@ export default class DomRendererCache {
   }
 
   /**
-   * Returns whether or not a given document node is in the cache
-   *
-   * @param documentNodeId
-   * @returns {boolean}
-   */
-  isCached(documentNodeId) {
-    return documentNodeId.toString() in this._cache;
-  }
-
-  /**
    *
    * @param {DocumentNode} documentNode
    * @returns {RenderNode}
@@ -59,7 +50,7 @@ export default class DomRendererCache {
     let cachedItem = this.get(documentNode.id);
 
     if (!cachedItem) {
-      cachedItem = DomRenderer.getRenderNodeFor(documentNode);
+      cachedItem = new BlockRenderNode(documentNode);
       this.set(documentNode.id, cachedItem);
     }
 
