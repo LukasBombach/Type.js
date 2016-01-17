@@ -60,4 +60,39 @@ export default class DomRenderer extends Renderer {
     return this;
   }
 
+  /**
+   *
+   * @param node
+   * @param afterNode
+   * @returns {DomRenderer}
+   * @private
+   */
+  _renderNode(node, afterNode) {
+
+    if (!afterNode) {
+      this._el.appendChild(node.getDomNode());
+      return this;
+    }
+
+    const afterDomNode = afterNode.getDomNode();
+    if (afterDomNode.nextSibling)
+      afterDomNode.parentNode.insertBefore(node.getDomNode(), afterDomNode.nextSibling);
+    else
+      afterDomNode.parentNode.appendChild(node.getDomNode());
+    return this;
+
+  }
+
+  /**
+   *
+   * @param nodeToRemove
+   * @returns {DomRenderer}
+   * @private
+   */
+  _removeNodeFromDom(nodeToRemove) {
+    const removeDomNode = nodeToRemove.getDomNode();
+    removeDomNode.parentNode.removeChild(removeDomNode);
+    return this;
+  }
+
 }

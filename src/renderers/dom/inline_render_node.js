@@ -68,7 +68,7 @@ export default class InlineRenderNode {
    */
   _createInlineElements() {
 
-    const map = TextRenderNode.attributeElementMap;
+    const map = { bold: 'strong', italic: 'em', underline: 'u', del: 'del' }; // todo remove late night hack TextRenderNode._attributeElementMap;
     const attrs = this.attributes.get();
     const domNode = document.createElement(map[attrs.pop()[0]]);
     let innerNode = domNode;
@@ -86,13 +86,8 @@ export default class InlineRenderNode {
    *
    * @returns {{bold: string, italic: string, underline: string, del: string}}
    */
-  static get attributeElementMap() {
-    return {
-      bold: 'strong',
-      italic: 'em',
-      underline: 'u',
-      del: 'del',
-    };
+  static get _attributeElementMap() {
+    return { bold: 'strong', italic: 'em', underline: 'u', del: 'del' };
   }
 
 }

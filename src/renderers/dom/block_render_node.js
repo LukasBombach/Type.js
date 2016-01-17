@@ -33,7 +33,7 @@ export default class BlockRenderNode {
    */
   _createDomNode() {
     const domNode = document.createElement(this.documentNode.blockType);
-    for (let child of this.children) this._domNode.appendChild(child.getDomNode());
+    for (let child of this.children) domNode.appendChild(child.getDomNode());
     Type.data(domNode, 'documentNodeId', this.documentNode.id);
     return domNode;
   }
@@ -44,7 +44,7 @@ export default class BlockRenderNode {
    * @private
    */
   _getChildrenFor(documentBlockNode) {
-    const inlineRenderNodes =  documentBlockNode.getChildren().map(function(textNode) {
+    const inlineRenderNodes =  documentBlockNode.children.map(function(textNode) {
       return new InlineRenderNode(textNode);
     });
 
