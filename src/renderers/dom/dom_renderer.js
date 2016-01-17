@@ -2,6 +2,7 @@
 
 import Renderer from '../renderer';
 import DomRendererCache from './dom_renderer_cache';
+import TypeRange from '../../range';
 
 /**
  * @augments Renderer
@@ -58,6 +59,19 @@ export default class DomRenderer extends Renderer {
   clear() {
     this._el.innerHTML = '';
     return this;
+  }
+
+  /**
+   *
+   * @returns {TypeRange}
+   */
+  getRange() {
+    const range = document.getSelection().getRangeAt(0);
+    const startNodeId = Type.data(range.startContainer, 'documentNodeId');
+    const endNodeId = Type.data(range.endContainer, 'documentNodeId');
+    const startNode = this._cache.get(startNodeId);
+    const endNode = this._cache.get(endNodeId);
+    return new TypeRange(startNode, endNode, range.startOffset, range.endOffset);
   }
 
   /**

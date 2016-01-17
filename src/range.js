@@ -9,4 +9,8 @@ export default class TypeRange {
     this.endOffset = endOffset || endNode.length;
   }
 
+  static nullRange() {
+    return new TypeRange(null, null, null, null);
+  }
+
 }

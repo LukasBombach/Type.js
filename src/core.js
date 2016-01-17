@@ -144,10 +144,10 @@ export default class Type {
 
   /**
    * todo this is DEV - remove me!
-   * @returns {DocumentRange|null}
+   * @returns {TypeRange}
    */
   getRange() {
-    return DocumentRange.fromCurrentSelection(this);
+    return this._renderer.getRange();
   }
 
   /**

@@ -1,5 +1,7 @@
 'use strict';
 
+import TypeRange from '../range';
+
 export default class Renderer {
 
   /**
@@ -24,6 +26,14 @@ export default class Renderer {
    */
   clear() {
     return this;
+  }
+
+  /**
+   *
+   * @returns {*}
+   */
+  getRange() {
+    return TypeRange.nullRange();
   }
 
 }
