@@ -12,7 +12,7 @@ export default class Attributes  {
    * @returns {Attributes}
    */
   copy() {
-    return new Attributes(this._attributes.slice(0));
+    return new Attributes(this._attributes);
   }
 
   /**
@@ -33,7 +33,7 @@ export default class Attributes  {
    */
   add(attribute) {
     attribute = typeof attribute === 'string' ? [attribute, true] : attribute;
-    this._attributes.push(attribute);
+    this._attributes.push(attribute.slice(0));
     return this;
   }
 
@@ -42,7 +42,7 @@ export default class Attributes  {
    * @returns {Array}
    */
   get() {
-    return this._attributes;
+    return this._attributes.slice(0);
   }
 
   /**
@@ -67,9 +67,7 @@ export default class Attributes  {
 
   /**
    * "documentation": http://stackoverflow.com/a/4026828/1183252
-   *
-   * [1,2,3,4,5,6].diff( [3,4,5] );
-   * // => [1, 2, 6]
+   * [1,2,3,4,5,6].diff( [3,4,5] ); // => [1, 2, 6]
    *
    * @param that
    * @returns {Attributes}
