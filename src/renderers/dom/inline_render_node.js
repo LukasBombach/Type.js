@@ -68,7 +68,7 @@ export default class InlineRenderNode {
    */
   _createInlineElements() {
 
-    const map = { bold: 'strong', italic: 'em', underline: 'u', del: 'del' }; // todo remove late night hack TextRenderNode._attributeElementMap;
+    const map = InlineRenderNode._attributeElementMap;
     const attrs = this.attributes.get();
     const domNode = attrs.length ? document.createElement(map[attrs.pop()[0]]) : document.createDocumentFragment();
     let innerNode = domNode;
