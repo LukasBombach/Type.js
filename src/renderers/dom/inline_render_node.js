@@ -3,19 +3,15 @@
 /**
  * @augments RenderNode
  */
-export default class InlineRenderNode extends RenderNode {
+export default class InlineRenderNode {
 
   /**
    *
    * @param {TextNode} textNode
    */
   constructor(textNode) {
-    super();
-    this._attributes = textNode.getAttributes();
-    this._children = [textNode.getNodeValue()];
+    this.textNode = textNode;
   }
-
-
 
   /**
    *
@@ -24,8 +20,7 @@ export default class InlineRenderNode extends RenderNode {
    */
   appendAsChild(that) {
 
-    if (!this.canContain(that))
-      return false;
+    if (!this.canContain(that)) return false;
 
     that.removeAttributes(this._attributes);
     let currentNode = this._children[this._children.length - 1];
@@ -39,6 +34,7 @@ export default class InlineRenderNode extends RenderNode {
     }
 
     return this;
+
   }
 
   /**
@@ -47,7 +43,9 @@ export default class InlineRenderNode extends RenderNode {
    * @returns {boolean}
    */
   canContain(that) {
-    return that !== this && !!this._attributes.length && !that.missingAttributes(this._attributes);
+    const thisAttrs = this.textNode.attributes;
+    const thatAttrs = that.textNode.attributes;
+    return that !== this && !!thisAttrs.length() && !!thisAttrs.diff(thatAttrs).length();
   }
 
 }

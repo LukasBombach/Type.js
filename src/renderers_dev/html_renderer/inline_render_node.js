@@ -78,7 +78,7 @@ export default class InlineRenderNode extends RenderNode {
    * @returns {boolean}
    */
   canContain(that) {
-    return this._attributes.length && !that.missingAttributes(this._attributes);
+    return this._attributes.length && !that.isMissingAttributes(this._attributes);
   }
 
   /**
