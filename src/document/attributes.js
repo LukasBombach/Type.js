@@ -4,7 +4,15 @@ export default class Attributes  {
 
   constructor(attributes = []) {
     attributes = attributes instanceof Attributes ? attributes.get() : attributes;
-    this.set(attributes);
+    this.set(attributes.slice(0));
+  }
+
+  /**
+   *
+   * @returns {Attributes}
+   */
+  copy() {
+    return new Attributes(this._attributes.slice(0));
   }
 
   /**
@@ -58,6 +66,10 @@ export default class Attributes  {
   }
 
   /**
+   * "documentation": http://stackoverflow.com/a/4026828/1183252
+   *
+   * [1,2,3,4,5,6].diff( [3,4,5] );
+   * // => [1, 2, 6]
    *
    * @param that
    * @returns {Attributes}
