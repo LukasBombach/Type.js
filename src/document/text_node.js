@@ -12,9 +12,10 @@ export default class TextNode extends DocumentNode {
    * @param type
    * @param attributes
    * @param text
+   * @param parent
    */
-  constructor(type, attributes = [], text) {
-    super(type, attributes);
+  constructor(type, attributes = [], text, parent) {
+    super(type, attributes, parent);
     this.text = text.trim();
   }
 
@@ -24,12 +25,7 @@ export default class TextNode extends DocumentNode {
    * @constructor
    */
   static get ATTRIBUTES() {
-    return {
-      BOLD: 'bold',
-      ITALIC: 'italic',
-      UNDERLINE: 'underline',
-      DEL: 'del',
-    };
+    return { BOLD: 'bold', ITALIC: 'italic', UNDERLINE: 'underline', DEL: 'del', };
   }
 
 }

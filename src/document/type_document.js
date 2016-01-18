@@ -29,4 +29,15 @@ export default class TypeDocument {
     return this._cache.get(id);
   }
 
+  /**
+   *
+   * @param {TypeRange} range
+   * @returns {TypeDocument}
+   */
+  addAttributeAtRange(range) {
+
+    const nodes = this.nodes.slice(0);
+
+  }
+
 }

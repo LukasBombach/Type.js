@@ -56,11 +56,12 @@ export default class HtmlReader {
    *
    * @param node
    * @param attributes
+   * @param parent
    * @returns {TextNode}
    * @private
    */
-  static _getTextNode(node, attributes = []) {
-    return new TextNode(this._type, attributes, node.nodeValue);
+  static _getTextNode(node, attributes = [], parent) {
+    return new TextNode(this._type, attributes, node.nodeValue, parent);
   }
 
   /**

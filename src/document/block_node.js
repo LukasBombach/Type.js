@@ -12,11 +12,12 @@ export default class BlockNode extends DocumentNode {
    * @param {Type} type
    * @param attributesOrType
    * @param children
+   * @param parent
    */
-  constructor(type, attributesOrType = [], children = []) {
+  constructor(type, attributesOrType = [], children = [], parent) {
     const attributes = typeof attributesOrType === 'string' ? new Array(['blockType', attributesOrType]) : attributesOrType;
     const blockType = BlockNode._extractBlockTypeFromAttributes(attributes);
-    super(type, attributes);
+    super(type, attributes, parent);
     this.blockType = blockType;
     this.children = children;
   }
