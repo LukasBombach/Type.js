@@ -47,7 +47,7 @@ export default class DocumentCache {
    */
   _getDocumentNodeFromDocument(documentNodeId) {
     let foundNode;
-    for (let node of this._document.nodes) if(foundNode = node.getChild(documentNodeId)) return foundNode;
+    for (let node of this._document.nodes) if (foundNode = node.getChild(documentNodeId)) return foundNode;
     return null;
   }
 
