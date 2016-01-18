@@ -57,8 +57,7 @@ export default class BlockRenderNode {
   static _mergeInlineNodes(inlineNodes) {
     if (!inlineNodes.length) return [];
     const mergedNodes = [inlineNodes[0]];
-    for (let node of inlineNodes)
-      mergedNodes[mergedNodes.length - 1].appendAsChild(node) || mergedNodes.push(node);
+    for (let node of inlineNodes) mergedNodes[mergedNodes.length - 1].appendAsChild(node) || mergedNodes.push(node);
     return mergedNodes;
   }
 

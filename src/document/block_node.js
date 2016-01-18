@@ -23,6 +23,24 @@ export default class BlockNode extends DocumentNode {
 
   /**
    *
+   * @param id
+   * @returns {BlockNode|TextNode|null}
+   */
+  getChild(id) {
+
+    if (this.id === id) return this;
+    let childWithId;
+
+    for (let child of this.children) {
+      if (child instanceof BlockNode && (childWithId = child.getChild(id))) return childWithId;
+      else if (child.id === id) return child;
+    }
+
+    return null;
+  }
+
+  /**
+   *
    * @param attributes
    * @returns {string|null}
    * @private

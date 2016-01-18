@@ -24,7 +24,7 @@ export default class DomRendererCache {
    * @returns {RenderNode|null}
    */
   get(documentNodeId) {
-    return this._cache[documentNodeId] || null;
+    return this._cache[documentNodeId.toString()] || null;
   }
 
   /**

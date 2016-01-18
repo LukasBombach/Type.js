@@ -69,8 +69,8 @@ export default class DomRenderer extends Renderer {
     const range = document.getSelection().getRangeAt(0);
     const startNodeId = Type.data(range.startContainer, 'documentNodeId');
     const endNodeId = Type.data(range.endContainer, 'documentNodeId');
-    const startNode = this._cache.get(startNodeId);
-    const endNode = this._cache.get(endNodeId);
+    const startNode = this._type.getDocument().getNode(startNodeId);
+    const endNode = this._type.getDocument().getNode(endNodeId);
     return new TypeRange(startNode, endNode, range.startOffset, range.endOffset);
   }
 
@@ -89,10 +89,8 @@ export default class DomRenderer extends Renderer {
     }
 
     const afterDomNode = afterNode.getDomNode();
-    if (afterDomNode.nextSibling)
-      afterDomNode.parentNode.insertBefore(node.getDomNode(), afterDomNode.nextSibling);
-    else
-      afterDomNode.parentNode.appendChild(node.getDomNode());
+    if (afterDomNode.nextSibling) afterDomNode.parentNode.insertBefore(node.getDomNode(), afterDomNode.nextSibling);
+    else afterDomNode.parentNode.appendChild(node.getDomNode());
     return this;
 
   }
