@@ -44,10 +44,7 @@ export default class BlockRenderNode {
    * @private
    */
   _getChildrenFor(documentBlockNode) {
-    const inlineRenderNodes =  documentBlockNode.children.map(function(textNode) {
-      return new InlineRenderNode(textNode);
-    });
-
+    const inlineRenderNodes = documentBlockNode.children.map(textNode => new InlineRenderNode(textNode));
     return BlockRenderNode._mergeInlineNodes(inlineRenderNodes);
   }
 
@@ -58,6 +55,7 @@ export default class BlockRenderNode {
    * @private
    */
   static _mergeInlineNodes(inlineNodes) {
+    if (!inlineNodes.length) return [];
     const mergedNodes = [inlineNodes[0]];
     for (let node of inlineNodes)
       mergedNodes[mergedNodes.length - 1].appendAsChild(node) || mergedNodes.push(node);
