@@ -8,7 +8,8 @@ import Formatter from './formatter';
 import SelectionInput from './input/selection_input';
 import DomWalker from './utilities/dom_walker';
 import HtmlReader from './readers/html_reader';
-import DomRenderer from './renderers/dom/dom_renderer';
+// import DomRenderer from './renderers/dom/dom_renderer';
+import DomRenderer from './renderers/markdown_experiment/dom_renderer';
 
 const version = '0.2.1';
 const expando = 'typejs' + (version + Math.random()).replace(/\D/g, '');
