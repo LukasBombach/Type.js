@@ -16,7 +16,7 @@ export default class TextNode extends DocumentNode {
    */
   constructor(type, attributes = [], text, parent) {
     super(type, attributes, parent);
-    this.text = text.trim();
+    this.text = text;
   }
 
   /**
