@@ -2,8 +2,8 @@
 
 export default class TypeRange {
 
-  constructor(starNode, endNode, startOffset, endOffset) {
-    this.starNode = starNode;
+  constructor(startNode, endNode, startOffset, endOffset) {
+    this.startNode = startNode;
     this.endNode = endNode;
     this.startOffset = startOffset || 0;
     this.endOffset = endOffset || endNode.length;

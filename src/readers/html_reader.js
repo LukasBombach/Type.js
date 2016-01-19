@@ -21,18 +21,19 @@ export default class HtmlReader {
    *
    * @param domNode
    * @param attributes
+   * @param parent
    * @returns {DocumentNode[]}
    * @private
    */
-  static _getChildrenFor(domNode, attributes = []) {
+  static _getChildrenFor(domNode, attributes = [], parent) {
 
     var childNodes = [];
 
     Array.prototype.forEach.call(domNode.childNodes, function(node) {
-      if (HtmlReader._isBlockNode(node)) childNodes.push(HtmlReader._getBlockNode(node, attributes));
-      else if (HtmlReader._isTextNodeWithContents(node)) childNodes.push(HtmlReader._getTextNode(node, attributes));
+      if (HtmlReader._isBlockNode(node)) childNodes.push(HtmlReader._getBlockNode(node, attributes, parent));
+      else if (HtmlReader._isTextNodeWithContents(node)) childNodes.push(HtmlReader._getTextNode(node, attributes, parent));
       else if (HtmlReader._isAttributeNode(node))
-        childNodes = childNodes.concat(HtmlReader._getChildrenFor(node, HtmlReader._addAttributeForNode(attributes, node)));
+        childNodes = childNodes.concat(HtmlReader._getChildrenFor(node, HtmlReader._addAttributeForNode(attributes, node), parent));
     });
 
     return childNodes;
@@ -43,13 +44,15 @@ export default class HtmlReader {
    *
    * @param domNode
    * @param attributes
+   * @param parent
    * @returns {BlockNode}
    * @private
    */
-  static _getBlockNode(domNode, attributes = []) {
-    var nodeType = domNode.tagName.toLowerCase();
-    var children = HtmlReader._getChildrenFor(domNode, attributes);
-    return new BlockNode(this._type, nodeType, children);
+  static _getBlockNode(domNode, attributes = [], parent) {
+    const nodeType = domNode.tagName.toLowerCase();
+    const blockNode = new BlockNode(this._type, nodeType, parent);
+    blockNode.children = HtmlReader._getChildrenFor(domNode, attributes, blockNode);
+    return blockNode;
   }
 
   /**
