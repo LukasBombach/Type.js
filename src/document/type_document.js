@@ -45,21 +45,27 @@ export default class TypeDocument {
   addAttributeAtRange(range) {
 
     const newDocument = this.copy();
-    const nodes = newDocument.nodes;
-    const startBlock = range.startNode.parent;
-    const endBlock = range.endNode.parent;
-    const startBlockIndex = nodes.indexOf(startBlock);
-    const endBlockIndex = nodes.indexOf(endBlock);
+    const [startBlock, endBlock] = range.getBlockNodes();
+    const [startBlockIndex, endBlockIndex] = newDocument.getNodeIndexes(startBlock, endBlock);
 
     if (startBlock === endBlock) {
-      nodes.splice(startBlockIndex, 1, startBlock.splitNodesAtRange(range));
+      newDocument.nodes.splice(startBlockIndex, 1, startBlock.splitNodesAtRange(range));
     } else {
-      nodes.splice(startBlockIndex, 1, startBlock.splitNodeAtRangeStart(range));
-      nodes.splice(endBlockIndex, 1, startBlock.splitNodeAtRangeEnd(range));
+      newDocument.nodes.splice(startBlockIndex, 1, startBlock.splitNodeAtRangeStart(range));
+      newDocument.nodes.splice(endBlockIndex, 1, startBlock.splitNodeAtRangeEnd(range));
     }
 
     return newDocument;
 
+  }
+
+  /**
+   *
+   * @param {DocumentNode[]} nodes
+   * @returns {number[]}
+   */
+  getNodeIndexes(...nodes) {
+    return nodes.map(n => this.nodes.indexOf(n));
   }
 
 }

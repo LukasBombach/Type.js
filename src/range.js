@@ -34,4 +34,12 @@ export default class TypeRange {
     return this.startContainer === this.endContainer;
   };
 
+  /**
+   *
+   * @returns {[BlockNode,BlockNode]}
+   */
+  getBlockNodes() {
+    return [this.startNode.parent, this.endNode.parent]
+  }
+
 }
