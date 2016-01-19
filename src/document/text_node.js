@@ -21,6 +21,17 @@ export default class TextNode extends DocumentNode {
 
   /**
    *
+   * @param {number} offset
+   * @returns {[TextNode,TextNode]}
+   */
+  splitAtOffset(offset) {
+    const left = new TextNode(this._type, this.attributes.copy(), this.text.substr(0, offset));
+    const right = new TextNode(this._type, this.attributes.copy(), this.text.substr(offset));
+    return [left, right];
+  }
+
+  /**
+   *
    * @returns {{BOLD: string, ITALIC: string, UNDERLINE: string, DEL: string}}
    * @constructor
    */

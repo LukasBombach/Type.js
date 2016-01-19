@@ -24,6 +24,14 @@ export default class BlockNode extends DocumentNode {
 
   /**
    *
+   * @returns {BlockNode}
+   */
+  copy() {
+    return new BlockNode(this._type, this.attributes.copy(), this.children.slice(0), this.parent);
+  }
+
+  /**
+   *
    * @param id
    * @returns {BlockNode|TextNode|null}
    */
@@ -38,6 +46,60 @@ export default class BlockNode extends DocumentNode {
     }
 
     return null;
+  }
+
+  /**
+   *
+   * @param {TypeRange} range
+   * @returns {BlockNode}
+   */
+  splitNodeAtRangeStart(range) {
+    return this.splitNodeAtOffset(range.startNode, range.startOffset);
+  }
+
+  /**
+   *
+   * @param {TypeRange} range
+   * @returns {BlockNode}
+   */
+  splitNodeAtRangeEnd(range) {
+    return this.splitNodeAtOffset(range.endNode, range.endOffset);
+  }
+
+  /**
+   *
+   * @param {TypeRange} range
+   * @returns {BlockNode}
+   */
+  splitNodesAtRange(range) {
+
+    const blockNode = this.copy();
+    const nodes = blockNode.children;
+    const startNodeIndex = nodes.indexOf(range.startNode);
+    const endNodeIndex = nodes.indexOf(range.endNode);
+
+    if (range.startsAndEndsInSameNode()) {
+      const [, rightNode] = nodes.splice(startNodeIndex, 1, range.startNode.splitAtOffset(range.startOffset));
+      nodes.splice(startNodeIndex + 1, 0, rightNode.splitAtOffset(range.endOffset - range.startOffset));
+    } else {
+      nodes.splice(startNodeIndex, 1, range.startNode.splitAtOffset(range.startOffset));
+      nodes.splice(endNodeIndex, 1, range.endNode.splitAtOffset(range.endOffset));
+    }
+
+    return blockNode;
+  }
+
+  /**
+   *
+   * @param childTextNode
+   * @param textNodeOffset
+   * @returns {BlockNode}
+   */
+  splitNodeAtOffset(childTextNode, textNodeOffset) {
+    const blockNode = this.copy();
+    const childTextNodeIndex = blockNode.children.indexOf(childTextNode);
+    blockNode.children.splice(childTextNodeIndex, 1, childTextNode.splitAtOffset(textNodeOffset));
+    return blockNode;
   }
 
   /**
