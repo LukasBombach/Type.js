@@ -64,7 +64,7 @@ export default class DomRendererCache {
    */
   getOrCreateNodesForDocument(document) {
 
-    const documentNodes = document.nodes;
+    const documentNodes = document.nodes.getAll();
     const len = documentNodes.length;
     const renderNodes = {};
     let id;

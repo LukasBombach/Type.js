@@ -1,16 +1,16 @@
 'use strict';
 
-export default class DocumentCache {
+export default class NodeCache {
 
   /**
    * Initializes the cache data structure
    *
-   * @param {TypeDocument} document
+   * @param {TypeNodeList} nodeList
    * @constructor
    */
-  constructor(document) {
+  constructor(nodeList) {
     this._cache = {};
-    this._document = document;
+    this._nodeList = nodeList;
   }
 
   /**
@@ -23,7 +23,7 @@ export default class DocumentCache {
    */
   get(documentNodeId) {
     const key = documentNodeId.toString();
-    if (this._cache[key] === undefined) this._cache[key] = this._getDocumentNodeFromDocument(documentNodeId);
+    if (this._cache[key] === undefined) this._cache[key] = this._getNodeFromNodeList(documentNodeId);
     return this._cache[key] || null;
   }
 
@@ -32,7 +32,7 @@ export default class DocumentCache {
    * corresponding DocumentNode
    *
    * @param {DocumentNode} documentNode
-   * @returns {DocumentCache}
+   * @returns {NodeCache}
    */
   set(documentNode) {
     this._cache[documentNode.id.toString()] = documentNode;
@@ -45,9 +45,9 @@ export default class DocumentCache {
    * @returns {*}
    * @private
    */
-  _getDocumentNodeFromDocument(documentNodeId) {
+  _getNodeFromNodeList(documentNodeId) {
     let foundNode;
-    for (let node of this._document.nodes) if (foundNode = node.getChild(documentNodeId)) return foundNode;
+    for (let node of this._nodeList.nodes) if (foundNode = node.getChild(documentNodeId)) return foundNode;
     return null;
   }
 

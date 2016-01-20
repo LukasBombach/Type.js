@@ -38,7 +38,7 @@ Type.fn.format = function(htmlString) {
  * @returns {Type}
  */
 Type.fn.format = function(format) {
-  this._document = this.getDocument().copyWithAttributesAtRange(format, this.getRange());
+  this._nodeList = this.getDocument().copyWithAttributesAtRange(format, this.getRange());
   this._renderer.render();
   return this;
 };

@@ -1,8 +1,6 @@
 'use strict';
 
-import BlockNode from './block_node';
-import TextNode from './block_node';
-import DocumentCache from './document_cache';
+import TypeNodeList from './type_node_list';
 
 /**
  * @augments DocumentNode
@@ -16,8 +14,7 @@ export default class TypeDocument {
    */
   constructor(type, nodes = []) {
     this._type = type;
-    this._cache = new DocumentCache(this);
-    this.nodes = nodes;
+    this.nodes = new TypeNodeList(nodes);
   }
 
   /**
@@ -25,7 +22,7 @@ export default class TypeDocument {
    * @returns {TypeDocument}
    */
   copy() {
-    return new TypeDocument(this._type, this.nodes.slice(0));
+    return new TypeDocument(this._type, this.nodes.copy());
   }
 
   /**
@@ -34,7 +31,7 @@ export default class TypeDocument {
    * @returns {DocumentNode|null}
    */
   getNode(id) {
-    return this._cache.get(id);
+    return this.nodes.getById(id);
   }
 
   /**
@@ -43,29 +40,9 @@ export default class TypeDocument {
    * @returns {TypeDocument}
    */
   addAttributeAtRange(range) {
-
-    const newDocument = this.copy();
-    const [startBlock, endBlock] = range.getBlockNodes();
-    const [startBlockIndex, endBlockIndex] = newDocument.getNodeIndexes(startBlock, endBlock);
-
-    if (startBlock === endBlock) {
-      newDocument.nodes.splice(startBlockIndex, 1, startBlock.splitNodesAtRange(range));
-    } else {
-      newDocument.nodes.splice(startBlockIndex, 1, startBlock.splitNodeAtRangeStart(range));
-      newDocument.nodes.splice(endBlockIndex, 1, startBlock.splitNodeAtRangeEnd(range));
-    }
-
-    return newDocument;
-
-  }
-
-  /**
-   *
-   * @param {DocumentNode[]} nodes
-   * @returns {number[]}
-   */
-  getNodeIndexes(...nodes) {
-    return nodes.map(n => this.nodes.indexOf(n));
+    const document = this.copy();
+    document.nodes.addAttributeAtRange(range);
+    return document;
   }
 
 }

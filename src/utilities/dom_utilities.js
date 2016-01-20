@@ -99,7 +99,7 @@ export default class DomUtilities {
    * Converts a string of HTML to a corresponding {NodeList}
    *
    * @param {String} htmlString - A string containing HTML
-   * @returns {NodeList} - The elements represented by the string
+   * @returns {TypeNodeList} - The elements represented by the string
    */
   static parseHTML(htmlString) {
     var fragment = document.createDocumentFragment();

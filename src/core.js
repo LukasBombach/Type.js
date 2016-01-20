@@ -68,7 +68,7 @@ export default class Type {
     this._formatter = new Formatter(this);
 
     // Editor contents
-    this._document = HtmlReader.getDocument(this);
+    this._nodeList = HtmlReader.getDocument(this);
 
     // Initial rendering of the document
     this._renderer = new DomRenderer(this);
@@ -232,7 +232,7 @@ export default class Type {
    * @returns {TypeDocument}
    */
   getDocument() {
-    return this._document;
+    return this._nodeList;
   }
 
   /**
