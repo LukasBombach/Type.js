@@ -10,7 +10,7 @@ export default class TypeDocument {
   /**
    *
    * @param {Type} type
-   * @param {DocumentNode[]} nodes
+   * @param {DocumentNode[]|TypeNodeList} nodes
    */
   constructor(type, nodes = []) {
     this._type = type;

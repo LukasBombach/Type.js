@@ -80,14 +80,26 @@ export default class BlockNode extends DocumentNode {
 
     if (range.startsAndEndsInSameNode()) {
       const [leftNode, rightNode] = range.startNode.splitAtOffset(range.startOffset);
-      nodes.splice(startNodeIndex, 1, leftNode, rightNode);
-      nodes.splice.apply(nodes, [startNodeIndex + 1, 1].concat(rightNode.splitAtOffset(range.endOffset - range.startOffset)));
+      blockNode.spliceChildren(startNodeIndex, 1, ...[leftNode, rightNode]);
+      blockNode.spliceChildren(startNodeIndex + 1, 1, ...rightNode.splitAtOffset(range.endOffset - range.startOffset))
     } else {
-      nodes.splice(startNodeIndex, 1, range.startNode.splitAtOffset(range.startOffset));
-      nodes.splice(endNodeIndex, 1, range.endNode.splitAtOffset(range.endOffset));
+      blockNode.spliceChildren(startNodeIndex, 1, ...range.startNode.splitAtOffset(range.startOffset));
+      blockNode.spliceChildren(endNodeIndex, 1, ...range.endNode.splitAtOffset(range.endOffset));
     }
 
     return blockNode;
+  }
+
+  /**
+   *
+   * @param {number} index
+   * @param {number} remove
+   * @param {TextNode[]} insert
+   * @returns {BlockNode}
+   */
+  spliceChildren(index, remove, ...insert) {
+    this.children.splice.apply(this.children, [index, remove].concat(insert));
+    return this;
   }
 
   /**

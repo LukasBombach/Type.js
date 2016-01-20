@@ -18,19 +18,27 @@ export default class TypeNodeList {
 
   /**
    *
+   * @returns {TypeNodeList}
+   */
+  copy() {
+    return new TypeNodeList(this);
+  }
+
+  /**
+   *
    * @param {TypeRange} range
    * @returns {TypeNodeList}
    */
   addAttributeAtRange(range) {
 
     const [startBlock, endBlock] = range.getBlockNodes();
-    const [startBlockIndex, endBlockIndex] = nodes.getIndices(startBlock, endBlock);
+    const [startBlockIndex, endBlockIndex] = this.getIndices(startBlock, endBlock);
 
     if (startBlock === endBlock) {
-      nodes.splice(startBlockIndex, 1, startBlock.splitNodesAtRange(range));
+      this.nodes.splice(startBlockIndex, 1, startBlock.splitNodesAtRange(range));
     } else {
-      nodes.splice(startBlockIndex, 1, startBlock.splitNodeAtRangeStart(range));
-      nodes.splice(endBlockIndex, 1, startBlock.splitNodeAtRangeEnd(range));
+      this.nodes.splice(startBlockIndex, 1, startBlock.splitNodeAtRangeStart(range));
+      this.nodes.splice(endBlockIndex, 1, startBlock.splitNodeAtRangeEnd(range));
     }
 
     return this;

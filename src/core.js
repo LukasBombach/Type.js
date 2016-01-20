@@ -76,7 +76,7 @@ export default class Type {
     this._renderer.render();
 
     // Events todo SelectionInput makes no sense when this comment says "Events"
-    new SelectionInput(this);
+    // new SelectionInput(this);
     Type.emit('ready', this);
   }
 
