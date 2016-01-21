@@ -29,6 +29,7 @@ export default class HtmlReader {
 
     var childNodes = [];
 
+    // todo for node  in childnodes
     Array.prototype.forEach.call(domNode.childNodes, function(node) {
       if (HtmlReader._isBlockNode(node)) childNodes.push(HtmlReader._getBlockNode(node, attributes, parent));
       else if (HtmlReader._isTextNodeWithContents(node)) childNodes.push(HtmlReader._getTextNode(node, attributes, parent));
