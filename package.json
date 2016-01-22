@@ -1,16 +1,17 @@
 {
   "name": "Type.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/type.min.js",
-  "description": "A javascript word processing framework",
+  "description": "A WYSIWYG Editing Library",
   "repository": {
     "type": "git",
-    "url": "git://github.com/LukasBombach/new-type-js"
+    "url": "git@github.com:LukasBombach/Type.js.git"
   },
   "keywords": [
     "wysiwyg",
     "editor",
-    "contenteditable"
+    "contenteditable",
+    "rich text"
   ],
   "author": "Lukas Bombach",
   "license": "MIT",
