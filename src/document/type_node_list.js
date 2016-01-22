@@ -38,7 +38,7 @@ export default class TypeNodeList {
       this.nodes.splice(startBlockIndex, 1, startBlock.splitNodesAtRange(range));
     } else {
       this.nodes.splice(startBlockIndex, 1, startBlock.splitNodeAtRangeStart(range));
-      this.nodes.splice(endBlockIndex, 1, startBlock.splitNodeAtRangeEnd(range));
+      this.nodes.splice(endBlockIndex, 1, endBlock.splitNodeAtRangeEnd(range));
     }
 
     return this;
