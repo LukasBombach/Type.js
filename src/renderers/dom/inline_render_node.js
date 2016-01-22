@@ -18,7 +18,7 @@ export default class InlineRenderNode {
   }
 
   /**
-   *
+   * todo what if that.attributes === this.attributes, only a text node should be added
    * @param {InlineRenderNode} that
    * @returns {InlineRenderNode|boolean}
    */
