@@ -53,6 +53,30 @@ export default class BlockNode extends DocumentNode {
    * @param {TypeRange} range
    * @returns {BlockNode}
    */
+  splitNodesAtRange(range) {
+
+    const blockNode = this.copy();
+    const nodes = blockNode.children;
+    const startNodeIndex = nodes.indexOf(range.startNode);
+    const endNodeIndex = nodes.indexOf(range.endNode);
+
+    if (range.startsAndEndsInSameNode()) {
+      const [leftNode, rightNode] = range.startNode.splitAtOffset(range.startOffset);
+      blockNode.children.splice(startNodeIndex, 1, leftNode, rightNode);
+      blockNode.children.splice(startNodeIndex + 1, 1, ...rightNode.splitAtOffset(range.endOffset - range.startOffset));
+    } else {
+      blockNode.children.splice(startNodeIndex, 1, ...range.startNode.splitAtOffset(range.startOffset));
+      blockNode.children.splice(endNodeIndex, 1, ...range.endNode.splitAtOffset(range.endOffset));
+    }
+
+    return blockNode;
+  }
+
+  /**
+   *
+   * @param {TypeRange} range
+   * @returns {BlockNode}
+   */
   splitNodeAtRangeStart(range) {
     return this.splitNodeAtOffset(range.startNode, range.startOffset);
   }
@@ -68,42 +92,6 @@ export default class BlockNode extends DocumentNode {
 
   /**
    *
-   * @param {TypeRange} range
-   * @returns {BlockNode}
-   */
-  splitNodesAtRange(range) {
-
-    const blockNode = this.copy();
-    const nodes = blockNode.children;
-    const startNodeIndex = nodes.indexOf(range.startNode);
-    const endNodeIndex = nodes.indexOf(range.endNode);
-
-    if (range.startsAndEndsInSameNode()) {
-      const [leftNode, rightNode] = range.startNode.splitAtOffset(range.startOffset);
-      blockNode.spliceChildren(startNodeIndex, 1, ...[leftNode, rightNode]);
-      blockNode.spliceChildren(startNodeIndex + 1, 1, ...rightNode.splitAtOffset(range.endOffset - range.startOffset))
-    } else {
-      blockNode.spliceChildren(startNodeIndex, 1, ...range.startNode.splitAtOffset(range.startOffset));
-      blockNode.spliceChildren(endNodeIndex, 1, ...range.endNode.splitAtOffset(range.endOffset));
-    }
-
-    return blockNode;
-  }
-
-  /**
-   *
-   * @param {number} index
-   * @param {number} remove
-   * @param {TextNode[]} insert
-   * @returns {BlockNode}
-   */
-  spliceChildren(index, remove, ...insert) {
-    this.children.splice.apply(this.children, [index, remove].concat(insert));
-    return this;
-  }
-
-  /**
-   *
    * @param childTextNode
    * @param textNodeOffset
    * @returns {BlockNode}
@@ -111,7 +99,7 @@ export default class BlockNode extends DocumentNode {
   splitNodeAtOffset(childTextNode, textNodeOffset) {
     const blockNode = this.copy();
     const childTextNodeIndex = blockNode.children.indexOf(childTextNode);
-    blockNode.children.splice(childTextNodeIndex, 1, childTextNode.splitAtOffset(textNodeOffset));
+    blockNode.children.splice(childTextNodeIndex, 1, ...childTextNode.splitAtOffset(textNodeOffset));
     return blockNode;
   }
 
