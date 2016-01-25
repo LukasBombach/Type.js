@@ -1,6 +1,7 @@
 'use strict';
 
 import NodeCache from './node_cache';
+import TypeRange from '../range';
 
 /**
  * @augments DocumentNode
@@ -30,18 +31,8 @@ export default class TypeNodeList {
    * @returns {TypeNodeList}
    */
   addAttributeAtRange(range) {
-
-    const [startBlock, endBlock] = range.getBlockNodes();
-    const [startBlockIndex, endBlockIndex] = this.getIndices(startBlock, endBlock);
-
-    if (startBlock === endBlock) {
-      this.nodes.splice(startBlockIndex, 1, startBlock.splitNodesAtRange(range));
-    } else {
-      this.nodes.splice(startBlockIndex, 1, startBlock.splitNodeAtRangeStart(range));
-      this.nodes.splice(endBlockIndex, 1, endBlock.splitNodeAtRangeEnd(range));
-    }
-
-    return this;
+    range = this._splitNodesAtRange(range);
+    const textNodes = this._getTextNodesWithinRange(range);
 
   }
 
@@ -87,6 +78,37 @@ export default class TypeNodeList {
    */
   getIndices(...nodes) {
     return nodes.map(n => this.nodes.indexOf(n));
+  }
+
+  /**
+   *
+   * @param {TypeRange} range
+   * @returns {TypeRange}
+   */
+  _splitNodesAtRange(range) {
+
+    const [startBlock, endBlock] = range.getBlockNodes();
+    const [startBlockIndex, endBlockIndex] = this.getIndices(startBlock, endBlock);
+
+    if (startBlock === endBlock) {
+      this.nodes.splice(startBlockIndex, 1, startBlock._splitNodesAtRange(range));
+    } else {
+      this.nodes.splice(startBlockIndex, 1, startBlock.splitNodeAtRangeStart(range));
+      this.nodes.splice(endBlockIndex, 1, endBlock.splitNodeAtRangeEnd(range));
+    }
+
+    return new TypeRange(this.nodes[startBlockIndex], this.nodes[endBlockIndex], 0, this.nodes[endBlockIndex].length());
+
+  }
+
+  /**
+   *
+   * @param {TypeRange} range
+   * @returns {TextNode[]}
+   * @private
+   */
+  _getTextNodesWithinRange(range) {
+    
   }
 
 }

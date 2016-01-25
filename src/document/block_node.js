@@ -105,6 +105,14 @@ export default class BlockNode extends DocumentNode {
 
   /**
    *
+   * @returns {number}
+   */
+  length() {
+    return this.children.reduce((prev, curr) => prev + curr.length(), 0);
+  }
+
+  /**
+   *
    * @param attributes
    * @returns {string|null}
    * @private
