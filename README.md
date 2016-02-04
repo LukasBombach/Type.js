@@ -19,7 +19,7 @@ Most current WYSIWYG editors rely on a browser API called `contenteditable`, whi
 
 The problem with this is that the API is badly designed (by Internet Explorer 5.5), broken and inconsitent across all browsers. This is why most editors do not *really* work and end up being a pain to developers. Another big problem is that there can be in inifinte number of DOM-representations for the same visual output, which makes editing messy.
 
-To tackle this, Type.js uses an elaborate internal document model on which editing operations are performed and renders clean and constistent markup on all browsers. The document model also makes sure editing operations always behave similarly and can be extended to render other formats like Markdown or ODT.
+To tackle this, Type.js uses an elaborate internal document model on which editing operations are performed and renders clean and constistent markup on all browsers. The document model also makes sure editing operations always behave similarly and it can be extended to render other formats like Markdown or ODT.
 
 ## Status
 
