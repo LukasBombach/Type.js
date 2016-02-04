@@ -25,7 +25,7 @@ This project is a rewrite of my [master's thesis](https://github.com/LukasBombac
 
 **I am aiming to release a first version this quarter.**
 
-### Agenda:
+## Agenda:
 
 1. [ ] :fire: **Heavy WIP** :fire: Write document model & renderer for editing
 1. [ ] :fire: **Heavy WIP** :fire: Undo / Redo based on document model
