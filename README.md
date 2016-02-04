@@ -11,7 +11,13 @@
   <img alt="separator" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/separator.png" height="59">
 </p>
 
-**Type.js** is a library that provides a simple high-level API that lets you implement your own WYSIWYG editor easily and reliably. Usually WYSIWYG-editors do not match the UI and the use-case of your project and it is a hassle to customize them. This is why Type.js provides all the functionality but leaves the implementation of the UI to you. The API is as simple as jQuery and gives you more possiblities and control than "regular" editors. It is really easy to create an editor that will work stable across browsers and will always create the same simple markup on all devices. As an important sidenote, it does not rely on `contenteditable`, which makes all of this possible.
+**Type.js** is a library that provides a simple high-level API that lets you implement your own WYSIWYG editor easily and reliably. Usually WYSIWYG-editors do not match the UI and the use-case of your project and it is a hassle to customize them. This is why Type.js provides all the functionality but leaves the implementation of the UI to you. The API is as simple as jQuery and gives you more possiblities and control than "regular" editors. It is really easy to create an editor that will work stable across browsers and will always create the same simple markup on all devices. 
+
+## How does it work
+
+Most current WYSIWYG editors rely on a browser API called `contenteditable`, which essentially enables users to interactively modify contents on a website and offsers methods to apply formattings to the text. This API is utilized to make a particular part of a website—the editor's contents—editable and make users believe they are typing inside a text field. Some editor chrome is added and voilà—there's your editor.
+
+The problem with this is that the API is badly designed (by Internet Explorer 5.5), broken and inconsitent across all browsers. This is why most editors do not *really* work and end up being a pain to developers. To tackle this, Type.js uses an elaborate internal document model on which editing operations are performed and renders clean and constistent markup on all browsers. The document model also makes sure editing operations always behave similarly and can be extended to render other formats like Markdown or ODT.
 
 ## Status
 
