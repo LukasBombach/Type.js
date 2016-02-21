@@ -3,7 +3,7 @@
 export default class State {
 
   /**
-   * 
+   *
    * @param reducer
    * @param initialState
    */

@@ -24,8 +24,7 @@
     "webpack": "^1.12.11"
   },
   "scripts": {
-    "build": "webpack src/type.js dist/type.js --module-bind \"js=babel\" -d",
-    "watch": "webpack src/type.js dist/type.js --module-bind \"js=babel\" -d --watch",
+    "dev": "webpack src/type.js dist/type.js --module-bind \"js=babel\" -d --watch",
     "dist": "webpack src/type.js dist/type.js --module-bind \"js=babel\" && uglifyjs dist/type.js -o dist/type.min.js",
     "demo": "open demo/editor.html"
   }
