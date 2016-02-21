@@ -130,7 +130,7 @@ export default class Type {
     let newOptions = Utilities.getterSetterParams(this, this._options, options, value);
     this.emit('optionsChanged', this._options);
     return newOptions;
-  };
+  }
 
   /**
    * Return the current text selection
@@ -160,7 +160,7 @@ export default class Type {
   on(type, lazy, listener) {
     this._eventEmitter.on.call(this._eventEmitter, type, lazy, listener);
     return this;
-  };
+  }
 
   /**
    *
@@ -171,7 +171,7 @@ export default class Type {
   off(type, listener) {
     this._eventEmitter.off.call(this._eventEmitter, type, listener);
     return this;
-  };
+  }
 
   /**
    *
@@ -182,7 +182,7 @@ export default class Type {
   emit(type, ...args) {
     this._eventEmitter.emit.apply(this._eventEmitter, [type].concat(args));
     return this;
-  };
+  }
 
   /**
    * Creates a {Type.DomWalker} that ist constrained to this
@@ -200,7 +200,7 @@ export default class Type {
     options = DomWalker.loadOptions(options || {});
     options.constrainingNode = options.constrainingNode || this.getEl();
     return new DomWalker(node, options);
-  };
+  }
 
   /**
    * Getter for this instance's root element, i.e. the
@@ -209,7 +209,7 @@ export default class Type {
    */
   getEl() {
     return this._options.el;
-  };
+  }
 
   /**
    * Getter for this instance's input pipelein
@@ -217,7 +217,7 @@ export default class Type {
    */
   getInputPipeline() {
     return this._inputPipeline;
-  };
+  }
 
   /**
    * Getter for this instance's formatter
@@ -225,7 +225,7 @@ export default class Type {
    */
   getFormatter() {
     return this._formatter;
-  };
+  }
 
   /**
    *
@@ -266,7 +266,7 @@ export default class Type {
     val = val === false ? 'false' : 'true';
     el.setAttribute('contenteditable', val);
     return this;
-  };
+  }
 
   /**
    *
@@ -289,7 +289,7 @@ export default class Type {
   static off(type, listener) {
     staticEmitter.off.call(staticEmitter, type, listener);
     return this;
-  };
+  }
 
   /**
    *
@@ -300,7 +300,7 @@ export default class Type {
   static emit(type, ...args) {
     staticEmitter.emit.apply(staticEmitter, [type].concat(args));
     return this;
-  };
+  }
 
   /**
    * Returns the library's current version
@@ -326,6 +326,6 @@ export default class Type {
    */
   static get fn() {
     return this.prototype;
-  };
+  }
 
 }

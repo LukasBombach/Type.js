@@ -24,15 +24,12 @@ export default class Events {
     const modListener = lazy ? () => window.setTimeout(listener, 0) : listener;
 
     for (type of multiple) {
-      if (el.addEventListener) {
-        el.addEventListener(type, modListener, useCapture);
-      } else if (el.attachEvent) {
-        el.attachEvent('on' + type, modListener);
-      }
+      if (el.addEventListener) el.addEventListener(type, modListener, useCapture);
+      else if (el.attachEvent) el.attachEvent('on' + type, modListener);
     }
 
     return this;
-  };
+  }
 
   /**
    * Removes a native event listener from an event. Does cross-browser Kung Fu stuff.
@@ -45,14 +42,9 @@ export default class Events {
    * @returns {*}
    */
   static removeListener(el, type, listener, useCapture = false) {
-
-    if (el.removeEventListener) {
-      el.removeEventListener(type, listener, useCapture);
-    } else if (el.detachEvent) {
-      el.detachEvent('on' + type, listener);
-    }
-
+    if (el.removeEventListener) el.removeEventListener(type, listener, useCapture);
+    else if (el.detachEvent) el.detachEvent('on' + type, listener);
     return this;
-  };
+  }
 
 }

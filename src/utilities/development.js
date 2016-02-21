@@ -14,13 +14,9 @@ export default class Development {
    *     you want to pass to console.debug
    */
   static log(messages) {
-
-    if (console && console.log) {
-      console.log.apply(console, arguments);
-    }
-
+    if (console && console.log) console.log.apply(console, arguments);
     return this;
-  };
+  }
 
   /**
    * Prints a debug message to the console if the browser's
@@ -30,13 +26,9 @@ export default class Development {
    *     you want to pass to console.debug
    */
   static debug(messages) {
-
-    if (console && console.debug) {
-      console.debug.apply(console, arguments);
-    }
-
+    if (console && console.debug) console.debug.apply(console, arguments);
     return this;
-  };
+  }
 
   /**
    * Prints an error to the console if the browser's console
@@ -47,12 +39,8 @@ export default class Development {
    * @returns {Development}
    */
   static error(message, ...args) {
-
-    if (console && console.error) {
-      console.error.apply(console, [message].concat(args));
-      !!console.trace ? console.trace() : false;
-    }
-
+    if (console && console.error) console.error.apply(console, [message].concat(args));
+    if (console.trace) console.trace();
     return this;
   }
 
