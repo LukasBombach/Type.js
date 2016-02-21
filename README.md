@@ -15,6 +15,8 @@
 
 ## How does it work
 
+[![Join the chat at https://gitter.im/LukasBombach/Type.js](https://badges.gitter.im/LukasBombach/Type.js.svg)](https://gitter.im/LukasBombach/Type.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Most current WYSIWYG editors rely on a browser API called `contenteditable`, which essentially enables users to interactively modify contents on a website and offers methods to apply formattings to the text. This API is utilized to make a particular part of a website—the editor's contents—editable which then acts as an input field. Some controls are added and voilà—there's your editor.
 
 The problem with this is that the API is badly designed (by Internet Explorer 5.5), broken and inconsitent across all browsers. This is why most editors do not *really* work and end up being a pain to developers. Another big problem is that there can be in inifinte number of DOM-representations for the same visual output, which makes editing messy.
