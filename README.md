@@ -11,9 +11,17 @@
   <img alt="separator" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/separator.png" height="59">
 </p>
 
+<p align="center"
+<a href="https://david-dm.org/LukasBombach/Type.js"><img src="https://david-dm.org/LukasBombach/Type.js.svg" alt="Dependency Status"></a>
+<a href="https://david-dm.org/LukasBombach/Type.js#info=devDependencies"><img src="https://david-dm.org/LukasBombach/Type.js/dev-status.svg" alt="devDependency Status"></a>
+<a href="https://codeclimate.com/github/LukasBombach/Type.js"><img src="https://codeclimate.com/github/LukasBombach/Type.js/badges/gpa.svg" alt="Code Climate"></a>
+</p>
+
 **Type.js** is a library that provides a simple high-level API that lets you implement your own WYSIWYG editor easily and reliably. Usually WYSIWYG-editors do not match the UI and the use-case of your project and it is a hassle to customize them. This is why Type.js provides all the functionality but leaves the implementation of the UI to you. The API is as simple as jQuery and gives you more possiblities and control than "regular" editors. It is really easy to create an editor that will work stable across browsers and will always create the same simple markup on all devices. 
 
 ## How does it work
+
+[![Join the chat at https://gitter.im/LukasBombach/Type.js](https://badges.gitter.im/LukasBombach/Type.js.svg)](https://gitter.im/LukasBombach/Type.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Most current WYSIWYG editors rely on a browser API called `contenteditable`, which essentially enables users to interactively modify contents on a website and offers methods to apply formattings to the text. This API is utilized to make a particular part of a website—the editor's contents—editable which then acts as an input field. Some controls are added and voilà—there's your editor.
 
@@ -48,13 +56,13 @@ var el = document.getElementById('editor-contents');
 var editor = new Type(el);
 
 // Will format the current selection bold
-editor.format('<strong>');
+editor.format('bold');
 
 // Will format characters 10 to 20 italic
-editor.format('<em>', 10, 20);
+editor.format('italic', 10, 20);
 
 // Will select the characters 5 to 10
-editor.select('<em>', 5, 10);
+editor.select(5, 10);
 ```
 
 ## Installation
