@@ -39,7 +39,7 @@ export default class TypeRange {
    * @returns {[BlockNode,BlockNode]}
    */
   getBlockNodes() {
-    return [this.startNode.parent, this.endNode.parent]
+    return [this.startNode.parent, this.endNode.parent];
   }
 
 }
