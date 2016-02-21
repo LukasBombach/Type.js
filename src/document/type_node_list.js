@@ -108,7 +108,7 @@ export default class TypeNodeList {
    * @private
    */
   _getTextNodesWithinRange(range) {
-    
+    // const textNodes = todo mide dev status
   }
 
 }
