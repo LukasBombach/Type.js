@@ -20,12 +20,12 @@
   "devDependencies": {
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.3",
-    "uglify-js": "^2.6.1",
+    "babel-preset-es2015": "^6.5.0",
     "webpack": "^1.12.13"
   },
   "scripts": {
     "dev": "webpack src/type.js dist/type.js --module-bind \"js=babel\" -d --watch",
-    "dist": "webpack src/type.js dist/type.js --module-bind \"js=babel\" && uglifyjs dist/type.js -o dist/type.min.js",
+    "dist": "webpack src/type.js dist/type.min.js --module-bind \"js=babel\" -p",
     "demo": "open demo/editor.html"
   }
 }

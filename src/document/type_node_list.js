@@ -31,9 +31,8 @@ export default class TypeNodeList {
    * @returns {TypeNodeList}
    */
   addAttributeAtRange(range) {
-    range = this._splitNodesAtRange(range);
-    const textNodes = this._getTextNodesWithinRange(range);
-
+    // range = this._splitNodesAtRange(range); todo dev
+    // const textNodes = this._getTextNodesWithinRange(range); todo dev
   }
 
   /**
