@@ -11,9 +11,9 @@
   <img alt="separator" src="https://raw.githubusercontent.com/LukasBombach/new-type-js/master/demo/images/separator.png" height="59">
 </p>
 
-<p align="center"
-<a href="https://david-dm.org/LukasBombach/Type.js"><img src="https://david-dm.org/LukasBombach/Type.js.svg" alt="Dependency Status"></a>
-<a href="https://david-dm.org/LukasBombach/Type.js#info=devDependencies"><img src="https://david-dm.org/LukasBombach/Type.js/dev-status.svg" alt="devDependency Status"></a>
+<p align="center">
+<a href="https://david-dm.org/LukasBombach/Type.js" title="Dependency status"><img src="https://david-dm.org/LukasBombach/Type.js.svg"/></a>
+<a href="https://david-dm.org/LukasBombach/Type.js#info=devDependencies" title="devDependency status"><img src="https://david-dm.org/LukasBombach/Type.js/dev-status.svg"/></a>
 <a href="https://codeclimate.com/github/LukasBombach/Type.js"><img src="https://codeclimate.com/github/LukasBombach/Type.js/badges/gpa.svg" alt="Code Climate"></a>
 </p>
 
