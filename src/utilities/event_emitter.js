@@ -1,6 +1,6 @@
 import Development from './development';
 
-let DEFAULT_MAX_LISTENERS = 12;
+const DEFAULT_MAX_LISTENERS = 12;
 
 export default class EventEmitter {
 
@@ -20,14 +20,13 @@ export default class EventEmitter {
    * @returns {EventEmitter}
    */
   on(type, lazy, listener) {
-
     if (typeof lazy === 'function') {
       listener = lazy;
       lazy = false;
     }
 
     if (typeof listener !== 'function') {
-      throw new TypeError('listener must be a function, got ' + (typeof listener));
+      throw new TypeError(`listener must be a function, got ${typeof listener}`);
     }
 
     const multiple = type.split(' ');
@@ -47,8 +46,7 @@ export default class EventEmitter {
    * @returns {EventEmitter}
    */
   once(type, listener) {
-
-    var onceCallback = () => {
+    const onceCallback = () => {
       this.off(type, onceCallback);
       listener.apply(null, arguments);
     };
@@ -63,7 +61,6 @@ export default class EventEmitter {
    * @returns {EventEmitter}
    */
   off(type, listener) {
-
     const index = this._eventListeners[type] ? this._eventListeners[type].indexOf(listener) : -1;
 
     if (index > -1) {
@@ -80,7 +77,6 @@ export default class EventEmitter {
    * @returns {EventEmitter}
    */
   emit(type, ...args) {
-
     if (this._eventListeners[type]) {
       this._eventListeners[type].forEach(fn => fn.apply(null, args));
     }
@@ -94,8 +90,7 @@ export default class EventEmitter {
    * @returns {EventEmitter}
    */
   setMaxListeners(maxListeners) {
-
-    if (parseInt(maxListeners) !== maxListeners) {
+    if (parseInt(maxListeners, 10) !== maxListeners) {
       throw new TypeError();
     }
 

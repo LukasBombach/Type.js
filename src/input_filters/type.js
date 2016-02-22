@@ -18,7 +18,7 @@ export default class TypeFilter {
    * @returns {TypeFilter} - This instance
    */
   process(e) {
-    var func = this._keys[e.key] || this._keys.all;
+    const func = this._keys[e.key] || this._keys.all;
     if (func) this[func](e);
     return this;
   }

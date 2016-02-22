@@ -21,7 +21,10 @@ export default class NodeCache {
    */
   get(documentNodeId) {
     const key = documentNodeId.toString();
-    if (this._cache[key] === undefined) this._cache[key] = this._getNodeFromNodeList(documentNodeId);
+    if (this._cache[key] === undefined) {
+      this._cache[key] = this._getNodeFromNodeList(documentNodeId);
+    }
+
     return this._cache[key] || null;
   }
 
@@ -44,8 +47,11 @@ export default class NodeCache {
    * @private
    */
   _getNodeFromNodeList(documentNodeId) {
-    let foundNode;
-    for (let node of this._nodeList.nodes) if (foundNode = node.getChild(documentNodeId)) return foundNode;
+    for (const node of this._nodeList.nodes) {
+      const foundNode = node.getChild(documentNodeId);
+      if (foundNode) return foundNode;
+    }
+
     return null;
   }
 

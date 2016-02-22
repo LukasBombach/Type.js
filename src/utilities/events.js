@@ -17,13 +17,12 @@ export default class Events {
    * @returns {*}
    */
   static addListener(el, type, listener, lazy = false, useCapture = false) {
-
     const multiple = type.split(' ');
     const modListener = lazy ? () => window.setTimeout(listener, 0) : listener;
 
     for (type of multiple) {
       if (el.addEventListener) el.addEventListener(type, modListener, useCapture);
-      else if (el.attachEvent) el.attachEvent('on' + type, modListener);
+      else if (el.attachEvent) el.attachEvent(`on${type}`, modListener);
     }
 
     return this;
@@ -41,7 +40,7 @@ export default class Events {
    */
   static removeListener(el, type, listener, useCapture = false) {
     if (el.removeEventListener) el.removeEventListener(type, listener, useCapture);
-    else if (el.detachEvent) el.detachEvent('on' + type, listener);
+    else if (el.detachEvent) el.detachEvent(`on${type}`, listener);
     return this;
   }
 

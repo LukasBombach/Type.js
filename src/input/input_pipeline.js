@@ -1,7 +1,6 @@
 import Events from '../utilities/events';
 import KeydownEvent from '../events/keydown';
 
-import DebugFilter from '../input_filters/debug';
 import CommandFilter from '../input_filters/command';
 
 /**
@@ -40,10 +39,14 @@ export default class InputPipeline {
    * @returns {InputPipeline}
    */
   removeFilter(posOrFilter) {
-    if (typeof posOrFilter !== 'number')
+    if (typeof posOrFilter !== 'number') {
       posOrFilter = this._filters.indexOf(posOrFilter);
-    if (posOrFilter > 0)
+    }
+
+    if (posOrFilter > 0) {
       this._filters.splice(posOrFilter, 1);
+    }
+
     return this;
   }
 
@@ -76,13 +79,10 @@ export default class InputPipeline {
    * @private
    */
   _processPipeline(e) {
+    const keydownEvent = KeydownEvent.fromNativeEvent(e);
 
-    var keydownEvent = KeydownEvent.fromNativeEvent(e);
-    var len = this._filters.length;
-    var i;
-
-    for (i = 0; i < len; i++) {
-      if (!this._processFilter(this._filters[i], keydownEvent)) {
+    for (const filter of this._filters) {
+      if (!this._processFilter(filter, keydownEvent)) {
         e.stopPropagation();
         e.preventDefault();
         break;

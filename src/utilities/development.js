@@ -12,7 +12,7 @@ export default class Development {
    *     you want to pass to console.debug
    */
   static log(messages) {
-    if (console && console.log) console.log.apply(console, arguments);
+    if (window.console && window.console.log) window.console.log.apply(window.console, ...messages);
     return this;
   }
 
@@ -24,7 +24,10 @@ export default class Development {
    *     you want to pass to console.debug
    */
   static debug(messages) {
-    if (console && console.debug) console.debug.apply(console, arguments);
+    if (window.console && window.console.debug) {
+      window.console.debug.apply(window.console, ...messages);
+    }
+
     return this;
   }
 
@@ -37,8 +40,14 @@ export default class Development {
    * @returns {Development}
    */
   static error(message, ...args) {
-    if (console && console.error) console.error.apply(console, [message].concat(args));
-    if (console.trace) console.trace();
+    if (window.console && window.console.error) {
+      window.console.error.apply(window.console, [message].concat(args));
+    }
+
+    if (window.console.trace) {
+      window.console.trace();
+    }
+
     return this;
   }
 

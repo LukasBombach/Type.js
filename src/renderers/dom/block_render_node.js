@@ -1,3 +1,4 @@
+import Type from '../../core';
 import InlineRenderNode from './inline_render_node';
 
 /**
@@ -31,7 +32,7 @@ export default class BlockRenderNode {
    */
   _createDomNode() {
     const domNode = document.createElement(this.documentNode.blockType);
-    for (let child of this.children) domNode.appendChild(child.getDomNode());
+    for (const child of this.children) domNode.appendChild(child.getDomNode());
     Type.data(domNode, 'documentNodeId', this.documentNode.id);
     return domNode;
   }
@@ -42,7 +43,8 @@ export default class BlockRenderNode {
    * @private
    */
   _getChildrenFor(documentBlockNode) {
-    const inlineRenderNodes = documentBlockNode.children.map(textNode => new InlineRenderNode(textNode));
+    const inlineRenderNodes = documentBlockNode.children
+        .map(textNode => new InlineRenderNode(textNode));
     return BlockRenderNode._mergeInlineNodes(inlineRenderNodes);
   }
 
@@ -55,7 +57,9 @@ export default class BlockRenderNode {
   static _mergeInlineNodes(inlineNodes) {
     if (!inlineNodes.length) return [];
     const mergedNodes = [inlineNodes[0]];
-    for (let node of inlineNodes) mergedNodes[mergedNodes.length - 1].appendAsChild(node) || mergedNodes.push(node);
+    for (const node of inlineNodes) {
+      if (!mergedNodes[mergedNodes.length - 1].appendAsChild(node)) mergedNodes.push(node);
+    }
     return mergedNodes;
   }
 

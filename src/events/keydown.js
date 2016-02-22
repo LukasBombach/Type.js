@@ -23,11 +23,8 @@ import Environment from '../utilities/environment';
 export default class KeydownEvent extends TypeEvent {
 
   constructor(options) {
-
     super();
-
     options = options || {};
-
     this.key = options.key || null;
     this.keyCode = options.keyCode || null;
     this.shift = options.shift || false;
@@ -35,9 +32,7 @@ export default class KeydownEvent extends TypeEvent {
     this.ctrl = options.ctrl || false;
     this.meta = options.meta || false;
     this.cmd = (!Environment.mac && options.ctrl) || (Environment.mac && options.meta);
-
     this.canceled = false;
-
   }
 
   /**
@@ -65,9 +60,8 @@ export default class KeydownEvent extends TypeEvent {
    * @returns {KeydownEvent}
    */
   static fromNativeEvent(e) {
-
-    var charCode = (typeof e.which === 'number') ? e.which : e.keyCode;
-    var options = {
+    const charCode = (typeof e.which === 'number') ? e.which : e.keyCode;
+    const options = {
       key: KeydownEvent.keyDownNames[charCode] || charCode,
       keyCode: charCode,
       shift: e.shiftKey,
@@ -77,6 +71,5 @@ export default class KeydownEvent extends TypeEvent {
     };
 
     return new KeydownEvent(options);
-
   }
 }

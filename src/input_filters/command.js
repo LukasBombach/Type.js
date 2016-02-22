@@ -1,6 +1,4 @@
 import TypeFilter from './type';
-import TypeRange from '../range';
-import TypeSelection from '../selection';
 
 /**
  * Creates a command filter. Will fetch common
@@ -15,11 +13,8 @@ import TypeSelection from '../selection';
 export default class CommandFilter extends TypeFilter {
 
   constructor(type) {
-
     super();
-
     this._type = type;
-
     this._keys = {
       66: 'command', // b
       73: 'command', // i
@@ -40,7 +35,7 @@ export default class CommandFilter extends TypeFilter {
    */
   command(e) {
     if (e.cmd) {
-      var sel = this._type.getSelection();
+      const sel = this._type.getSelection();
       this._type.getFormatter().format(this._tags[e.key], sel.getRange());
       sel.select();
       e.cancel();

@@ -20,7 +20,8 @@ export default class SelectionInput {
    * @returns {SelectionInput}
    */
   _addListenersFor(type) {
-    Events.addListener(type.getEl(), 'mousedown mouseup keydown keyup blur', this._checkSelectionAndEmit.bind(this), true);
+    Events.addListener(type.getEl(), 'mousedown mouseup keydown keyup blur',
+        this._checkSelectionAndEmit.bind(this), true);
     return this;
   }
 
@@ -30,7 +31,7 @@ export default class SelectionInput {
    * @private
    */
   _checkSelectionAndEmit() {
-    var sel = TypeSelection.fromNativeSelection(this._type);
+    let sel = TypeSelection.fromNativeSelection(this._type);
     sel = sel === null || sel.isCollapsed() ? null : sel;
     this._checkAndEmitStart(sel);
     this._checkAndEmitChange(sel);

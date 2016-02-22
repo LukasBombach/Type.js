@@ -30,6 +30,7 @@
     "dev": "webpack src/type.js dist/type.js --module-bind \"js=babel\" -d --watch",
     "dist": "webpack src/type.js dist/type.min.js --module-bind \"js=babel\" -p",
     "lint": "eslint src; exit 0",
+    "lint-fix": "eslint src --fix; exit 0",
     "demo": "open demo/editor.html"
   },
   "eslintConfig": {

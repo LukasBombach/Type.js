@@ -1,6 +1,5 @@
 import TypeRange from './range';
 import DomWalker from './utilities/dom_walker';
-import Events from './utilities/events';
 
 export default class TypeSelection {
 
@@ -98,8 +97,11 @@ export default class TypeSelection {
    */
   static fromNativeSelection(type) {
     const range = window.getSelection().getRangeAt(0);
-    if (type.getEl().contains(range.startContainer) && type.getEl().contains(range.endContainer))
+
+    if (type.getEl().contains(range.startContainer) && type.getEl().contains(range.endContainer)) {
       return TypeSelection.fromRange(range, type);
+    }
+
     return null;
   }
 
@@ -111,7 +113,13 @@ export default class TypeSelection {
    * @constructor
    */
   static fromRange(range, type) {
-    return new TypeSelection(range.startContainer, range.startOffset, range.endContainer, range.endOffset, type);
+    return new TypeSelection(
+        range.startContainer,
+        range.startOffset,
+        range.endContainer,
+        range.endOffset,
+        type
+    );
   }
 
   /**
@@ -123,7 +131,6 @@ export default class TypeSelection {
    * @returns {TypeSelection}
    */
   static select(param) {
-
     if (arguments[0] instanceof Range) {
       return TypeSelection._selectRange(arguments[0]);
 
@@ -135,7 +142,6 @@ export default class TypeSelection {
     }
 
     return this;
-
   }
 
   /**
@@ -155,8 +161,8 @@ export default class TypeSelection {
    */
   static _selectElements(elements) {
     var range = document.createRange();
-    var firstText = DomWalker.first(elements[0], 'text');
-    var lastText = DomWalker.last(elements[elements.length - 1], 'text');
+    const firstText = DomWalker.first(elements[0], 'text');
+    const lastText = DomWalker.last(elements[elements.length - 1], 'text');
     range.setStart(firstText, 0);
     range.setEnd(lastText, lastText.nodeValue.length);
     return TypeSelection._selectRange(range);

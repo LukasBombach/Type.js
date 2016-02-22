@@ -34,7 +34,7 @@ export default class TextNode extends DocumentNode {
    * @constructor
    */
   static get ATTRIBUTES() {
-    return { BOLD: 'bold', ITALIC: 'italic', UNDERLINE: 'underline', DEL: 'del', };
+    return { BOLD: 'bold', ITALIC: 'italic', UNDERLINE: 'underline', DEL: 'del' };
   }
 
 }

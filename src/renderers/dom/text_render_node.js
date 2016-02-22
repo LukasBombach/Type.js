@@ -1,3 +1,5 @@
+import Type from '../../core';
+
 /**
  * @augments RenderNode
  */

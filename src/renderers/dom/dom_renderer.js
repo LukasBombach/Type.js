@@ -1,3 +1,4 @@
+import Type from '../../core';
 import Renderer from '../renderer';
 import DomRendererCache from './dom_renderer_cache';
 import TypeRange from '../../range';
@@ -23,13 +24,12 @@ export default class DomRenderer extends Renderer {
    * @returns {DomRenderer}
    */
   render() {
-
     // Load all nodes that need to be rendered
     const nodesToRender = this._cache.getOrCreateNodesForDocument(this._type.getDocument());
     let lastIdInCurrentlyRenderedNodes = null;
 
     // Iterate nodes, skip nodes that are already there, append new nodes to the dom
-    for (let id in nodesToRender) {
+    for (const id in nodesToRender) {
       if (!nodesToRender.hasOwnProperty(id)) continue;
       if (id in this._currentlyRenderedNodes) lastIdInCurrentlyRenderedNodes = id;
       else this._renderNode(nodesToRender[id], this._currentlyRenderedNodes[id]);
@@ -37,7 +37,7 @@ export default class DomRenderer extends Renderer {
     }
 
     // Remove all nodes from dom that were previously rendered and not present anymore
-    for (let id in this._currentlyRenderedNodes) {
+    for (const id in this._currentlyRenderedNodes) {
       if (!this._currentlyRenderedNodes.hasOwnProperty(id)) continue;
       this._removeNodeFromDom(this._currentlyRenderedNodes[id]);
     }
@@ -47,7 +47,6 @@ export default class DomRenderer extends Renderer {
 
     // Chaining
     return this;
-
   }
 
   /**
@@ -80,17 +79,20 @@ export default class DomRenderer extends Renderer {
    * @private
    */
   _renderNode(node, afterNode) {
-
     if (!afterNode) {
       this._el.appendChild(node.getDomNode());
       return this;
     }
 
     const afterDomNode = afterNode.getDomNode();
-    if (afterDomNode.nextSibling) afterDomNode.parentNode.insertBefore(node.getDomNode(), afterDomNode.nextSibling);
-    else afterDomNode.parentNode.appendChild(node.getDomNode());
-    return this;
 
+    if (afterDomNode.nextSibling) {
+      afterDomNode.parentNode.insertBefore(node.getDomNode(), afterDomNode.nextSibling);
+    } else {
+      afterDomNode.parentNode.appendChild(node.getDomNode());
+    }
+
+    return this;
   }
 
   /**

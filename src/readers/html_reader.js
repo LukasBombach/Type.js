@@ -1,7 +1,6 @@
 import TypeDocument from '../document/type_document';
 import BlockNode from '../document/block_node';
 import TextNode from '../document/text_node';
-import Development from '../utilities/development';
 
 export default class HtmlReader {
 
@@ -24,19 +23,21 @@ export default class HtmlReader {
    * @private
    */
   static _getChildrenFor(domNode, attributes = [], parent) {
-
-    var childNodes = [];
+    let childNodes = [];
 
     // todo for node  in childnodes
-    Array.prototype.forEach.call(domNode.childNodes, function (node) {
-      if (HtmlReader._isBlockNode(node)) childNodes.push(HtmlReader._getBlockNode(node, attributes, parent));
-      else if (HtmlReader._isTextNodeWithContents(node)) childNodes.push(HtmlReader._getTextNode(node, attributes, parent));
-      else if (HtmlReader._isAttributeNode(node))
-        childNodes = childNodes.concat(HtmlReader._getChildrenFor(node, HtmlReader._addAttributeForNode(attributes, node), parent));
+    Array.prototype.forEach.call(domNode.childNodes, (node) => {
+      if (HtmlReader._isBlockNode(node)) {
+        childNodes.push(HtmlReader._getBlockNode(node, attributes, parent));
+      } else if (HtmlReader._isTextNodeWithContents(node)) {
+        childNodes.push(HtmlReader._getTextNode(node, attributes, parent));
+      } else if (HtmlReader._isAttributeNode(node)) {
+        const attrs = HtmlReader._addAttributeForNode(attributes, node);
+        childNodes = childNodes.concat(HtmlReader._getChildrenFor(node, attrs, parent));
+      }
     });
 
     return childNodes;
-
   }
 
   /**
@@ -93,8 +94,8 @@ export default class HtmlReader {
    * @private
    */
   static _isAttributeNode(domNode) {
-    var attributeMap = HtmlReader._tagAttributeMap;
-    var tagName = domNode.tagName ? domNode.tagName.toLowerCase() : null;
+    const attributeMap = HtmlReader._tagAttributeMap;
+    const tagName = domNode.tagName ? domNode.tagName.toLowerCase() : null;
     return !!(tagName && attributeMap[tagName]);
   }
 
@@ -106,10 +107,15 @@ export default class HtmlReader {
    * @private
    */
   static _addAttributeForNode(attributes = [], node) {
-    var attributeMap = HtmlReader._tagAttributeMap;
-    var tagName = node.tagName ? node.tagName.toLowerCase() : '';
+    const attributeMap = HtmlReader._tagAttributeMap;
+    const tagName = node.tagName ? node.tagName.toLowerCase() : '';
+
     attributes = attributes.slice(0);
-    if (attributeMap[tagName] && attributes.indexOf(tagName) === -1) attributes.push(attributeMap[tagName]);
+
+    if (attributeMap[tagName] && attributes.indexOf(tagName) === -1) {
+      attributes.push(attributeMap[tagName]);
+    }
+
     return attributes;
   }
 
@@ -118,7 +124,7 @@ export default class HtmlReader {
    * @returns {string[]}
    */
   static get _tagAttributeMap() {
-    var ATTRIBUTES = TextNode.ATTRIBUTES;
+    const ATTRIBUTES = TextNode.ATTRIBUTES;
     return {
       strong: ATTRIBUTES.BOLD,
       b: ATTRIBUTES.BOLD,

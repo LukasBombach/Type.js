@@ -1,8 +1,8 @@
 export default class Attributes {
 
   constructor(attributes = []) {
-    attributes = attributes instanceof Attributes ? attributes.get() : attributes;
-    this.set(attributes.slice(0));
+    const attrs = attributes instanceof Attributes ? attributes.get() : attributes;
+    this.set(attrs.slice(0));
   }
 
   /**
@@ -20,7 +20,7 @@ export default class Attributes {
    */
   set(attributes = []) {
     this._attributes = [];
-    for (let attribute of attributes) this.add(attribute);
+    for (const attribute of attributes) this.add(attribute);
     return this;
   }
 
@@ -59,7 +59,11 @@ export default class Attributes {
    */
   indexOf(attribute) {
     const len = this._attributes.length;
-    for (let i = 0; i < len; i++) if (Attributes._attributesAreEqual(this._attributes[i], attribute)) return i;
+
+    for (let i = 0; i < len; i++) {
+      if (Attributes._attributesAreEqual(this._attributes[i], attribute)) return i;
+    }
+
     return -1;
   }
 
@@ -71,7 +75,7 @@ export default class Attributes {
    * @returns {Attributes}
    */
   diff(that) {
-    return new Attributes(this._attributes.filter(function (attr) { return that.indexOf(attr) < 0; }));
+    return new Attributes(this._attributes.filter((attr) => { return that.indexOf(attr) < 0; }));
   }
 
   /**

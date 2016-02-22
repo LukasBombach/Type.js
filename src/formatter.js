@@ -70,7 +70,7 @@ export default class Formatter {
     tag = tag.toLowerCase();
     if (this.constructor._inlineTags.indexOf(tag) > -1) return this._inlineFormatter;
     if (this.constructor._blockTags.indexOf(tag) > -1) return this._blockFormatter;
-    Development.error('Tag "' + tag + '" not implemented');
+    Development.error(`Tag "${tag}" not implemented`);
     return this._baseFormatter;
   }
 

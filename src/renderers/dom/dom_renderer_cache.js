@@ -1,6 +1,3 @@
-import DomRenderer from './dom_renderer';
-import BlockNode from '../../document/block_node';
-import TextNode from '../../document/text_node';
 import BlockRenderNode from './block_render_node';
 
 export default class DomRendererCache {
@@ -44,7 +41,6 @@ export default class DomRendererCache {
    * @returns {RenderNode}
    */
   getOrCreateForDocumentNode(documentNode) {
-
     let cachedItem = this.get(documentNode.id);
 
     if (!cachedItem) {
@@ -61,19 +57,16 @@ export default class DomRendererCache {
    * @returns {{}}
    */
   getOrCreateNodesForDocument(document) {
-
     const documentNodes = document.nodes.getAll();
     const len = documentNodes.length;
     const renderNodes = {};
-    let id;
 
-    for (let i = 0; i < len; i++) {
-      id = documentNodes[i].id.toString();
+    for (let i = 0; i < len; i++) { // todo for of
+      const id = documentNodes[i].id.toString();
       renderNodes[id] = this.getOrCreateForDocumentNode(documentNodes[i]);
     }
 
     return renderNodes;
-
   }
 
 }

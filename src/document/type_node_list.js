@@ -28,10 +28,10 @@ export default class TypeNodeList {
    * @param {TypeRange} range
    * @returns {TypeNodeList}
    */
-  addAttributeAtRange(range) {
-    // range = this._splitNodesAtRange(range); todo dev
-    // const textNodes = this._getTextNodesWithinRange(range); todo dev
-  }
+  // addAttributeAtRange(range) {
+  //   range = this._splitNodesAtRange(range); todo dev
+  //   const textNodes = this._getTextNodesWithinRange(range); todo dev
+  // }
 
   /**
    *
@@ -83,7 +83,6 @@ export default class TypeNodeList {
    * @returns {TypeRange}
    */
   _splitNodesAtRange(range) {
-
     const [startBlock, endBlock] = range.getBlockNodes();
     const [startBlockIndex, endBlockIndex] = this.getIndices(startBlock, endBlock);
 
@@ -94,8 +93,12 @@ export default class TypeNodeList {
       this.nodes.splice(endBlockIndex, 1, endBlock.splitNodeAtRangeEnd(range));
     }
 
-    return new TypeRange(this.nodes[startBlockIndex], this.nodes[endBlockIndex], 0, this.nodes[endBlockIndex].length());
-
+    return new TypeRange(
+        this.nodes[startBlockIndex],
+        this.nodes[endBlockIndex],
+        0,
+        this.nodes[endBlockIndex].length()
+    );
   }
 
   /**
@@ -104,8 +107,8 @@ export default class TypeNodeList {
    * @returns {TextNode[]}
    * @private
    */
-  _getTextNodesWithinRange(range) {
-    // const textNodes = todo mide dev status
-  }
+  // _getTextNodesWithinRange(range) {
+  //   const textNodes = todo mide dev status
+  // }
 
 }

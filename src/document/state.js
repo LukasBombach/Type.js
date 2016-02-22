@@ -18,7 +18,6 @@ export default class State {
    * @returns {State}
    */
   dispatch(action) {
-
     if (typeof action.type === 'undefined') throw new Error('Actions must have a "type" property.');
     if (this._isDispatching) throw new Error('Reducers may not dispatch actions.');
 
@@ -29,7 +28,7 @@ export default class State {
       this._isDispatching = false;
     }
 
-    for (let listener of this._listeners) listener();
+    for (const listener of this._listeners) listener();
 
     return this;
   }
@@ -67,11 +66,10 @@ export default class State {
   /**
    *
    * @param state
-   * @param action
    * @returns {*}
    * @private
    */
-  static _noOpReducer(state, action) {
+  static _noOpReducer(state) {
     return state;
   }
 

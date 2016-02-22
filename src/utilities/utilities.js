@@ -12,21 +12,22 @@ export default class Utilities {
    * @param {...Object} copyFrom
    * @returns {Object}
    */
-  static extend(copyTo, copyFrom) {
 
-    var i;
-    var key;
-
-    for (i = 1; i < arguments.length; i += 1) {
-      for (key in arguments[i]) {
-        if (arguments[i].hasOwnProperty(key)) {
-          arguments[0][key] = arguments[i][key];
-        }
-      }
-    }
-
-    return arguments[0];
-  }
+  // static extend(copyTo, copyFrom) {
+  //
+  //   var i;
+  //   var key;
+  //
+  //   for (i = 1; i < arguments.length; i += 1) {
+  //     for (key in arguments[i]) {
+  //       if (arguments[i].hasOwnProperty(key)) {
+  //         arguments[0][key] = arguments[i][key];
+  //       }
+  //     }
+  //   }
+  //
+  //   return arguments[0];
+  // }
 
   /**
    * Tests and returns if a given object is a function instance
@@ -60,14 +61,14 @@ export default class Utilities {
    * @returns {*}
    */
   static getterSetterParams(instance, base, nameOrObject, value) {
-
     // Pass no name or value to return the base object
     if (arguments.length === 2) {
       return base;
     }
 
     // Pass a name to get a value
-    if (typeof nameOrObject === 'string' && value === undefined) { // arguments.length === 3) { // todo fix me, this is all crap
+    // arguments.length === 3) { // todo fix me, this is all crap
+    if (typeof nameOrObject === 'string' && value === undefined) {
       return base[nameOrObject];
     }
 
@@ -83,7 +84,6 @@ export default class Utilities {
 
     // If values have been set, return the instance for chaining
     return instance;
-
   }
 
   /**
@@ -113,30 +113,28 @@ export default class Utilities {
    *     will trigger the function on the trailing edge, instead of the leading.
    * @returns {Function} - The debounced function
    */
-  static debounce(func, wait, immediate) {
-
-    immediate = immediate !== false;
-
-    let timeout;
-
-    return function () {
-
-      const _this = this;
-      const args = arguments;
-
-      const later = function () {
-        timeout = null;
-        if (!immediate) func.apply(_this, args);
-      };
-
-      const callNow = immediate && !timeout;
-
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-
-      if (callNow) func.apply(_this, args);
-
-    };
-  }
+  // static debounce(func, wait, immediate) {
+  //   immediate = immediate !== false;
+  //
+  //   let timeout;
+  //
+  //   return () => {
+  //
+  //     const _this = this;
+  //     const args = arguments;
+  //
+  //     const later = () => {
+  //       timeout = null;
+  //       if (!immediate) func.apply(_this, args);
+  //     };
+  //
+  //     const callNow = immediate && !timeout;
+  //
+  //     clearTimeout(timeout);
+  //     timeout = setTimeout(later, wait);
+  //
+  //     if (callNow) func.apply(_this, args);
+  //   };
+  // }
 
 }

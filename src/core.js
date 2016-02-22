@@ -3,13 +3,13 @@ import Utilities from './utilities/utilities';
 import DomUtilities from './utilities/dom_utilities';
 import InputPipeline from './input/input_pipeline';
 import Formatter from './formatter';
-import SelectionInput from './input/selection_input';
 import DomWalker from './utilities/dom_walker';
 import HtmlReader from './readers/html_reader';
 import DomRenderer from './renderers/dom/dom_renderer';
 
 const version = '0.2.1';
-const expando = 'typejs' + (version + Math.random()).replace(/\D/g, '');
+const versionExpando = version + Math.random().replace(/\D/g, '');
+const expando = `typejs${versionExpando}`;
 const staticEmitter = new EventEmitter();
 
 export default class Type {
@@ -32,7 +32,6 @@ export default class Type {
    * @constructor
    */
   constructor(options) {
-
     // Allow passing an element or an element id as only parameter
     if (typeof options === 'string') {
       options = { el: document.getElementById(options) };

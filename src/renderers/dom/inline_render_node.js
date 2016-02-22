@@ -55,7 +55,7 @@ export default class InlineRenderNode {
    */
   _createDomNode() {
     const [domNode, innerNode] = this._createInlineElements();
-    for (let child of this.children) innerNode.appendChild(child.getDomNode());
+    for (const child of this.children) innerNode.appendChild(child.getDomNode());
     return domNode;
   }
 
@@ -65,10 +65,11 @@ export default class InlineRenderNode {
    * @private
    */
   _createInlineElements() {
-
     const map = InlineRenderNode._attributeElementMap;
     const attrs = this.attributes.get();
-    const domNode = attrs.length ? document.createElement(map[attrs.pop()[0]]) : document.createDocumentFragment();
+    const domNode = attrs.length ?
+        document.createElement(map[attrs.pop()[0]]) :
+        document.createDocumentFragment();
     let innerNode = domNode;
 
     while (attrs.length) {
@@ -77,7 +78,6 @@ export default class InlineRenderNode {
     }
 
     return [domNode, innerNode];
-
   }
 
   /**
