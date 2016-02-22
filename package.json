@@ -21,11 +21,18 @@
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.3",
     "babel-preset-es2015": "^6.5.0",
+    "eslint": "^2.2.0",
+    "eslint-config-airbnb": "^6.0.1",
+    "eslint-plugin-react": "^4.0.0",
     "webpack": "^1.12.13"
   },
   "scripts": {
     "dev": "webpack src/type.js dist/type.js --module-bind \"js=babel\" -d --watch",
     "dist": "webpack src/type.js dist/type.min.js --module-bind \"js=babel\" -p",
+    "lint": "eslint src; exit 0",
     "demo": "open demo/editor.html"
+  },
+  "eslintConfig": {
+    "extends": "airbnb"
   }
 }
