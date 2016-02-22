@@ -1,5 +1,3 @@
-'use strict';
-
 import TextRenderNode from './text_render_node';
 
 /**

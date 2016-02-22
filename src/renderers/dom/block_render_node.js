@@ -1,5 +1,3 @@
-'use strict';
-
 import InlineRenderNode from './inline_render_node';
 
 /**

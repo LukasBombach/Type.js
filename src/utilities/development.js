@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Holds messages for developing and debugging Type
  * @constructor

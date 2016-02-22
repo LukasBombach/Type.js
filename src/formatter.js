@@ -1,9 +1,7 @@
-'use strict';
-
 import Development from './utilities/development';
-import InlineFormatter  from './formatters/inline_formatter';
-import BlockFormatter  from './formatters/block_formatter';
-import {default as BaseFormatter} from './formatters/formatter';
+import InlineFormatter from './formatters/inline_formatter';
+import BlockFormatter from './formatters/block_formatter';
+import { default as BaseFormatter } from './formatters/formatter';
 
 export default class Formatter {
 

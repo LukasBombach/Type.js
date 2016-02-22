@@ -1,5 +1,3 @@
-'use strict';
-
 // Load core editor class and its API
 import Type from './core';
 import './core_api';

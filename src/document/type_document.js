@@ -1,5 +1,3 @@
-'use strict';
-
 import TypeNodeList from './type_node_list';
 
 /**

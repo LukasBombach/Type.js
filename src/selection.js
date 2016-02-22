@@ -1,8 +1,6 @@
-'use strict';
-
 import TypeRange from './range';
 import DomWalker from './utilities/dom_walker';
-import Events from  './utilities/events';
+import Events from './utilities/events';
 
 export default class TypeSelection {
 

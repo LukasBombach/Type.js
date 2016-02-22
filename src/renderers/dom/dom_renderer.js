@@ -1,5 +1,3 @@
-'use strict';
-
 import Renderer from '../renderer';
 import DomRendererCache from './dom_renderer_cache';
 import TypeRange from '../../range';

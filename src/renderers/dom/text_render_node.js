@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @augments RenderNode
  */

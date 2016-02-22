@@ -1,5 +1,3 @@
-'use strict';
-
 import Utilities from '../utilities/utilities';
 
 export default class TypeEvent {

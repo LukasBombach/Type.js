@@ -1,5 +1,3 @@
-'use strict';
-
 import TypeEvent from './type';
 import Environment from '../utilities/environment';
 

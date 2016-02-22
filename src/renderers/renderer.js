@@ -1,5 +1,3 @@
-'use strict';
-
 import TypeRange from '../range';
 
 export default class Renderer {

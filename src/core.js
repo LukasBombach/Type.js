@@ -1,5 +1,3 @@
-'use strict';
-
 import EventEmitter from './utilities/event_emitter.js';
 import Utilities from './utilities/utilities';
 import DomUtilities from './utilities/dom_utilities';
@@ -37,9 +35,9 @@ export default class Type {
 
     // Allow passing an element or an element id as only parameter
     if (typeof options === 'string') {
-      options = {el: document.getElementById(options)};
+      options = { el: document.getElementById(options) };
     } else if (DomUtilities.isNode(options)) {
-      options = {el: options};
+      options = { el: options };
     }
 
     // If no element has been passed, interrupt

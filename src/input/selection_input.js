@@ -1,5 +1,3 @@
-'use strict';
-
 import Events from '../utilities/events';
 import TypeSelection from '../selection';
 

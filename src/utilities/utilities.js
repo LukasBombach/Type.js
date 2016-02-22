@@ -1,5 +1,3 @@
-'use strict';
-
 export default class Utilities {
 
   /**
@@ -121,12 +119,12 @@ export default class Utilities {
 
     let timeout;
 
-    return function() {
+    return function () {
 
       const _this = this;
       const args = arguments;
 
-      const later = function() {
+      const later = function () {
         timeout = null;
         if (!immediate) func.apply(_this, args);
       };

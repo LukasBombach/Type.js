@@ -1,5 +1,3 @@
-'use strict';
-
 import TypeFilter from './type';
 
 /**

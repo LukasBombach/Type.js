@@ -1,5 +1,3 @@
-'use strict';
-
 import DomRenderer from './dom_renderer';
 import BlockNode from '../../document/block_node';
 import TextNode from '../../document/text_node';

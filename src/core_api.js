@@ -1,5 +1,3 @@
-'use strict';
-
 import Type from './core';
 import TypeRange from './range';
 import TypeSelection from './selection';
@@ -12,7 +10,7 @@ import TypeSelection from './selection';
  * @returns {*}
  * @static
  */
-Type.data = function(el, key, value) {
+Type.data = function (el, key, value) {
   const data = el[Type.expando] = el[Type.expando] || {};
   if (key === undefined) return data;
   if (value === undefined) return data[key];
@@ -25,7 +23,7 @@ Type.data = function(el, key, value) {
  * @param htmlString
  * @returns {Type}
  */
-Type.fn.format = function(htmlString) {
+Type.fn.format = function (htmlString) {
   var sel = TypeSelection.fromNativeSelection(this);
   this.getFormatter().format(htmlString, sel.getRange());
   sel.select();
@@ -37,7 +35,7 @@ Type.fn.format = function(htmlString) {
  * @param format
  * @returns {Type}
  */
-Type.fn.format = function(format) {
+Type.fn.format = function (format) {
   this._nodeList = this.getDocument().copyWithAttributesAtRange(format, this.getRange());
   this._renderer.render();
   return this;

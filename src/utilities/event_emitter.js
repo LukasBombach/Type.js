@@ -1,5 +1,3 @@
-'use strict';
-
 import Development from './development';
 
 let DEFAULT_MAX_LISTENERS = 12;
@@ -51,7 +49,6 @@ export default class EventEmitter {
   once(type, listener) {
 
     var onceCallback = () => {
-      'use strict';
       this.off(type, onceCallback);
       listener.apply(null, arguments);
     };

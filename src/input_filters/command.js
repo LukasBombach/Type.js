@@ -1,5 +1,3 @@
-'use strict';
-
 import TypeFilter from './type';
 import TypeRange from '../range';
 import TypeSelection from '../selection';
@@ -14,7 +12,7 @@ import TypeSelection from '../selection';
  * @param {Type} type
  * @constructor
  */
-export default class CommandFilter extends TypeFilter{
+export default class CommandFilter extends TypeFilter {
 
   constructor(type) {
 

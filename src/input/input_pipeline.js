@@ -1,5 +1,3 @@
-'use strict';
-
 import Events from '../utilities/events';
 import KeydownEvent from '../events/keydown';
 
@@ -55,7 +53,7 @@ export default class InputPipeline {
    * @private
    */
   _addDefaultFilters() {
-    //this.addFilter(new DebugFilter(this._type));
+    // this.addFilter(new DebugFilter(this._type));
     this.addFilter(new CommandFilter(this._type));
     return this;
   }

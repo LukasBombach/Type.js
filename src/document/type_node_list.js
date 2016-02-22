@@ -1,5 +1,3 @@
-'use strict';
-
 import NodeCache from './node_cache';
 import TypeRange from '../range';
 

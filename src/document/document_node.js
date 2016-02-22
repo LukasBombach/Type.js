@@ -1,5 +1,3 @@
-'use strict';
-
 import Attributes from './attributes';
 
 export default class DocumentNode {

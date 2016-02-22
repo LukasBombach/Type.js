@@ -1,5 +1,3 @@
-'use strict';
-
 import DocumentNode from './document_node';
 
 /**

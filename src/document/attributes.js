@@ -1,6 +1,4 @@
-'use strict';
-
-export default class Attributes  {
+export default class Attributes {
 
   constructor(attributes = []) {
     attributes = attributes instanceof Attributes ? attributes.get() : attributes;
@@ -73,7 +71,7 @@ export default class Attributes  {
    * @returns {Attributes}
    */
   diff(that) {
-    return new Attributes(this._attributes.filter(function(attr) { return that.indexOf(attr) < 0; }));
+    return new Attributes(this._attributes.filter(function (attr) { return that.indexOf(attr) < 0; }));
   }
 
   /**
