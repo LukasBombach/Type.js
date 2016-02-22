@@ -23,6 +23,6 @@ export default class TypeFilter {
     var func = this._keys[e.key] || this._keys.all;
     if (func) this[func](e);
     return this;
-  };
+  }
 
 }

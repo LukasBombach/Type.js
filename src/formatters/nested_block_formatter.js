@@ -24,7 +24,7 @@ export default class NestedBlockFormatter extends Formatter {
 
     typeRange.ensureIsInside(this._type.getEl());
 
-  };
+  }
 
   /**
    * A list of tags that are displayed as block elements. We generate different
@@ -34,6 +34,6 @@ export default class NestedBlockFormatter extends Formatter {
    * @type {string[]}
    * @private
    */
-  static get _blockTags() { return ['blockquote']; };
+  static get _blockTags() { return ['blockquote']; }
 
 }

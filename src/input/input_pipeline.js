@@ -22,7 +22,7 @@ export default class InputPipeline {
     this._filters = [];
     this._addDefaultFilters();
     this._addListener(type.getEl());
-  };
+  }
 
   /**
    *
@@ -34,7 +34,7 @@ export default class InputPipeline {
     pos = pos || filter.length;
     this._filters.splice(pos, 0, filter);
     return this;
-  };
+  }
 
   /**
    *
@@ -47,7 +47,7 @@ export default class InputPipeline {
     if (posOrFilter > 0)
       this._filters.splice(posOrFilter, 1);
     return this;
-  };
+  }
 
   /**
    *
@@ -58,7 +58,7 @@ export default class InputPipeline {
     //this.addFilter(new DebugFilter(this._type));
     this.addFilter(new CommandFilter(this._type));
     return this;
-  };
+  }
 
   /**
    *
@@ -69,7 +69,7 @@ export default class InputPipeline {
   _addListener(el) {
     Events.addListener(el, 'keydown', this._processPipeline.bind(this));
     return this;
-  };
+  }
 
   /**
    *
@@ -92,7 +92,7 @@ export default class InputPipeline {
     }
 
     return keydownEvent;
-  };
+  }
 
   /**
    *
@@ -104,6 +104,6 @@ export default class InputPipeline {
   _processFilter(filter, e) {
     filter.process(e);
     return e.canceled === false;
-  };
+  }
 
 }

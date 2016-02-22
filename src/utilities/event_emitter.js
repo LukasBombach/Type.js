@@ -57,7 +57,7 @@ export default class EventEmitter {
     };
 
     return this.on(type, onceCallback);
-  };
+  }
 
   /**
    *

@@ -18,7 +18,7 @@ export default class TypeSelection {
   constructor(startContainer, startOffset, endContainer, endOffset, type) {
     this._typeRange = new TypeRange(startContainer, startOffset, endContainer, endOffset);
     this._absOffsets = this._absoluteOffsetsFrom(type.getEl());
-  };
+  }
 
   /**
    *
@@ -28,7 +28,7 @@ export default class TypeSelection {
     this._typeRange = this._revalidateRange();
     this.constructor.select(this._typeRange);
     return this;
-  };
+  }
 
   /**
    *
@@ -37,7 +37,7 @@ export default class TypeSelection {
   deselect() {
     this.constructor.deselect();
     return this;
-  };
+  }
 
   /**
    *
@@ -46,7 +46,7 @@ export default class TypeSelection {
    */
   equals(that) {
     return this._typeRange.equals(that.getRange());
-  };
+  }
 
   /**
    *
@@ -54,7 +54,7 @@ export default class TypeSelection {
    */
   isCollapsed() {
     return this._typeRange.isCollapsed();
-  };
+  }
 
   /**
    *
@@ -80,7 +80,7 @@ export default class TypeSelection {
    */
   _revalidateRange() {
     return this._typeRange.isValid() ? this._typeRange : TypeRange.load(this._absOffsets);
-  };
+  }
 
   /**
    *
@@ -90,7 +90,7 @@ export default class TypeSelection {
    */
   _absoluteOffsetsFrom(el) {
     return this.getRange().save(el);
-  };
+  }
 
   /**
    * todo not sure if returning null is good here
@@ -103,7 +103,7 @@ export default class TypeSelection {
     if (type.getEl().contains(range.startContainer) && type.getEl().contains(range.endContainer))
       return TypeSelection.fromRange(range, type);
     return null;
-  };
+  }
 
   /**
    *
@@ -114,7 +114,7 @@ export default class TypeSelection {
    */
   static fromRange(range, type) {
     return new TypeSelection(range.startContainer, range.startOffset, range.endContainer, range.endOffset, type);
-  };
+  }
 
   /**
    * todo emit type select events, vielleicht 2ter parameter = type als opt in
@@ -138,7 +138,7 @@ export default class TypeSelection {
 
     return this;
 
-  };
+  }
 
   /**
    *
@@ -147,7 +147,7 @@ export default class TypeSelection {
   static deselect() {
     window.getSelection().removeAllRanges();
     return this;
-  };
+  }
 
   /**
    *
@@ -162,7 +162,7 @@ export default class TypeSelection {
     range.setStart(firstText, 0);
     range.setEnd(lastText, lastText.nodeValue.length);
     return TypeSelection._selectRange(range);
-  };
+  }
 
   /**
    *
@@ -172,7 +172,7 @@ export default class TypeSelection {
    */
   static _selectTypeRange(typeRange) {
     return TypeSelection._selectRange(typeRange.getNativeRange());
-  };
+  }
 
   /**
    *
@@ -185,6 +185,6 @@ export default class TypeSelection {
     sel.removeAllRanges();
     sel.addRange(range);
     return this;
-  };
+  }
 
 }

@@ -27,7 +27,7 @@ export default class Formatter {
    * @type {string[]}
    * @private
    */
-  static get _inlineTags() { return ['strong', 'em', 'u', 's']; };
+  static get _inlineTags() { return ['strong', 'em', 'u', 's']; }
 
   /**
    * A list of tags that are displayed as block elements. We generate different
@@ -37,7 +37,7 @@ export default class Formatter {
    * @type {string[]}
    * @private
    */
-  static get _blockTags() { return ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote']; };
+  static get _blockTags() { return ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote']; }
 
   /**
    * Will call either this.inline, this.block or this._noop depending on
@@ -54,7 +54,7 @@ export default class Formatter {
     const ret = this._handlerFor(tag).format(tag, typeRange);
     this._type.emit('format', ret);
     return ret;
-  };
+  }
 
   /**
    * Takes a tag name and returns the handler function for formatting
@@ -74,6 +74,6 @@ export default class Formatter {
     if (this.constructor._blockTags.indexOf(tag) > -1) return this._blockFormatter;
     Development.error('Tag "' + tag + '" not implemented');
     return this._baseFormatter;
-  };
+  }
 
 }

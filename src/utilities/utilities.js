@@ -28,7 +28,7 @@ export default class Utilities {
     }
 
     return arguments[0];
-  };
+  }
 
   /**
    * Tests and returns if a given object is a function instance
@@ -40,7 +40,7 @@ export default class Utilities {
    */
   static isInstance(obj) {
     return !!(obj && obj.constructor && obj.call && obj.process);
-  };
+  }
 
   /**
    * Tests and returns if a given object is a function
@@ -50,7 +50,7 @@ export default class Utilities {
    */
   static isFunction(obj) {
     return typeof obj === 'function';
-  };
+  }
 
   /**
    * Implements jQuery-style getting and setting of arguments
@@ -86,7 +86,7 @@ export default class Utilities {
     // If values have been set, return the instance for chaining
     return instance;
 
-  };
+  }
 
   /**
    * Return's the window's horizontal an vertical scroll positions
@@ -99,7 +99,7 @@ export default class Utilities {
       top: window.pageYOffset || document.documentElement.scrollTop,
       left: window.pageXOffset || document.documentElement.scrollLeft,
     };
-  };
+  }
 
   /**
    * Returns a function, that, as long as it continues to be invoked, will not
@@ -139,6 +139,6 @@ export default class Utilities {
       if (callNow) func.apply(_this, args);
 
     };
-  };
+  }
 
 }

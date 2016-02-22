@@ -47,6 +47,6 @@ export default class CommandFilter extends TypeFilter{
       sel.select();
       e.cancel();
     }
-  };
+  }
 
 }

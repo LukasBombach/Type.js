@@ -10,7 +10,7 @@ export default class TypeEvent {
    */
   constructor() {
     this.canceled = false;
-  };
+  }
 
   /**
    * jQuery getting and setting of the _data object
@@ -21,7 +21,7 @@ export default class TypeEvent {
   data(data, value) {
     this._data = this._data || {};
     return Utilities.getterSetterParams(this, this._data, data, value);
-  };
+  }
 
   /**
    * Sets this event instance to be cancelled
@@ -34,6 +34,6 @@ export default class TypeEvent {
   cancel(doCancel) {
     this.canceled = doCancel !== false;
     return this;
-  };
+  }
 
 }

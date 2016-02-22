@@ -14,7 +14,7 @@ export default class SelectionInput {
     this._type = type;
     this._lastSelection = null;
     this._addListenersFor(type);
-  };
+  }
 
   /**
    *
@@ -24,7 +24,7 @@ export default class SelectionInput {
   _addListenersFor(type) {
     Events.addListener(type.getEl(), 'mousedown mouseup keydown keyup blur', this._checkSelectionAndEmit.bind(this), true);
     return this;
-  };
+  }
 
   /**
    *
@@ -39,7 +39,7 @@ export default class SelectionInput {
     this._checkAndEmitEnd(sel);
     this._lastSelection = sel;
     return this;
-  };
+  }
 
   /**
    *
@@ -54,7 +54,7 @@ export default class SelectionInput {
     }
 
     return this;
-  };
+  }
 
   /**
    *
@@ -68,7 +68,7 @@ export default class SelectionInput {
     }
 
     return this;
-  };
+  }
 
   /**
    *

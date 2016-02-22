@@ -183,6 +183,6 @@ export default class BlockFormatter extends Formatter {
    * @type {string[]}
    * @private
    */
-  static get _blockTags() { return ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']; };
+  static get _blockTags() { return ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']; }
 
 }

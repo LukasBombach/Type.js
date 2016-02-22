@@ -19,6 +19,6 @@ export default class DebugFilter extends TypeFilter {
 
   log(e) {
     console.log('Keydown', e.key);
-  };
+  }
 
 }

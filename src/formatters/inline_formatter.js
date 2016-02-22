@@ -47,7 +47,7 @@ export default class InlineFormatter extends Formatter {
       return this.insert(tag, startNode, endNode);
     }
 
-  };
+  }
 
   /**
    * This method will wrap the given tag around (and including) all elements
@@ -102,7 +102,7 @@ export default class InlineFormatter extends Formatter {
     // Return all nodes that have been created
     return createdNodes;
 
-  };
+  }
 
   /**
    *
@@ -130,7 +130,7 @@ export default class InlineFormatter extends Formatter {
 
     return this;
 
-  };
+  }
 
   /**
    *
@@ -145,7 +145,7 @@ export default class InlineFormatter extends Formatter {
     }
 
     return elems;
-  };
+  }
 
   /**
    *
@@ -156,7 +156,7 @@ export default class InlineFormatter extends Formatter {
    */
   static _getStartNode(tag, typeRange) {
     return typeRange.startTagIs(tag) ? typeRange.getStartElement() : typeRange.splitStartContainer();
-  };
+  }
 
   /**
    *
@@ -167,6 +167,6 @@ export default class InlineFormatter extends Formatter {
    */
   static _getEndNode(tag, typeRange) {
     return typeRange.endTagIs(tag) ? typeRange.getEndElement() : typeRange.splitEndContainer();
-  };
+  }
 
 }

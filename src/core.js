@@ -158,7 +158,7 @@ export default class Type {
    * @returns {Type}
    */
   on(type, lazy, listener) {
-    this._eventEmitter.on.call(this._eventEmitter, type, lazy, listener);
+    this._eventEmitter.on(type, lazy, listener);
     return this;
   }
 
@@ -169,7 +169,7 @@ export default class Type {
    * @returns {Type}
    */
   off(type, listener) {
-    this._eventEmitter.off.call(this._eventEmitter, type, listener);
+    this._eventEmitter.off(type, listener);
     return this;
   }
 
@@ -276,9 +276,9 @@ export default class Type {
    * @returns {Type}
    */
   static on(type, lazy, listener) {
-    staticEmitter.on.call(staticEmitter, type, lazy, listener);
+    staticEmitter.on(type, lazy, listener);
     return this;
-  };
+  }
 
   /**
    *
@@ -287,7 +287,7 @@ export default class Type {
    * @returns {Type}
    */
   static off(type, listener) {
-    staticEmitter.off.call(staticEmitter, type, listener);
+    staticEmitter.off(type, listener);
     return this;
   }
 

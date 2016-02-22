@@ -32,7 +32,7 @@ export default class TypeRange {
    */
   startsAndEndsInSameNode() {
     return this.startContainer === this.endContainer;
-  };
+  }
 
   /**
    *
