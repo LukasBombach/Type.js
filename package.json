@@ -27,5 +27,8 @@
     "dev": "webpack src/type.js dist/type.js --module-bind \"js=babel\" -d --watch",
     "dist": "webpack src/type.js dist/type.min.js --module-bind \"js=babel\" -p",
     "demo": "open demo/editor.html"
+  },
+  "babel": {
+    "presets": ["es2015"]
   }
 }
