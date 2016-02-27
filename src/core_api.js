@@ -10,7 +10,7 @@ import TypeSelection from './selection';
  * @static
  */
 Type.data = (el, key, value) => {
-  const data = el[Type.expando] = el[Type.expando] || {};
+  const data = el[Type.expando] = el[Type.expando] || {}; // eslint-disable-line no-param-reassign
   if (key === undefined) return data;
   if (value === undefined) return data[key];
   data[key] = value;
