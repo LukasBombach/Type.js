@@ -133,14 +133,11 @@ export default class TypeSelection {
   static select(param) {
     if (arguments[0] instanceof Range) {
       return TypeSelection._selectRange(arguments[0]);
-
     } else if (arguments[0] instanceof TypeRange) {
       return TypeSelection._selectTypeRange(arguments[0]);
-
     } else if (Array.isArray(arguments[0])) {
       return TypeSelection._selectElements(arguments[0]);
     }
-
     return this;
   }
 
@@ -160,7 +157,7 @@ export default class TypeSelection {
    * @private
    */
   static _selectElements(elements) {
-    var range = document.createRange();
+    const range = document.createRange();
     const firstText = DomWalker.first(elements[0], 'text');
     const lastText = DomWalker.last(elements[elements.length - 1], 'text');
     range.setStart(firstText, 0);
@@ -185,7 +182,7 @@ export default class TypeSelection {
    * @private
    */
   static _selectRange(range) {
-    var sel = window.getSelection();
+    const sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
     return this;

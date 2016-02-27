@@ -75,7 +75,7 @@ export default class Attributes {
    * @returns {Attributes}
    */
   diff(that) {
-    return new Attributes(this._attributes.filter((attr) => { return that.indexOf(attr) < 0; }));
+    return new Attributes(this._attributes.filter(attr => that.indexOf(attr) < 0));
   }
 
   /**

@@ -26,12 +26,12 @@ export default class DomRenderer extends Renderer {
   render() {
     // Load all nodes that need to be rendered
     const nodesToRender = this._cache.getOrCreateNodesForDocument(this._type.getDocument());
-    let lastIdInCurrentlyRenderedNodes = null;
+    // let lastIdInCurrentlyRenderedNodes = null;
 
     // Iterate nodes, skip nodes that are already there, append new nodes to the dom
     for (const id in nodesToRender) {
       if (!nodesToRender.hasOwnProperty(id)) continue;
-      if (id in this._currentlyRenderedNodes) lastIdInCurrentlyRenderedNodes = id;
+      // if (id in this._currentlyRenderedNodes) lastIdInCurrentlyRenderedNodes = id;
       else this._renderNode(nodesToRender[id], this._currentlyRenderedNodes[id]);
       delete this._currentlyRenderedNodes[id];
     }

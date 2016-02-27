@@ -124,7 +124,7 @@ export default class Type {
    */
   options(options, value) {
     this._options = this._options || Utilities.extend({}, this.constructor.defaultOptions);
-    let newOptions = Utilities.getterSetterParams(this, this._options, options, value);
+    const newOptions = Utilities.getterSetterParams(this, this._options, options, value);
     this.emit('optionsChanged', this._options);
     return newOptions;
   }

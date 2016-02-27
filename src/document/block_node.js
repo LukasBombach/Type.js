@@ -31,17 +31,24 @@ export default class BlockNode extends DocumentNode {
   }
 
   /**
-   *
+   * todo this sucks, refactor me
    * @param id
    * @returns {BlockNode|TextNode|null}
    */
   getChild(id) {
     if (this.id === id) return this;
-    let childWithId;
 
     for (const child of this.children) {
-      if (child instanceof BlockNode && (childWithId = child.getChild(id))) return childWithId;
-      else if (child.id === id) return child;
+      if (child.id === id) {
+        return child;
+      }
+
+      if (child instanceof BlockNode) {
+        const childWithId = child.getChild(id);
+        if (childWithId) {
+          return childWithId;
+        }
+      }
     }
 
     return null;

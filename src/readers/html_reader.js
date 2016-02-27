@@ -136,11 +136,11 @@ export default class HtmlReader {
   }
 
   /**
-   *
+   * todo remove div
    * @returns {string[]}
    */
   static get _blockTags() {
-    return ['p', 'ul', 'ol', 'li', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div']; // todo remove div
+    return ['p', 'ul', 'ol', 'li', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div'];
   }
 
 }
